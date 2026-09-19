@@ -4,12 +4,30 @@
 
 Mesa no longer imitates Hallium's three-panel app shell. The underlying *lesson* from Hallium is that a product should respond to user choices: filter, search, shortlist, compare, book, look up and cancel. The *visual vocabulary* for Mesa is now an independent dining editorial experience.
 
-- Warm porcelain `#F9F7F2`: main page and quiet whitespace.
-- Rich plum `#693A50`: active controls, booking CTAs and selected states.
-- Near-black `#2A2427`: readable everyday content.
-- Soft clay `#B57452`: restrained decorative accents.
-- Jade `#276F5B`: **verified availability only**, not general decoration.
-- Cream `#F0EBE5`: hero background.
+## Final colour audit — Wine, Oat & Spice
+
+The original V5 leaned heavily on plum and near-white. This revision gives the eye a deliberate **warm → neutral → warm → neutral → dark** sequence, instead of tinting every component pink.
+
+| Semantic role | Hex | Applied where |
+| --- | --- | --- |
+| Oat canvas | `#F7F3ED` | Page background and generous breathing space |
+| Card paper | `#FFFEFC` | Inputs, restaurant cards and modal surfaces |
+| Dark ink | `#292425` | Headings and body copy |
+| Supporting ink | `#655B5B` | Descriptions and metadata |
+| Wine | `#71384D` | Primary CTAs, active tabs and selected options |
+| Dark wine | `#512638` | CTA hover and high-emphasis active states |
+| Warm peach | `#F2E3D5` | Photo-led hero |
+| Toasted oat | `#F5E9DC` | Occasion studio |
+| Spice | `#AA5038` | Small editorial accents; not a competing button colour |
+| Spice ink | `#94442D` | Tiny accent text on warm surfaces |
+| Jade | `#276F5B` | Confirmed availability only |
+| Jade wash | `#E8F2EB` | Availability background |
+| Charcoal wine | `#34262C` | End-of-page How it Works and footer |
+
+Text contrast spot checks (relative luminance, WCAG): dark ink on oat ~13.4:1, supporting ink on oat ~5.8:1, wine on card paper ~8.8:1, spice on oat ~4.9:1 and jade on jade wash ~5.2:1. These intended normal-text combinations exceed 4.5:1; further browser auditing is needed for every illustration, pseudo-element and state.
+
+The colour logic is restrained: **wine = choose or proceed, spice = character, jade = verified API state**. Every colour is applied using semantic custom properties in `dining.css`; the old compatibility stylesheets remain in place solely to preserve app functionality, with this file loaded last.
+
 - DM Serif Display for editorial display headings; DM Sans for task UI.
 
 **Photo system:** realistic editorial food photography replaces the old childlike plates in the hero and all 3 sample restaurant cards, details modal and two-place comparison. Each source photo has a network-independent local SVG illustration fallback if an image request fails or the assignment runs offline. Photos are illustrative, not pictures of the sample venues' real dishes.
