@@ -21,7 +21,16 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
             assert f'id="{name}"' in page.text
         assert client.get("/v3/").status_code == 200
         assert client.get("/v3-assets/app.js").status_code == 200
-        assert client.get("/v3-assets/styles.css").status_code == 200
+        styles = client.get("/v3-assets/styles.css")
+        assert styles.status_code == 200
+        assert "--cream:#F9F6F0" in styles.text
+        assert "--ink:#292722" in styles.text
+        assert "--red:#AD432E" in styles.text
+        assert ".hero{background:#F4E5D5" in styles.text
+        assert "background:#EAF1E9" in styles.text
+        favicon = client.get("/v3-assets/favicon.svg")
+        assert favicon.status_code == 200
+        assert '#AD432E' in favicon.text
         studio_js = client.get("/v3-assets/studio.js")
         assert studio_js.status_code == 200
         assert "GET" not in studio_js.text or "api(" in studio_js.text
