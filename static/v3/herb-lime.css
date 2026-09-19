@@ -1,0 +1,167 @@
+/* MESA V8 — HERB / LIME
+   An intentionally non-orange food brand: deep herb for interaction,
+   vivid lime for delight, aqua-teal for confirmed availability.
+   The V6 and V7 branches remain untouched. */
+:root{
+  --canvas:#F8FAF5;
+  --surface:#FFFFFF;
+  --surface-dim:#EFF3EA;
+  --ink:#1D2922;
+  --ink-soft:#536158;
+  --line:#DFE8DB;
+  --navy:#1B3027;
+  --primary:#24513E;
+  --primary-deep:#193C2F;
+  --primary-soft:#E7F2E4;
+  --lime:#D8ED91;
+  --lime-deep:#C4DE74;
+  --lime-ink:#4F612E;
+  --apricot:var(--lime-ink);
+  --apricot-soft:#EFF6D9;
+  --hero-warm:#E2ECCF;
+  --occasion-warm:#EFF4E9;
+  --status-ink:#17696B;
+  --status-surface:#E4F2F0;
+  --jade:var(--status-ink);
+  --jade-soft:var(--status-surface);
+  --warning:#7F4A5C;
+  --warning-soft:#F5EBEF;
+  --shadow:0 12px 42px #183A2920;
+}
+body{background:var(--canvas);color:var(--ink)}
+:where(button,input,select,a):focus-visible{outline-color:var(--primary)}
+.workspace-header{background:#F8FAF5EF;border-bottom-color:#DEE8DC}
+.workspace-brand .brand-mark{background:var(--primary);color:var(--lime);box-shadow:0 4px 14px #193C2F24}
+.brand-words strong span{color:var(--primary)}
+.brand-words small{color:#506353}
+.workspace-tab.is-current{background:var(--primary);color:#FFFFFF;box-shadow:0 6px 17px #193C2F21}
+.workspace-tab.is-current:hover{background:var(--primary-deep)}
+.workspace-tab b{background:var(--lime);color:var(--primary)}
+.demo-indicator>span{color:#647C3B}
+.workspace-actions .saved-button{background:var(--navy);color:#FFFFFF}
+.workspace-actions .saved-button:hover{background:var(--primary)}
+.workspace-content .hero{
+  background:linear-gradient(113deg,#DDE9C7 0%,#E8F1D7 57%,#F0F5E7 100%);
+  border:1px solid #CDDDC0;
+  box-shadow:inset 0 1px 0 #FFFFFF66;
+}
+.workspace-content .hero::after{background:#D4E6B8;opacity:.32}
+.workspace-content .hero-section-label{color:#4E604A}
+.workspace-content .hero-section-label>span{color:var(--lime-ink)}
+.workspace-content .kicker{color:#4D6252}
+.workspace-content .kicker-dot{background:var(--lime-ink)}
+.workspace-content .edition{border-color:#B6C8A9;color:#4C6451}
+.workspace-content .hero h1{color:#1B3027}
+.workspace-content .hero h1 em{color:#286046}
+.workspace-content .hero-sub{color:#45594C}
+.workspace-content .hero-cta{background:var(--primary);color:white;box-shadow:0 11px 24px #193C2F29}
+.workspace-content .hero-cta:hover{background:var(--primary-deep)}
+.workspace-content .cta-circle{background:var(--lime);color:var(--navy);font-weight:900}
+.workspace-content .hero-quick-label{color:#50634B}
+.workspace-content .hero-quick button{background:#FFFFFFB5;border-color:#BED1AD;color:var(--primary)}
+.workspace-content .hero-quick button span{color:var(--primary)}
+.workspace-content .hero-quick button:hover{background:#FFFFFF;border-color:#7A9C67}
+.workspace-content .hero-foot{color:#4E634F;border-top-color:#B9CCA9}
+.workspace-content .visual-frame{background:#CFDFC5;box-shadow:0 17px 35px #20412A26}
+.hero-photo-caption{background:#1D3D2EEB;color:#FFFFFF;border:1px solid #FFFFFF20;box-shadow:0 12px 30px #11291D36}
+.hero-photo-caption .caption-badge{background:var(--lime);color:var(--primary);font-weight:800}
+.hero-live-details,.hero-live-details strong{color:#FFFFFF}
+.hero-live-details #hero-plan-party{color:var(--lime)}
+.hero-live-details .hero-live-dot{color:#BDCFBC}
+.photo-footnote,.photo-footnote>span:first-child{color:#405F42}
+.reservation-dock-inner{border:1px solid #DCE8D7;box-shadow:0 16px 44px #173B281C,0 4px 9px #173B2808}
+.workspace-content .reservation-dock .booking-heading .eyebrow{color:var(--primary)}
+.workspace-content .reservation-dock .booking-heading .eyebrow span{color:#5B823E}
+.workspace-content .reservation-dock .booking-heading h2{color:var(--navy)}
+.workspace-content .reservation-dock .finder-form{background:#F4F8F0;border-color:#DBE7D6}
+.workspace-content .reservation-dock .field{border-color:#DDE7D8}
+.workspace-content .reservation-dock .field-icon{color:var(--primary)}
+.workspace-content .reservation-dock .guest-stepper .step{background:#DCEBCC;color:var(--primary)}
+.workspace-content .reservation-dock .guest-stepper .step:hover{background:var(--lime)}
+.workspace-content .reservation-dock .find-button{background:var(--primary);color:white;box-shadow:0 5px 14px #193C2F23}
+.workspace-content .reservation-dock .find-button:hover:not(:disabled){background:var(--primary-deep)}
+.workspace-content .reservation-dock .quick-dates button{border-color:#D8E5D4;background:#F5FAF1;color:var(--primary)}
+.workspace-content .reservation-dock .quick-dates button:hover,
+.workspace-content .reservation-dock .quick-dates button[aria-pressed=true]{background:var(--lime);color:var(--primary);border-color:#BDD878}
+.editorial-steps{border-color:#DDE7D8}
+.editorial-step b{background:#E7F2E4;border-color:#CCDDC4;color:var(--primary)}
+.steps-rule{background:#CBDCC2}
+.workspace-content .eyebrow{color:var(--primary)}
+.workspace-content .plan-studio{background:#F0F5EB;border-color:#DFE9DB}
+.workspace-content .plan-studio::before{background:linear-gradient(90deg,var(--primary),#96C16B 60%,transparent)}
+.workspace-content .vibe-chip{border-color:#DEE9DC}
+.workspace-content .vibe-chip>span:first-child{background:#EBF3DE;color:var(--primary)}
+.workspace-content .vibe-chip:hover{border-color:#A6C998;box-shadow:0 8px 23px #193C2F0D}
+.workspace-content .vibe-chip.active,
+.workspace-content .vibe-chip[aria-pressed=true]{background:var(--primary);border-color:var(--primary);box-shadow:0 9px 24px #193C2F21}
+.workspace-content .vibe-chip.active>span:first-child{background:var(--lime);color:var(--primary)}
+.workspace-content .vibe-chip.active small{color:#E0EBDD}
+.workspace-content .time-options button[aria-pressed=true]{background:var(--primary);color:white}
+.workspace-content .plan-ticket{border-color:#DAE7D8}
+.workspace-content .copy-plan,.share-plan{color:var(--primary);background:#E7F2E4;border-color:#CCDCC7}
+.workspace-content .copy-plan:hover,.share-plan:hover{background:var(--lime)}
+.workspace-content .availability-note{background:var(--status-surface);border-color:#CFE5E3;color:var(--status-ink)}
+.workspace-content .availability-note[data-mode=preview],
+.workspace-content .availability-note[data-mode=unavailable]{
+  background:var(--warning-soft);border-color:#E9D9DF;color:var(--warning)
+}
+.workspace-content .count-mark strong{color:var(--primary)}
+.workspace-content .segmented{background:#E8F1E7}
+.workspace-content .segment.selected{color:var(--primary);box-shadow:0 3px 10px #193C2F12}
+.workspace-content .surprise-button{background:#E7F2E4;border-color:#CCDCC7;color:var(--primary)}
+.workspace-content .surprise-button:hover{background:var(--lime)}
+.workspace-content .restaurant-card{border-color:#DFE8DD;box-shadow:0 6px 24px #193C2F0C}
+.workspace-content .restaurant-card:hover{border-color:#ABC8A5;box-shadow:0 18px 38px #193C2F1D}
+.workspace-content .restaurant-card.is-compared{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}
+.workspace-content .card-tag{background:#F8FAF5F2;color:var(--primary)}
+.workspace-content .card-topline{color:var(--primary)}
+.workspace-content .card-main h3{color:var(--ink)}
+.workspace-content .card-status b{color:var(--status-ink)}
+.workspace-content .favorite-button.is-saved{background:var(--primary);color:var(--lime)}
+.workspace-content .card-action{background:var(--primary);color:#FFFFFF}
+.workspace-content .card-action:hover:not(:disabled){background:var(--primary-deep)}
+.workspace-content .compare-card-icon{background:var(--primary-soft);color:var(--primary)}
+.workspace-content .compare-card-button.is-selected .compare-card-icon{background:var(--primary);color:var(--lime)}
+.workspace-content .restaurant-card:first-child .card-main{
+  background:linear-gradient(145deg,#234834 0%,#193C2F 100%);
+  color:white;
+}
+.workspace-content .restaurant-card:first-child .card-main h3{color:#FFFFFF}
+.workspace-content .restaurant-card:first-child .card-main>p{color:#DFEBDD}
+.workspace-content .restaurant-card:first-child .card-topline,
+.workspace-content .restaurant-card:first-child .card-topline span:last-child,
+.workspace-content .restaurant-card:first-child .card-topline span:last-child::after{color:var(--lime)}
+.workspace-content .restaurant-card:first-child .card-status{border-color:#FFFFFF32}
+.workspace-content .restaurant-card:first-child .card-status>span{color:#F0F7EC}
+.workspace-content .restaurant-card:first-child .card-status b{color:#C2E9DD}
+.workspace-content .restaurant-card:first-child .card-status b.unavailable{color:#F0D8DF}
+.workspace-content .restaurant-card:first-child .meter-label,
+.workspace-content .restaurant-card:first-child .slot-label{color:#ECF3E9}
+.workspace-content .restaurant-card:first-child .card-action:not(:disabled){background:var(--lime);color:var(--navy)}
+.workspace-content .restaurant-card:first-child .card-action:not(:disabled):hover{background:var(--lime-deep)}
+.workspace-content .restaurant-card:first-child .card-action:disabled{background:#DCE6D6;color:#314937}
+.workspace-content .restaurant-card:first-child .compare-card-button,
+.workspace-content .restaurant-card:first-child .details-button{color:var(--lime)}
+.workspace-content .restaurant-card:first-child .compare-card-icon{background:#466B4A;color:var(--lime);border-color:#547A55}
+.workspace-content .restaurant-card:first-child .compare-card-button.is-selected .compare-card-icon{background:var(--lime);color:var(--primary)}
+.workspace-content .restaurant-card:first-child .slot-pill{color:#FFFFFF;border-color:#638773}
+.workspace-content .restaurant-card:first-child .slot-pill.slot-current{background:var(--lime);color:var(--navy);border-color:var(--lime)}
+.workspace-content .restaurant-card:first-child .slot-pill.slot-open{background:#2E6758;color:#D2EEE6}
+.workspace-content .restaurant-card:first-child .meter-track{background:#65896E}
+.workspace-content .restaurant-card:first-child .meter-fill{background:var(--lime)}
+.workspace-content .how,.footer,.compare-tray,.toast{background:var(--navy)}
+.workspace-content .how h2 em,.workspace-content .how .how-no,.workspace-content .how-link{color:var(--lime)}
+.footer-main .footer-logo span{color:var(--lime)}
+.footer{border-top-color:#42634D}
+.dialog-inner h2 em,.compare-dialog h2 em,.compare-cuisine,.compare-more{color:var(--primary)}
+.compare-book:not(:disabled),.compare-open:not(:disabled){background:var(--primary)}
+.compare-book:hover:not(:disabled),.compare-open:hover:not(:disabled){background:var(--primary-deep)}
+.mobile-nav{background:#F8FAF5F5;border-top-color:#DDE8DA}
+.mobile-nav :is(a,button).is-active{background:var(--lime);color:var(--primary)}
+@media(max-width:590px){
+ .workspace-content .restaurant-card:first-child .card-main{background:linear-gradient(155deg,#234834,#193C2F)}
+ .hero-photo-caption{background:#1D3D2EEF}
+}
+@media(prefers-reduced-motion:reduce){
+ .workspace-content .restaurant-card,.workspace-content .visual-frame img{transition:none!important}
+}
