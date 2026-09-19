@@ -3,28 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#F4F5F1">
+  <meta name="theme-color" content="#F8F6F1">
   <meta name="description" content="A considered restaurant table finder. Compare places, check exact availability, save your favourites, and make a better plan together.">
-  <title>Mesa. — Your table, your people</title>
+  <title>mesa. — Find a place to gather</title>
   <link rel="icon" type="image/svg+xml" href="/v3-assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/v3-assets/styles.css">
   <link rel="stylesheet" href="/v3-assets/studio.css">
   <link rel="stylesheet" href="/v3-assets/compare.css">
   <link rel="stylesheet" href="/v3-assets/workspace.css">
+  <link rel="stylesheet" href="/v3-assets/dining.css">
   <script src="/v3-assets/app.js" defer></script>
   <script src="/v3-assets/studio.js" defer></script>
   <script src="/v3-assets/compare.js" defer></script>
   <script src="/v3-assets/workspace.js" defer></script>
+  <script src="/v3-assets/dining.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#explore">Skip to restaurant discovery</a>
   <header class="workspace-header" id="top">
-    <a href="#explore" class="workspace-brand" aria-label="Mesa Home"><span class="brand-mark" aria-hidden="true">m.</span><span class="brand-words"><strong>mesa<span>.</span></strong><small>better plans together</small></span></a>
-    <nav class="workspace-tabs" aria-label="Primary"><a href="#explore" class="workspace-tab" data-work-nav="plan">⌕ <span>Plan</span></a><a href="#places" class="workspace-tab" data-work-nav="places">▦ <span>Discover</span></a><button type="button" class="workspace-tab" data-open-compare id="header-compare" disabled>⇄ <span>Compare</span><b id="header-compare-count">0</b></button></nav>
-    <div class="workspace-actions"><span class="demo-indicator"><span aria-hidden="true"></span> Interactive demo</span><button class="saved-button" type="button" id="open-reservations"><span aria-hidden="true">▤</span> My tables <span class="saved-count" id="saved-count" hidden></span></button></div>
+    <a href="#explore" class="workspace-brand" aria-label="Mesa Home"><span class="brand-mark" aria-hidden="true">m.</span><span class="brand-words"><strong>mesa<span>.</span></strong><small>THE TABLE FINDER</small></span></a>
+    <nav class="workspace-tabs" aria-label="Primary"><a href="#explore" class="workspace-tab" data-work-nav="plan"><span>Find a table</span></a><a href="#places" class="workspace-tab" data-work-nav="places"><span>Our places</span></a><a href="#how-it-works" class="workspace-tab" data-work-nav="how"><span>How it works</span></a><button type="button" class="workspace-tab" data-open-compare id="header-compare" disabled><span>Compare</span><b id="header-compare-count">0</b></button></nav>
+    <div class="workspace-actions"><span class="demo-indicator"><span aria-hidden="true">✳</span> THE DINING EDITION</span><button class="saved-button" type="button" id="open-reservations"><span aria-hidden="true">▤</span> My tables <span class="saved-count" id="saved-count" hidden></span></button></div>
   </header>
   <div class="workspace-shell">
     <aside class="journey-rail" aria-label="Your table journey">
@@ -40,32 +42,35 @@
     </aside>
     <div class="workspace-main">
   <main class="workspace-content">
-    <section class="hero" aria-labelledby="hero-title"><span class="hero-section-label">YOUR TABLE STUDIO <span>✳</span> THE GOOD PLANS EDITION</span>
+    <section class="hero" aria-labelledby="hero-title"><span class="hero-section-label">YOUR NEXT GOOD EVENING <span>✳</span> STARTS HERE</span>
       <div class="container hero-grid">
         <div class="hero-copy">
-          <div class="kicker"><span class="kicker-dot"></span> LESS PLANNING. MORE GOOD TIMES. <span class="edition">MESA / 004</span></div>
-          <h1 id="hero-title">Make room for<br><em>the good stuff.</em></h1>
-          <p class="hero-sub">A catch-up worth leaving the house for. A dinner that turns into another hour. Make plans that actually happen.</p>
-          <a class="hero-cta" href="#plan-fields"><span>Build our plan</span><span class="cta-circle" aria-hidden="true">↗</span></a>
-          <div class="hero-quick" aria-label="Quick plans"><span class="hero-quick-label">OR START WITH</span><button type="button" data-hero-plan="tomorrow">Tomorrow, table for two <span aria-hidden="true">↗</span></button><button type="button" data-hero-plan="weekend">Weekend with friends <span aria-hidden="true">↗</span></button></div>
-          <div class="hero-foot"><span>REAL MOMENTS, STARTING HERE</span><span>YOUR LITTLE PLAN ↓</span></div>
+          <div class="kicker"><span class="kicker-dot"></span> A LITTLE MORE TIME TOGETHER <span class="edition">MESA / DINING CLUB</span></div>
+          <h1 id="hero-title">Good company<br>deserves a <em>great table.</em></h1>
+          <p class="hero-sub">A new favourite, a long-overdue catch-up, or a spontaneous dinner. Find somewhere you’ll want to stay a little longer.</p>
+          <a class="hero-cta" href="#plan-fields"><span>Find your table</span><span class="cta-circle" aria-hidden="true">↗</span></a>
+          <div class="hero-quick" aria-label="Quick plans"><span class="hero-quick-label">MAKE A LITTLE PLAN</span><button type="button" data-hero-plan="tomorrow">Tomorrow, table for two <span aria-hidden="true">↗</span></button><button type="button" data-hero-plan="weekend">Weekend with friends <span aria-hidden="true">↗</span></button></div>
+          <div class="hero-foot"><span>GOOD FOOD / NO GREAT OCCASION REQUIRED</span><span>SCROLL TO EXPLORE ↓</span></div>
         </div>
-        <div class="hero-visual" aria-label="Illustration of food and a table ready for company">
+        <div class="hero-visual" aria-label="Editorial photograph of food arranged around a shared table">
           <div class="visual-frame">
-            
-            <img class="hero-plate" src="/v2-assets/hero-table.svg" width="720" height="690" fetchpriority="high" alt="Illustrated dinner spread with a plate, fresh food, flowers and drinks">
-            <span class="visual-top">A LITTLE ROOM FOR THE GOOD STUFF <span aria-hidden="true">↘</span></span>
-            
-            <div class="round-stamp"><span>MEET ME<br><strong>AT MESA</strong></span></div>
-            <div class="visual-caption"><span>MESA / 01</span><span class="caption-line"></span><span>MAKE TIME FOR THE GOOD PART</span></div>
+            <img class="hero-plate" src="https://images.unsplash.com/photo-1763867641433-e7d2c0f62361?auto=format&fit=crop&w=1400&q=82" data-fallback="/v2-assets/hero-table.svg" width="1000" height="900" fetchpriority="high" alt="Overhead restaurant table set with several colourful plates and bread">
+            <div class="hero-photo-caption"><span>01 / A TABLE FOR EVERY STORY</span><span aria-hidden="true">↗</span></div>
           </div>
+          <div class="photo-footnote"><span>✳</span><span>AN INVITATION TO EAT WELL, TOGETHER</span></div>
         </div>
       </div>
     </section>
-    
+    <div class="editorial-steps" aria-label="How Mesa works">
+      <span class="editorial-step"><b>01</b><span>Choose your moment</span></span>
+      <span class="steps-rule" aria-hidden="true"></span>
+      <span class="editorial-step"><b>02</b><span>Discover a place</span></span>
+      <span class="steps-rule" aria-hidden="true"></span>
+      <span class="editorial-step"><b>03</b><span>Compare &amp; book</span></span>
+    </div>
     <section id="explore" class="explore">
       <div class="container">
-        <div class="booking-heading" id="plan-fields"><div><p class="eyebrow">STEP ONE  /  MAKE A PLAN</p><h2>When are we meeting?</h2></div><p>Your table, your date, your people.<br>Pick a moment and explore.</p></div>
+        <div class="booking-heading" id="plan-fields"><div><p class="eyebrow">01 / THE DETAILS</p><h2>Let’s make a plan.</h2></div><p>A few details, then the fun part.<br>Find availability for your group.</p></div>
         <form id="search-form" class="finder-form">
           <label class="field date-field" for="date"><span class="field-index">DATE</span><span class="field-main"><span class="field-icon" aria-hidden="true">▦</span><input id="date" name="date" type="date" required></span></label>
           <label class="field time-field" for="time"><span class="field-index">TIME · UTC</span><span class="field-main"><span class="field-icon" aria-hidden="true">◷</span><select id="time" name="time" required><option value="11:00">11:00</option><option value="12:00">12:00</option><option value="13:00">13:00</option><option value="14:00">14:00</option><option value="15:00">15:00</option><option value="16:00">16:00</option><option value="17:00">17:00</option><option value="18:00">18:00</option><option value="19:00" selected>19:00</option><option value="20:00">20:00</option><option value="21:00">21:00</option><option value="22:00">22:00</option></select><span class="select-arrow" aria-hidden="true">⌄</span></span></label>
@@ -76,8 +81,8 @@
         <section class="plan-studio" aria-labelledby="studio-heading">
           <div class="studio-top">
             <div class="studio-intro">
-              <p class="eyebrow">STEP TWO  /  SET THE MOOD</p>
-              <h3 id="studio-heading">What kind of evening?</h3>
+              <p class="eyebrow">02 / THE OCCASION</p>
+              <h3 id="studio-heading">What are we in the mood for?</h3>
               <p>Choose a feeling, try a time, find a place. Your plan stays editable until you confirm a reservation.</p>
             </div>
             
@@ -105,12 +110,12 @@
           </div>
         </section>
         <div class="section-divider"></div>
-        <div class="places-heading" id="places"><div><p class="eyebrow">STEP THREE  /  FIND YOUR PLACE</p><h2>A place worth meeting.</h2><p class="section-intro">Explore, shortlist and compare. All the good details, one spot.</p></div><div class="count-mark"><strong id="restaurant-count">—</strong><span>PLACES<br>SHOWN</span></div></div>
+        <div class="places-heading" id="places"><div><p class="eyebrow">03 / THE COLLECTION</p><h2>Places made for gathering.</h2><p class="section-intro">Explore the sample venues, save your favourites, and find your kind of table.</p></div><div class="count-mark"><strong id="restaurant-count">—</strong><span>PLACES<br>SHOWN</span></div></div>
         <div class="availability-note" role="status" aria-live="polite"><span class="availability-pulse" aria-hidden="true"></span><span id="availability-note">Checking your chosen moment…</span><span class="availability-note-spark" aria-hidden="true">↗</span></div><div id="system-message" class="system-message" role="status" aria-live="polite" hidden></div>
         <div class="list-tools"><label class="searchbox" for="restaurant-query"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7"></circle><path d="m16 16 5 5"></path></svg><input id="restaurant-query" type="search" placeholder="A place on your mind?" autocomplete="off"><span class="search-shortcut" aria-hidden="true">⌕</span></label><div class="segmented" role="group" aria-label="Filter restaurants by availability"><button type="button" class="segment selected" data-filter="all" aria-pressed="true">All places</button><button type="button" class="segment" data-filter="available" aria-pressed="false">Seats available</button><button type="button" class="segment" data-filter="saved" aria-pressed="false">♡ Shortlist <span id="favorite-count">0</span></button></div><label class="sort-control" for="sort-restaurants">Sort <select id="sort-restaurants" aria-label="Sort places"><option value="recommended">Suggested</option><option value="capacity">Larger tables</option><option value="name">A to Z</option><option value="seats">More seats</option></select></label><button class="surprise-button" id="surprise-me" type="button">Surprise me <span aria-hidden="true">↗</span></button></div>
-        <p class="compare-tip">✳ Tip: add two places to your compare tray to choose side by side.</p>
+        <p class="compare-tip">Make it easier: add two favourites to compare side by side.</p>
         <div class="restaurant-grid" id="restaurant-grid" aria-live="polite" aria-busy="true"><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div></div>
-        <p class="smallprint">This is a sample collection, not real restaurant inventory. Seat counts are fetched for exact UTC slots; a reservation is confirmed only after completing the booking. <a href="/docs">Explore the API ↗</a></p>
+        <p class="smallprint">Illustrative venues &amp; editorial food photography. This is a reservation demo, not a directory of operating restaurants. Seats are checked for the exact UTC slot; a reservation exists only after successful confirmation. <a href="/docs">Explore the API ↗</a></p>
       </div>
     </section>
     <section id="how-it-works" class="how">
