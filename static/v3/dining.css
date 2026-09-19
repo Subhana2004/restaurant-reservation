@@ -386,3 +386,18 @@ body{background:var(--canvas);color:var(--ink);font-size:15px;line-height:1.55}
   .workspace-content .hero-plate,.workspace-content .card-image img,.photo-open{transition:none!important}
   .workspace-content .hero-plate:hover,.workspace-content .card-image img:hover{transform:none!important}
 }
+
+/* The gallery button shares the food photograph with its cuisine label. */
+.photo-open{top:auto;left:auto;right:15px;bottom:14px;background:#FFFDF8ED}
+.hero-plate.is-fallback{object-fit:contain!important;background:#E9E1D6;transform:none!important;padding:15px}
+.compare-place-art img.is-fallback,.detail-visual img.is-fallback{object-fit:contain!important;background:#E9E1D6;padding:16px}
+.share-plan{display:inline-flex;align-items:center;justify-content:space-between;gap:9px;
+  padding:7px 12px;min-height:38px;align-self:center;grid-column:2;grid-row:3;
+  border:1px solid #E4CCD8;border-radius:9px;background:#FBF3F5;color:var(--primary);
+  font:800 11px var(--sans);transition:background-color .15s var(--ease)}
+.share-plan:hover{background:#EDDCE4}
+.share-plan span{font-size:15px}
+@media(max-width:590px){
+  .share-plan{grid-column:1;grid-row:auto;justify-self:start}
+  .photo-open{opacity:1;transform:none}
+}
