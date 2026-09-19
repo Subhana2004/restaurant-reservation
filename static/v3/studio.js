@@ -219,6 +219,7 @@
     renderDetails(id);
     openDialog("details-dialog");
   }
+  window.mesaOpenDetails = openDetails;
   function surpriseMe() {
     const cards = [...byId("restaurant-grid").querySelectorAll(".restaurant-card")];
     const available = cards.filter((card) => card.classList.contains("is-bookable"));
