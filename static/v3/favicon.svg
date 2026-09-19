@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mesa">
-  <rect width="64" height="64" rx="15" fill="#693A50"/>
+  <rect width="64" height="64" rx="15" fill="#71384D"/>
   <path d="M11 45V21h8v3.8c2.4-3.1 5.2-4.6 8.9-4.6 4.1 0 7.1 1.9 8.6 5.3 2.4-3.4 5.8-5.3 9.8-5.3 6.1 0 10.1 4.4 10.1 11.7V45h-8.3V33c0-3.4-1.5-5.2-4.3-5.2-2.8 0-4.5 2-4.5 5.2V45h-8.2V33c0-3.4-1.5-5.2-4.3-5.2-2.9 0-4.6 2-4.6 5.2V45H11Z" fill="#FFFFFF"/>
-  <circle cx="55" cy="48" r="4.2" fill="#B57452"/>
+  <circle cx="55" cy="48" r="4.2" fill="#AA5038"/>
 </svg>
