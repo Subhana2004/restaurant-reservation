@@ -203,8 +203,9 @@
     const info = restaurantInfo(restaurant);
     byId("details-title").textContent = restaurant.name;
     byId("details-description").textContent = info.description;
-    byId("details-image").src = "/v2-assets/" + info.image;
-    byId("details-image").alt = "Illustrated dish for " + restaurant.name;
+    byId("details-image").src = info.photo || "/v2-assets/" + info.image;
+    byId("details-image").dataset.fallback = "/v2-assets/" + info.image;
+    byId("details-image").alt = info.photoAlt || "Sample dish photography for " + restaurant.name;
     const availability = state.preview ? "Booking is unavailable until persistent storage is configured." :
       restaurant.can_accommodate ?
       restaurant.available_seats + " seats remaining · " + formatDate(criteria().date) + " at " + criteria().time + " UTC" :
