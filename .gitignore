@@ -7,3 +7,5 @@ venv/
 *.sqlite3
 .env
 .DS_Store
+.claude/skills/
+.agents/skills/

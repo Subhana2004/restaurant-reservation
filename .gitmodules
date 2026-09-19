@@ -1,0 +1,31 @@
+[submodule ".design-skills/emil-kowalski"]
+	path = .design-skills/emil-kowalski
+	url = https://github.com/emilkowalski/skills.git
+
+[submodule ".design-skills/anthropic-skills"]
+	path = .design-skills/anthropic-skills
+	url = https://github.com/anthropics/skills.git
+
+[submodule ".design-skills/ui-ux-pro-max"]
+	path = .design-skills/ui-ux-pro-max
+	url = https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git
+
+[submodule ".design-skills/material-3"]
+	path = .design-skills/material-3
+	url = https://github.com/hamen/material-3-skill.git
+
+[submodule ".design-skills/karpathy-guidelines"]
+	path = .design-skills/karpathy-guidelines
+	url = https://github.com/multica-ai/andrej-karpathy-skills.git
+
+[submodule ".design-skills/animate-delphi"]
+	path = .design-skills/animate-delphi
+	url = https://github.com/delphi-ai/animate-skill.git
+
+[submodule ".design-skills/design-motion"]
+	path = .design-skills/design-motion
+	url = https://github.com/kylezantos/design-motion-principles.git
+
+[submodule ".design-skills/design-engineering"]
+	path = .design-skills/design-engineering
+	url = https://github.com/AgentsORG/design-engineering.git
