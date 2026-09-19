@@ -81,7 +81,7 @@
     $("coach-next-description").textContent=description;
     $("coach-next-button").firstChild.textContent=action+" ";
     const mode=$("availability-note").closest(".availability-note")?.dataset.mode;
-    $("coach-label").dataset.mode=mode||"live";
+    document.querySelector(".coach-label")?.setAttribute("data-mode",mode||"live");
   }
   function sortCards() {
     const mode=$("sort-restaurants").value;
