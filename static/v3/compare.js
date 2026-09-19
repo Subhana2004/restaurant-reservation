@@ -5,7 +5,12 @@
   const compared = [];
   const $ = (id) => document.getElementById(id);
   const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reflectsCurrentSlot = () => {
+    const current = criteria(), loaded = state.loadedSlot;
+    return Boolean(loaded && loaded.date === current.date && loaded.time === current.time && loaded.guests === current.guests);
+  };
   const compareStatus = (row) => {
+    if (!state.preview && !reflectsCurrentSlot()) return {name:"Updating availability",className:"offline",detail:"Checking this exact date, time and group size."};
     if (state.preview) return {name:"Preview only",className:"offline",detail:"Database-backed availability is not connected."};
     const seats = Number.isFinite(row.available_seats) ? Math.max(0,row.available_seats) : null;
     if (row.can_accommodate === true) {
@@ -78,7 +83,7 @@
       }
       const info = restaurantInfo(row);
       const status = compareStatus(row);
-      const canBook = !state.preview && row.can_accommodate === true && validCriteria(input);
+      const canBook = !state.preview && reflectsCurrentSlot() && row.can_accommodate === true && validCriteria(input);
       return '<article class="compare-place">'+
         '<div class="compare-place-art"><img src="/v2-assets/'+escapeHTML(info.image)+'" width="600" height="390" loading="lazy" alt="Illustration for '+escapeHTML(row.name)+'">'+
         '<span>OPTION '+String(index+1).padStart(2,"0")+'</span></div>'+
