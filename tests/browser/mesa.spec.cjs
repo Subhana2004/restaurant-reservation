@@ -5,9 +5,14 @@ test("a visitor can plan, discover, shortlist, compare, and book a demo table", 
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto(base);
-  await expect(page.locator(".journey-rail")).toBeVisible();
-  await expect(page.locator(".coach-rail")).toBeVisible();
+  await expect(page.locator(".editorial-steps")).toBeVisible();
+  await expect(page.locator(".hero-photo-caption")).toBeVisible();
+  await expect(page.locator(".journey-rail")).toBeHidden();
+  await expect(page.locator(".coach-rail")).toBeHidden();
+  await expect(page.locator(".hero-plate")).toHaveAttribute("src", /images.unsplash.com/);
   await expect(page.locator("#restaurant-grid .restaurant-card")).toHaveCount(3);
+  await expect(page.locator(".restaurant-card .photo-open")).toHaveCount(3);
+  await expect(page.locator(".restaurant-card .card-image img").first()).toHaveAttribute("alt", /pasta/i);
   await page.screenshot({ path: "mesa-v4-first-fold.png" });
 
   await page.locator('[data-party="4"]').click();
@@ -63,6 +68,7 @@ test("mobile visitors get working navigation and a usable two-pane discovery flo
   await page.goto(base);
   await expect(page.locator(".mobile-nav")).toBeVisible();
   await expect(page.locator("#restaurant-grid .restaurant-card")).toHaveCount(3);
+  await expect(page.locator(".hero-visual")).toBeVisible();
   await page.locator('[data-mobile-tab="places"]').click();
   await expect(page.locator("#places")).toBeInViewport();
   await page.locator(".restaurant-card [data-compare-place]").nth(0).click();
