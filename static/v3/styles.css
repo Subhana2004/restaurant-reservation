@@ -54,7 +54,7 @@ h1,h2,h3{font-kerning:normal;text-wrap:balance}
 .cta-circle{width:37px;height:37px;display:grid;place-items:center;background:#F2D9C9;border-radius:6px;color:#8E3223;font-size:20px}
 .hero-foot{margin-top:34px;padding-top:15px;border-top:1px solid #D7C8B8;width:100%;display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:.11em}
 .hero-visual{padding:34px 0}
-.visual-frame{position:relative;isolation:isolate;min-height:448px;border-radius:20px;overflow:hidden;background:#E9E8DA;border:1px solid #D7D4C8}
+.visual-frame{position:relative;isolation:isolate;min-height:468px;border-radius:20px;overflow:hidden;background:#E9E8DA;border:1px solid #D7D4C8}
 .visual-frame::before{content:"";position:absolute;inset:20px;border:1px solid #C7B8AB;border-radius:12px;pointer-events:none}
 .art-orbit,.visual-side{display:none}
 .hero-plate{position:absolute;width:100%;height:88%;left:0;top:7%;object-fit:contain;
@@ -74,7 +74,7 @@ h1,h2,h3{font-kerning:normal;text-wrap:balance}
 .eyebrow{color:var(--red);font-size:10px;font-weight:800;letter-spacing:.13em;margin-bottom:9px}
 .booking-heading h2,.places-heading h2,.closing h2{color:var(--green-dark);font:600 clamp(38px,4.6vw,57px)/1.13 var(--serif);letter-spacing:-.056em}
 h2 em,h3 em{font-weight:500;color:var(--red)}
-.booking-heading>p{max-width:340px;color:var(--muted);font-size:13px;line-height:1.7}
+.booking-heading>p{max-width:340px;color:var(--muted);font-size:14px;line-height:1.7}
 .finder-form{margin-top:26px;display:grid;grid-template-columns:1.22fr 1fr 1.08fr auto;
   background:var(--paper);border:1px solid #E8DED3;border-radius:14px;box-shadow:var(--shadow);padding:9px}
 .field{min-width:0;padding:8px 17px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--line)}
@@ -134,7 +134,7 @@ h2 em,h3 em{font-weight:500;color:var(--red)}
 .restaurant-card{min-width:0;display:flex;flex-direction:column;overflow:hidden;background:var(--paper);
   border:1px solid #E8DED3;border-radius:13px;transition:box-shadow .18s var(--ease),transform .18s var(--ease)}
 @media(hover:hover) and (pointer:fine){.restaurant-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}}
-.card-image{position:relative;height:205px;overflow:hidden;background:#E5E9DB}
+.card-image{position:relative;height:218px;overflow:hidden;background:#E5E9DB}
 .restaurant-card:nth-child(2) .card-image{background:#F0E0D2}
 .restaurant-card:nth-child(3) .card-image{background:#E2E9E1}
 .card-image img{width:100%;height:100%;object-fit:contain;transition:transform .2s var(--ease)}
@@ -146,7 +146,7 @@ h2 em,h3 em{font-weight:500;color:var(--red)}
 .card-topline{display:flex;justify-content:space-between;gap:5px;flex-wrap:wrap;font-size:9px;font-weight:800;letter-spacing:.085em;color:var(--red)}
 .card-topline span:last-child{color:#6B6259}
 .card-main h3{font:600 clamp(24px,2.1vw,31px)/1.1 var(--serif);letter-spacing:-.05em;color:var(--green-dark);margin:12px 0 7px}
-.card-main>p{color:var(--muted);font-size:12px;line-height:1.65;min-height:42px;margin:0 0 13px}
+.card-main>p{color:var(--muted);font-size:13px;line-height:1.65;min-height:42px;margin:0 0 13px}
 .card-status{display:flex;flex-wrap:wrap;justify-content:space-between;gap:7px;border-top:1px solid var(--line);padding:13px 0 11px;margin-top:auto}
 .card-status>span{color:#6B6259;font-size:9px;font-weight:800;letter-spacing:.055em}
 .card-status b{color:#316F4A;font-size:11px}
@@ -247,13 +247,15 @@ h2 em,h3 em{font-weight:500;color:var(--red)}
   .card-main{padding:17px}
 }
 @media(max-width:760px){
-  html{scroll-padding-top:78px}
+  html{scroll-padding-top:110px}
   .container{width:calc(100% - 34px)}
   .top-note{font-size:9px}
   .top-note-inner span:nth-child(2){display:none}
-  .header-inner{height:65px;gap:9px}
+  .header-inner{min-height:65px;height:auto;flex-wrap:wrap;gap:8px;padding-top:9px;padding-bottom:6px}
   .logo{font-size:36px}
-  .main-nav{display:none}
+  .main-nav{display:flex;order:3;width:100%;gap:3px;padding-top:7px;border-top:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+  .main-nav::-webkit-scrollbar{display:none}
+  .main-nav a{flex:1;min-height:31px;padding:5px 2px;text-align:center;white-space:nowrap;font-size:11px}
   .saved-button{min-height:40px;padding:9px 12px}
   .hero-grid{grid-template-columns:1fr;gap:0;min-height:0}
   .hero-copy{padding:46px 0 25px}
