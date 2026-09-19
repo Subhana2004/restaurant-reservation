@@ -3,9 +3,9 @@
 const el = (selector) => document.querySelector(selector);
 const ID_KEY = "mesa-reservation-ids-v1"; // Shared with the original site on this domain.
 const catalogue = [
-  {name: "Olive Garden Bistro", type: "MEDITERRANEAN", description: "Long lunches, lovely company and a taste of the sun.", image: "olive.svg", mood: "THE EASY AFTERNOON"},
-  {name: "The Spice Table", type: "COMFORT FOOD", description: "The kind of food that makes everyone stay a little longer.", image: "spice.svg", mood: "A LITTLE SOMETHING BOLD"},
-  {name: "Seaside Kitchen", type: "FRESH & COASTAL", description: "Fresh plates and warm conversations, no coast required.", image: "seaside.svg", mood: "SLOW EVENINGS AHEAD"}
+  {name: "Olive Garden Bistro", type: "MEDITERRANEAN", description: "Long lunches, lovely company and a taste of the sun.", image: "olive.svg", photo: "https://images.unsplash.com/photo-1607375658859-39f31567ce13?auto=format&fit=crop&w=1000&q=80", photoAlt: "Fresh pasta served in a wide white bowl", mood: "THE EASY AFTERNOON"},
+  {name: "The Spice Table", type: "COMFORT FOOD", description: "The kind of food that makes everyone stay a little longer.", image: "spice.svg", photo: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=1000&q=80", photoAlt: "A rich curry in a dark bowl with herbs and cream", mood: "A LITTLE SOMETHING BOLD"},
+  {name: "Seaside Kitchen", type: "FRESH & COASTAL", description: "Fresh plates and warm conversations, no coast required.", image: "seaside.svg", photo: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=1000&q=80", photoAlt: "Grilled fish with vegetables on a dark plate", mood: "SLOW EVENINGS AHEAD"}
 ];
 const state = {restaurants: [], preview: false, filter: "all", requestId: 0, selected: null, selectedSlot: null, cancelledId: null, loadedSlot: null};
 const byId = (id) => document.getElementById(id);
@@ -62,7 +62,7 @@ function renderRestaurants() {
     const status = state.preview ? "PREVIEW ONLY" : available ? "TABLES OPEN" : "NOT ENOUGH SEATS";
     const remaining = state.preview ? "Booking unavailable" : seats === null ? "Check availability" : available ? `${seats} ${seats === 1 ? "seat" : "seats"} left` : "No space for this party";
     const action = state.preview ? "Booking not set up" : available ? "Save your seat" : "Try another time";
-    return `<article class="restaurant-card"><div class="card-image"><img src="/v2-assets/${info.image}" alt="Illustration of a plated meal" width="600" height="390" loading="lazy"><span class="card-tag">${escapeHTML(info.mood)}</span><span class="card-number">0${index + 1}</span></div><div class="card-main"><div class="card-topline"><span>${escapeHTML(info.type)}</span><span>✳ A GOOD FIND</span></div><h3>${escapeHTML(r.name)}</h3><p>${escapeHTML(info.description)}</p><div class="card-status"><span>${status} · UP TO ${r.capacity} GUESTS</span><b class="${available ? "" : "unavailable"}">${remaining}</b></div><button class="card-action" type="button" data-book="${r.id}" ${available ? "" : "disabled"}>${action} <span aria-hidden="true">↗</span></button></div></article>`;
+    return `<article class="restaurant-card"><div class="card-image"><img src="${escapeHTML(info.photo || "/v2-assets/"+info.image)}" data-fallback="/v2-assets/${escapeHTML(info.image)}" alt="${escapeHTML(info.photoAlt || "Sample restaurant food photograph")}" width="900" height="620" loading="lazy" decoding="async"<span class="card-tag">${escapeHTML(info.mood)}</span><span class="card-number">0${index + 1}</span></div><div class="card-main"><div class="card-topline"><span>${escapeHTML(info.type)}</span><span>✳ A GOOD FIND</span></div><h3>${escapeHTML(r.name)}</h3><p>${escapeHTML(info.description)}</p><div class="card-status"><span>${status} · UP TO ${r.capacity} GUESTS</span><b class="${available ? "" : "unavailable"}">${remaining}</b></div><button class="card-action" type="button" data-book="${r.id}" ${available ? "" : "disabled"}>${action} <span aria-hidden="true">↗</span></button></div></article>`;
   }).join("");
 }
 
