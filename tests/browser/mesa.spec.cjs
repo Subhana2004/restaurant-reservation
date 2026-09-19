@@ -7,9 +7,14 @@ test("a visitor can plan, discover, shortlist, compare, and book a demo table", 
   await page.goto(base);
   await expect(page.locator(".editorial-steps")).toBeVisible();
   await expect(page.locator(".hero-photo-caption")).toBeVisible();
+  await expect(page.locator(".hero-cta")).toHaveCSS("background-color", "rgb(36, 81, 62)");
   await expect(page.locator(".reservation-dock #search-form")).toBeVisible();
   await expect(page.locator("#hero-plan-party")).toHaveText("2 people");
   await expect(page.locator(".restaurant-card").first()).toHaveCSS("display", "grid");
+  await expect(page.locator(".workspace-tab.is-current")).toHaveCSS("background-color", "rgb(36, 81, 62)");
+  await expect(page.locator(".hero-cta")).toHaveCSS("background-color", "rgb(36, 81, 62)");
+  await expect(page.locator(".hero-photo-caption .caption-badge")).toHaveCSS("background-color", "rgb(216, 237, 145)");
+  await expect(page.locator(".workspace-content .restaurant-card:first-child .card-main")).toHaveCSS("color", "rgb(255, 255, 255)");
   await expect(page.locator(".journey-rail")).toBeHidden();
   await expect(page.locator(".coach-rail")).toBeHidden();
   await expect(page.locator(".hero-plate")).toHaveAttribute("src", /images.unsplash.com/);
