@@ -9,13 +9,15 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert client.get("/v2").status_code == 200
         page = client.get("/v3")
         assert page.status_code == 200
-        assert "Good plans" in page.text
-        assert "a table." in page.text
+        assert "Your kind" in page.text
+        assert "Your people." in page.text
         assert 'id="availability-note"' in page.text
-        for name in ("studio-heading", "plan-summary", "copy-plan", "favorite-count", "surprise-me", "details-dialog"):
+        for name in ("studio-heading", "plan-summary", "copy-plan", "favorite-count", "surprise-me", "details-dialog", "compare-tray", "compare-dialog", "compare-list", "open-compare", "clear-compare"):
             assert f'id="{name}"' in page.text
         assert 'data-slot="19:00"' in page.text
         assert 'data-vibe="comfort"' in page.text
+        assert 'data-hero-plan="tomorrow"' in page.text
+        assert 'data-hero-plan="weekend"' in page.text
         assert 'data-filter="saved"' in page.text
         for name in ("search-form", "restaurant-grid", "booking-dialog", "reservations-dialog", "cancel-dialog", "open-reservations"):
             assert f'id="{name}"' in page.text
@@ -38,6 +40,16 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert "mesa-favorite-places-v1" in studio_js.text
         assert "This is a plan, not a confirmed reservation." in studio_js.text
         assert client.get("/v3-assets/studio.css").status_code == 200
+        compare_js = client.get("/v3-assets/compare.js")
+        assert compare_js.status_code == 200
+        assert "compare-card-button" in compare_js.text
+        assert "reflectsCurrentSlot" in compare_js.text
+        assert "compare-list" in compare_js.text
+        assert 'state.loadedSlot' in client.get("/v3-assets/app.js").text
+        compare_css = client.get("/v3-assets/compare.css")
+        assert compare_css.status_code == 200
+        assert ".compare-tray" in compare_css.text
+        assert ".hero-quick" in compare_css.text
         assert client.get("/v2-assets/olive.svg").status_code == 200
         assert len(client.get("/restaurants").json()) == 3
         assert client.get("/docs").status_code == 200
