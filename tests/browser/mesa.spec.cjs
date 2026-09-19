@@ -76,6 +76,12 @@ test("mobile visitors get working navigation and a usable two-pane discovery flo
   await expect(page.locator(".restaurant-card").first()).toHaveCSS("display", "flex");
   await expect(page.locator("#restaurant-grid .restaurant-card")).toHaveCount(3);
   await expect(page.locator(".hero-visual")).toBeVisible();
+  await expect(page.locator(".visual-frame")).toBeVisible();
+  await expect(page.locator(".hero-plate")).toBeVisible();
+  await expect.poll(() => page.locator(".hero-plate").evaluate(img => img.naturalWidth)).toBeGreaterThan(0);
+  await expect(page.locator(".hero-photo-caption")).toBeVisible();
+  await page.screenshot({ path: "mesa-v7-mobile-first-fold.png" });
+
   await page.locator('[data-mobile-tab="places"]').click();
   await expect(page.locator("#places")).toBeInViewport();
   await page.locator(".restaurant-card [data-compare-place]").nth(0).click();
