@@ -27,7 +27,7 @@ body{background:var(--canvas);color:var(--ink);font-size:15px;line-height:1.55}
   background:var(--primary);box-shadow:none;font:800 23px/1 var(--sans)}
 .brand-words strong{font:800 22px/1 var(--sans);letter-spacing:-.075em}
 .brand-words strong span{color:var(--apricot)}
-.brand-words small{font-size:9px;font-weight:800;letter-spacing:.09em;color:#796D6B}
+.brand-words small{font-size:9px;font-weight:800;letter-spacing:.09em;color:#695A58}
 .workspace-tabs{background:transparent;border:0;border-radius:0;gap:9px;padding:0}
 .workspace-tab{min-height:43px;padding:9px 13px;border-radius:100px;color:#655B5B;
   background:transparent;font:750 12px var(--sans);transition:background-color .16s,color .16s}
@@ -119,7 +119,7 @@ body{background:var(--canvas);color:var(--ink);font-size:15px;line-height:1.55}
 .workspace-content .quick-dates button{padding:7px 13px;border-radius:100px;background:white;
   border-color:#E6DBD8;font-size:12px;color:#655A60}
 .workspace-content .quick-dates button:hover,.workspace-content .quick-dates button[aria-pressed=true]{border-color:#BA9CAC;background:#F7ECF1;color:var(--primary)}
-.workspace-content .finder-extras p{font-size:10px;color:#867C7C}
+.workspace-content .finder-extras p{font-size:10px;color:#695A58}
 .workspace-content .plan-studio{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);
   gap:20px 31px;margin-top:45px;padding:34px;
   border:1px solid #E8D9C9;border-radius:21px;background:var(--occasion-warm);box-shadow:none}
@@ -195,7 +195,7 @@ body{background:var(--canvas);color:var(--ink);font-size:15px;line-height:1.55}
 .workspace-content .card-number{top:16px;left:17px;right:auto;color:white;text-shadow:0 2px 9px #16131177;font:800 13px var(--sans)}
 .workspace-content .card-main{padding:22px 20px 20px}
 .workspace-content .card-topline{color:var(--apricot);font-size:10px;letter-spacing:.09em;font-weight:800}
-.workspace-content .card-topline span:last-child{color:#776D69}
+.workspace-content .card-topline span:last-child{color:#695A58}
 .workspace-content .card-main h3{font:400 clamp(25px,2.3vw,33px)/1.13 var(--serif);color:var(--ink);letter-spacing:-.03em;
   margin:12px 0 7px}
 .workspace-content .card-main>p{min-height:52px;margin-bottom:16px;color:#6F6667;font-size:13px;line-height:1.65}
@@ -218,8 +218,8 @@ body{background:var(--canvas);color:var(--ink);font-size:15px;line-height:1.55}
 .workspace-content .details-button:hover{color:var(--primary-deep)}
 .workspace-content .card-action{min-height:48px;border-radius:10px;background:var(--primary);font-size:12px}
 .workspace-content .card-action:hover:not(:disabled){background:var(--primary-deep)}
-.workspace-content .card-action:disabled{background:#F0ECE7;color:#756966}
-.workspace-content .smallprint{font-size:11px;color:#807578;margin-top:24px}
+.workspace-content .card-action:disabled{background:#F0ECE7;color:#695A58}
+.workspace-content .smallprint{font-size:11px;color:#695A58;margin-top:24px}
 .workspace-content .smallprint a{color:var(--primary)}
 .photo-open{position:absolute;z-index:2;left:15px;top:15px;display:inline-flex;align-items:center;gap:8px;min-height:32px;
   padding:6px 11px;background:#FDF9F3E8;color:var(--primary);border:0;border-radius:100px;font-size:10px;font-weight:800;
@@ -234,7 +234,7 @@ body{background:var(--canvas);color:var(--ink);font-size:15px;line-height:1.55}
 .workspace-content .how-step{padding:15px 0;border-color:#756368}
 .workspace-content .how-step h3{font-size:17px}
 .workspace-content .how-no{color:#E8C3CD}
-.workspace-content .how-link{color:#E8C3CD;border-color:#A07B89}
+.workspace-content .how-link{color:#E8C3CD;border-color:#E8C3CD}
 .workspace-content .closing{display:none}
 .footer{background:var(--navy);border:0;border-top:1px solid #745B61;padding:26px 0 29px;color:#E9DCDB}
 .footer-main{display:flex;max-width:1320px;width:min(calc(100% - 104px),1320px);
@@ -416,6 +416,12 @@ body{background:var(--canvas);color:var(--ink);font-size:15px;line-height:1.55}
 .workspace-content .segment:focus-visible{outline-color:var(--apricot)}
 .workspace-content .booking-heading .eyebrow,
 .workspace-content .places-heading .eyebrow{display:inline-flex;gap:9px;align-items:center}
+.workspace-content .hero-section-label,
+.workspace-content .hero-foot,
+.workspace-content .photo-footnote{color:var(--caption)}
+.workspace-content .kicker{color:var(--caption)}
+.workspace-content .card-main>p{color:var(--ink-soft)}
+.workspace-content .plan-studio .studio-intro>p:last-child{color:var(--ink-soft)}
 .workspace-content .booking-heading .eyebrow::before,
 .workspace-content .places-heading .eyebrow::before{
  content:"";width:7px;height:7px;flex:none;border-radius:50%;background:var(--apricot)
