@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f9f6ee">
+  <meta name="description" content="Mesa — good food, the right people, one beautifully simple reservation. Discover a place and save a table.">
+  <title>mesa. — Save a seat for something good</title>
+  <link rel="icon" type="image/svg+xml" href="/v2-assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,500,50,0;0,9..144,600,50,0;0,9..144,700,50,0;1,9..144,500,50,0;1,9..144,600,50,0&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/v3-assets/styles.css">
+  <script src="/v3-assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#explore">Skip to restaurant discovery</a>
+  <div class="top-note"><div class="container top-note-inner"><span>GOOD FOOD. GOOD PEOPLE. EASY PLANS.</span><span>MADE FOR MORE MOMENTS TOGETHER <span aria-hidden="true">✳</span></span></div></div>
+  <header class="header" id="top">
+    <div class="container header-inner">
+      <a href="#top" class="logo" aria-label="Mesa home">mesa<span>.</span></a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#explore">Explore restaurants</a><a href="#how-it-works">How it works</a><a href="#about">Our story</a>
+      </nav>
+      <button class="saved-button" type="button" id="open-reservations"><span class="saved-icon" aria-hidden="true">▤</span> My tables <span class="saved-count" id="saved-count" hidden></span><span aria-hidden="true" class="saved-arrow">↗</span></button>
+    </div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="kicker"><span class="kicker-dot"></span> THE JOY OF SHOWING UP <span class="edition">/ 003</span></div>
+          <h1 id="hero-title">Good things<br>happen <em>around<br>a table.</em></h1>
+          <p class="hero-sub">The dinner that turns into a story. The lunch that runs a little long. Find your place, save your seats, and make more room for the moments that matter.</p>
+          <a class="hero-cta" href="#explore"><span>Find your next table</span><span class="cta-circle" aria-hidden="true">↗</span></a>
+          <div class="hero-foot"><span>✳ MADE FOR GATHERING</span><span>SCROLL TO EXPLORE ↓</span></div>
+        </div>
+        <div class="hero-visual" aria-label="Illustration of food and a table ready for company">
+          <div class="visual-frame">
+            <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+            <img class="hero-plate" src="/v2-assets/hero-table.svg" width="720" height="690" alt="A welcoming dining table with freshly prepared food, flowers and drinks">
+            <span class="visual-top">PULL UP A CHAIR <span aria-hidden="true">↘</span></span>
+            <span class="visual-side" aria-hidden="true">GOOD TIMES, SERVED FRESH</span>
+            <div class="round-stamp"><span>MEET ME<br>AT THE<br><strong>TABLE</strong></span><span class="stamp-spark" aria-hidden="true">✳</span></div>
+            <div class="visual-caption"><span>LOVE THE FOOD</span><span class="caption-line"></span><span>STAY FOR THE PEOPLE</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="running-banner" aria-hidden="true"><div class="running-track"><span>MORE CONVERSATIONS ✳ MORE CELEBRATIONS ✳ MORE “ONE MORE BITE” ✳ MORE CONVERSATIONS ✳ MORE CELEBRATIONS ✳ MORE “ONE MORE BITE” ✳</span></div></div>
+    <section id="explore" class="explore">
+      <div class="container">
+        <div class="booking-heading"><div><p class="eyebrow">01 / YOUR NEXT PLAN</p><h2>It starts with <em>a seat.</em></h2></div><p>No endless messages. No complicated plans.<br>Just pick a moment and we'll find your table.</p></div>
+        <form id="search-form" class="finder-form">
+          <label class="field date-field" for="date"><span class="field-index">01 — WHEN</span><span class="field-main"><span class="field-icon" aria-hidden="true">▦</span><input id="date" name="date" type="date" required></span></label>
+          <label class="field time-field" for="time"><span class="field-index">02 — WHAT TIME (UTC)</span><span class="field-main"><span class="field-icon" aria-hidden="true">◷</span><select id="time" name="time" required><option value="11:00">11:00</option><option value="12:00">12:00</option><option value="13:00">13:00</option><option value="14:00">14:00</option><option value="15:00">15:00</option><option value="16:00">16:00</option><option value="17:00">17:00</option><option value="18:00">18:00</option><option value="19:00" selected>19:00</option><option value="20:00">20:00</option><option value="21:00">21:00</option><option value="22:00">22:00</option></select><span class="select-arrow" aria-hidden="true">⌄</span></span></label>
+          <div class="field guests-field"><label class="field-index" for="guests">03 — YOUR PEOPLE</label><div class="guest-stepper"><button class="step" type="button" id="fewer" aria-label="Remove one guest">−</button><input id="guests" type="number" name="guests" min="1" max="1000" value="2" step="1" required aria-label="Number of guests"><span class="guest-unit">guests</span><button class="step" type="button" id="more" aria-label="Add one guest">+</button></div></div>
+          <button class="button button-primary find-button" id="search-button" type="submit">Find my table <span aria-hidden="true">↗</span></button>
+        </form>
+        <div class="finder-extras"><div class="quick-dates" aria-label="Quick date choices"><span>QUICK PICKS</span><button type="button" data-quick-date="tomorrow">Tomorrow ↗</button><button type="button" data-quick-date="weekend">This weekend ↗</button></div><p>✳ NO ACCOUNT NEEDED <span aria-hidden="true">·</span> TIMES ARE IN UTC</p></div>
+        <div class="section-divider"></div>
+        <div class="places-heading"><div><p class="eyebrow">02 / THE GOOD PLACES</p><h2>A spot for <em>every story.</em></h2><p class="section-intro">Discover a little collection of places worth gathering around.</p></div><div class="count-mark"><strong id="restaurant-count">—</strong><span>PLACES TO<br>EXPLORE</span></div></div>
+        <div id="system-message" class="system-message" role="status" aria-live="polite" hidden></div>
+        <div class="list-tools"><label class="searchbox" for="restaurant-query"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7"></circle><path d="m16 16 5 5"></path></svg><input id="restaurant-query" type="search" placeholder="Search for a place…" autocomplete="off"><span class="search-shortcut" aria-hidden="true">⌕</span></label><div class="segmented" role="group" aria-label="Filter restaurants by availability"><button type="button" class="segment selected" data-filter="all" aria-pressed="true">All places</button><button type="button" class="segment" data-filter="available" aria-pressed="false">Seats available</button></div></div>
+        <div class="restaurant-grid" id="restaurant-grid" aria-live="polite" aria-busy="true"><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div></div>
+        <p class="smallprint">Availability is live for the exact UTC date and time selected. Your reservation is confirmed only after completing the booking. <a href="/docs">Explore the API ↗</a></p>
+      </div>
+    </section>
+    <section id="how-it-works" class="how">
+      <div class="container how-grid">
+        <div class="how-left"><p class="eyebrow eyebrow-light">03 / THE EASY PART</p><h2>Less planning.<br><em>More living.</em></h2><p>We handle the table. You bring the people, the stories, and a healthy appetite.</p><a class="how-link" href="#explore">Make a plan <span aria-hidden="true">↗</span></a></div>
+        <div class="how-right"><div class="how-step"><span class="how-no">01</span><div><h3>Find your kind of place.</h3><p>Browse the collection and find something your people will love.</p></div><span aria-hidden="true">↗</span></div><div class="how-step"><span class="how-no">02</span><div><h3>Pick a date and time.</h3><p>Choose your exact UTC time slot and see which places have room.</p></div><span aria-hidden="true">↗</span></div><div class="how-step"><span class="how-no">03</span><div><h3>Leave the rest to us.</h3><p>Confirm your table, save your booking ID, and look it up or cancel when needed.</p></div><span aria-hidden="true">✳</span></div></div>
+      </div>
+    </section>
+    <section class="closing" id="about"><div class="container closing-inner"><span class="closing-spark" aria-hidden="true">✳</span><p>GOOD COMPANY IS THE MAIN COURSE.</p><h2>See you <em>at the table.</em></h2><a href="#explore" class="closing-cta">Save a seat <span aria-hidden="true">↗</span></a></div></section>
+  </main>
+  <footer class="footer"><div class="container footer-main"><div><a class="footer-logo" href="#top">mesa<span>.</span></a><p>More good times around good tables.</p></div><div class="footer-links"><a href="#explore">Discover</a><a href="#how-it-works">How it works</a><a href="/v2">V2 ↗</a><a href="/">Original ↗</a></div></div><div class="container footer-bottom"><span>© <span id="year"></span> MESA. A RESTAURANT RESERVATION API DEMO.</span><span>MADE TO BRING PEOPLE TOGETHER ✳</span><a href="#top">BACK TO TOP ↑</a></div></footer>
+
+  <dialog class="modal-dialog" id="booking-dialog" aria-labelledby="booking-title"><div class="dialog-inner"><button class="close-dialog" type="button" data-close="booking-dialog" aria-label="Close booking">×</button><p class="dialog-eyebrow">✳ LET'S MAKE IT OFFICIAL</p><h2 id="booking-title">It's a <em>date.</em></h2><p class="dialog-description" id="booking-restaurant">Your table is one click away.</p><div class="booking-recap"><div><span>DATE</span><strong id="recap-date">—</strong></div><div><span>TIME</span><strong id="recap-time">—</strong></div><div><span>PARTY</span><strong id="recap-guests">—</strong></div></div><p class="form-feedback" role="alert" id="booking-feedback" hidden></p><button class="button button-primary full" type="button" id="confirm-booking">Confirm my table <span aria-hidden="true">↗</span></button><button class="button button-secondary full" type="button" id="view-reservations-after-booking" hidden>See my tables <span aria-hidden="true">↗</span></button><p class="fine-note">No payment required · Time slots are UTC</p></div></dialog>
+  <dialog class="modal-dialog side-dialog" id="reservations-dialog" aria-labelledby="reservations-title"><div class="dialog-inner"><button class="close-dialog" type="button" data-close="reservations-dialog" aria-label="Close My tables">×</button><p class="dialog-eyebrow">✳ THE PLANS YOU MADE</p><h2 id="reservations-title">Your <em>tables.</em></h2><p class="dialog-description">Saved in this browser. Keep your confirmation ID to look up a reservation on a different device.</p><form id="lookup-form" class="lookup-form"><label for="lookup-id">HAVE YOUR CONFIRMATION ID?</label><div class="lookup-row"><input id="lookup-id" type="number" min="1" inputmode="numeric" placeholder="e.g. 42" required><button class="button button-ink" type="submit">Look up ↗</button></div></form><p class="form-feedback" role="alert" id="reservations-feedback" hidden></p><div id="reservations-list" class="reservation-list" aria-live="polite"><p class="muted">Finding your tables…</p></div><button class="button button-outline full" type="button" id="find-another">Find another table <span aria-hidden="true">↗</span></button></div></dialog>
+  <dialog class="modal-dialog" id="cancel-dialog" aria-labelledby="cancel-title"><div class="dialog-inner"><p class="dialog-eyebrow">✳ JUST CHECKING</p><h2 id="cancel-title">Change of <em>plans?</em></h2><p class="dialog-description">Cancelling will free up these seats. You can always book again.</p><p class="form-feedback" role="alert" id="cancel-feedback" hidden></p><div class="dialog-actions"><button class="button button-outline" type="button" id="keep-reservation">Keep it</button><button class="button button-danger" type="button" id="confirm-cancel">Cancel reservation</button></div></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
