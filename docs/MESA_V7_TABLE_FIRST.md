@@ -26,3 +26,5 @@ The accepted V6 Paprika & Butter interface had a strong brand and inviting food 
 Local full demo: `pip install -r requirements.txt && uvicorn app.main:app --reload`, then open `http://127.0.0.1:8000/v3`. Vercel requires persistent `DATABASE_URL` to accept durable reservations. The project is a sample three-restaurant discovery/booking API demo; photographs illustrate cuisines, not real photos of the fictional sample venues.
 
 **Deploy note:** New Vercel previews were rate-limited when this branch was made. This branch can still be inspected/tested through the GitHub Actions browser screenshots and run locally until Vercel's daily deployment window resets.
+
+Preview deployment request: branch-specific preview requested on 20 September 2026; no change to accepted source or reservation behaviour.
