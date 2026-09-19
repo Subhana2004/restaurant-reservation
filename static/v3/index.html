@@ -58,12 +58,43 @@
           <button class="button button-primary find-button" id="search-button" type="submit">Find my table <span aria-hidden="true">↗</span></button>
         </form>
         <div class="finder-extras"><div class="quick-dates" aria-label="Quick date choices"><span>QUICK PICKS</span><button type="button" data-quick-date="tomorrow">Tomorrow ↗</button><button type="button" data-quick-date="weekend">This weekend ↗</button></div><p>✳ NO ACCOUNT NEEDED <span aria-hidden="true">·</span> ALL TIMES IN UTC</p></div>
+        <section class="plan-studio" aria-labelledby="studio-heading">
+          <div class="studio-top">
+            <div class="studio-intro">
+              <p class="eyebrow">✳ THE TABLE STUDIO / INTERACTIVE</p>
+              <h3 id="studio-heading">Tell us the <em>kind of moment.</em></h3>
+              <p>Start with a feeling. We’ll narrow the demo collection down for you — then you choose the table.</p>
+            </div>
+            <div class="studio-mark" aria-hidden="true">↗<span>THE GOOD<br>PART STARTS<br>HERE.</span></div>
+          </div>
+          <div class="vibe-options" role="group" aria-label="Filter by the mood of your gathering">
+            <button type="button" class="vibe-chip active" data-vibe="all" aria-pressed="true"><span aria-hidden="true">✳</span> Anything goes</button>
+            <button type="button" class="vibe-chip" data-vibe="catchup" aria-pressed="false"><span aria-hidden="true">☕</span> A long catch-up</button>
+            <button type="button" class="vibe-chip" data-vibe="comfort" aria-pressed="false"><span aria-hidden="true">✦</span> Comfort food</button>
+            <button type="button" class="vibe-chip" data-vibe="fresh" aria-pressed="false"><span aria-hidden="true">≈</span> Something fresh</button>
+          </div>
+          <div class="studio-bottom">
+            <div class="time-studio">
+              <span class="studio-label">TRY A TIME <span>· UTC</span></span>
+              <div class="time-options" role="group" aria-label="Quick time choices, in UTC">
+                <button type="button" data-slot="17:00" aria-pressed="false"><span>◒</span> Early <strong>17:00</strong></button>
+                <button type="button" data-slot="19:00" aria-pressed="true"><span>☼</span> Dinner <strong>19:00</strong></button>
+                <button type="button" data-slot="21:00" aria-pressed="false"><span>☾</span> Later <strong>21:00</strong></button>
+              </div>
+            </div>
+            <div class="plan-ticket" aria-live="polite">
+              <span class="ticket-overline">YOUR LITTLE PLAN <span aria-hidden="true">↗</span></span>
+              <strong id="plan-summary">Picking your moment…</strong>
+              <span id="plan-hint">Your changes update live availability.</span>
+            </div>
+          </div>
+        </section>
         <div class="section-divider"></div>
         <div class="places-heading"><div><p class="eyebrow">02 — THE SHORTLIST</p><h2>Places worth <em>showing up for.</em></h2><p class="section-intro">A small, considered collection. A whole lot of ways to get together.</p></div><div class="count-mark"><strong id="restaurant-count">—</strong><span>PLACES TO<br>EXPLORE</span></div></div>
         <div class="availability-note" role="status" aria-live="polite"><span class="availability-pulse" aria-hidden="true"></span><span id="availability-note">Checking your chosen moment…</span><span class="availability-note-spark" aria-hidden="true">↗</span></div><div id="system-message" class="system-message" role="status" aria-live="polite" hidden></div>
-        <div class="list-tools"><label class="searchbox" for="restaurant-query"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7"></circle><path d="m16 16 5 5"></path></svg><input id="restaurant-query" type="search" placeholder="A place on your mind?" autocomplete="off"><span class="search-shortcut" aria-hidden="true">⌕</span></label><div class="segmented" role="group" aria-label="Filter restaurants by availability"><button type="button" class="segment selected" data-filter="all" aria-pressed="true">All places</button><button type="button" class="segment" data-filter="available" aria-pressed="false">Seats available</button></div></div>
+        <div class="list-tools"><label class="searchbox" for="restaurant-query"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7"></circle><path d="m16 16 5 5"></path></svg><input id="restaurant-query" type="search" placeholder="A place on your mind?" autocomplete="off"><span class="search-shortcut" aria-hidden="true">⌕</span></label><div class="segmented" role="group" aria-label="Filter restaurants by availability"><button type="button" class="segment selected" data-filter="all" aria-pressed="true">All places</button><button type="button" class="segment" data-filter="available" aria-pressed="false">Seats available</button><button type="button" class="segment" data-filter="saved" aria-pressed="false">♡ Shortlist <span id="favorite-count">0</span></button></div><button class="surprise-button" id="surprise-me" type="button">Surprise me <span aria-hidden="true">↗</span></button></div>
         <div class="restaurant-grid" id="restaurant-grid" aria-live="polite" aria-busy="true"><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div></div>
-        <p class="smallprint">Availability is live for the exact UTC date and time selected. Your reservation is confirmed only after completing the booking. <a href="/docs">Explore the API ↗</a></p>
+        <p class="smallprint">This is a sample collection, not real restaurant inventory. Seat counts are fetched for exact UTC slots; a reservation is confirmed only after completing the booking. <a href="/docs">Explore the API ↗</a></p>
       </div>
     </section>
     <section id="how-it-works" class="how">
@@ -79,6 +110,18 @@
   <dialog class="modal-dialog" id="booking-dialog" aria-labelledby="booking-title"><div class="dialog-inner"><button class="close-dialog" type="button" data-close="booking-dialog" aria-label="Close booking">×</button><p class="dialog-eyebrow">✳ LET'S MAKE IT OFFICIAL</p><h2 id="booking-title">It's a <em>date.</em></h2><p class="dialog-description" id="booking-restaurant">Your table is one click away.</p><div class="booking-recap"><div><span>DATE</span><strong id="recap-date">—</strong></div><div><span>TIME</span><strong id="recap-time">—</strong></div><div><span>PARTY</span><strong id="recap-guests">—</strong></div></div><p class="form-feedback" role="alert" id="booking-feedback" hidden></p><button class="button button-primary full" type="button" id="confirm-booking">Confirm my table <span aria-hidden="true">↗</span></button><button class="button button-secondary full" type="button" id="view-reservations-after-booking" hidden>See my tables <span aria-hidden="true">↗</span></button><p class="fine-note">No payment required · Time slots are UTC</p></div></dialog>
   <dialog class="modal-dialog side-dialog" id="reservations-dialog" aria-labelledby="reservations-title"><div class="dialog-inner"><button class="close-dialog" type="button" data-close="reservations-dialog" aria-label="Close My tables">×</button><p class="dialog-eyebrow">✳ THE PLANS YOU MADE</p><h2 id="reservations-title">Your <em>tables.</em></h2><p class="dialog-description">Saved in this browser. Keep your confirmation ID to look up a reservation on a different device.</p><form id="lookup-form" class="lookup-form"><label for="lookup-id">HAVE YOUR CONFIRMATION ID?</label><div class="lookup-row"><input id="lookup-id" type="number" min="1" inputmode="numeric" placeholder="e.g. 42" required><button class="button button-ink" type="submit">Look up ↗</button></div></form><p class="form-feedback" role="alert" id="reservations-feedback" hidden></p><div id="reservations-list" class="reservation-list" aria-live="polite"><p class="muted">Finding your tables…</p></div><button class="button button-outline full" type="button" id="find-another">Find another table <span aria-hidden="true">↗</span></button></div></dialog>
   <dialog class="modal-dialog" id="cancel-dialog" aria-labelledby="cancel-title"><div class="dialog-inner"><p class="dialog-eyebrow">✳ JUST CHECKING</p><h2 id="cancel-title">Change of <em>plans?</em></h2><p class="dialog-description">Cancelling will free up these seats. You can always book again.</p><p class="form-feedback" role="alert" id="cancel-feedback" hidden></p><div class="dialog-actions"><button class="button button-outline" type="button" id="keep-reservation">Keep it</button><button class="button button-danger" type="button" id="confirm-cancel">Cancel reservation</button></div></div></dialog>
+  <dialog class="modal-dialog details-dialog" id="details-dialog" aria-labelledby="details-title">
+    <div class="dialog-inner">
+      <button class="close-dialog" type="button" data-close="details-dialog" aria-label="Close restaurant details">×</button>
+      <p class="dialog-eyebrow">✳ A CLOSER LOOK</p>
+      <div class="detail-visual"><img id="details-image" src="/v2-assets/olive.svg" width="600" height="390" alt="Illustrated dish from a sample restaurant"></div>
+      <h2 id="details-title">Your next good spot</h2>
+      <p class="dialog-description" id="details-description"></p>
+      <div class="detail-live" id="details-live" role="status"></div>
+      <p class="details-note">Availability for the selected date and party size, fetched from the demo API. Times are UTC. Booking requires a final confirmation.</p>
+      <button type="button" class="button button-primary full" id="details-book">Save this table <span aria-hidden="true">↗</span></button>
+    </div>
+  </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>
