@@ -89,7 +89,7 @@ async function loadRestaurants() {
     const reason = error.status === 503 ? "Reservations haven't been connected to a persistent database yet." : "We couldn't reach the reservation service right now.";
     show("system-message", `${reason} These restaurant cards are a design preview only; bookings stay disabled until the API is working. ${error.status === 503 ? "The Vercel project needs DATABASE_URL and a redeployment." : "Please try again shortly."}`);
   } finally {
-    if (requestId === state.requestId) { byId("search-button").disabled = false; byId("search-button").firstChild.textContent =  "Find my table "; renderRestaurants(); }
+    if (requestId === state.requestId) { byId("search-button").disabled = false; byId("search-button").firstChild.textContent =  "Check tables "; renderRestaurants(); }
   }
 }
 function scheduleSearch() { clearTimeout(scheduleSearch.timer); scheduleSearch.timer = setTimeout(loadRestaurants, 170); }
