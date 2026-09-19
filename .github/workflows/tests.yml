@@ -59,6 +59,7 @@ jobs:
             mesa-v4-first-fold.png
             mesa-v4-desktop.png
             mesa-v4-mobile.png
+            mesa-v7-mobile-first-fold.png
             test-results/
             /tmp/mesa-v4-api.log
           if-no-files-found: ignore
