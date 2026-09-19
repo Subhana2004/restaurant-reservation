@@ -1,0 +1,9 @@
+.git
+.design-skills
+.claude
+.agents
+.github
+tests
+scripts
+*.db
+*.sqlite3

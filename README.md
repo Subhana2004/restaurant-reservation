@@ -96,3 +96,16 @@ Static frontend files live in `static/` and are served by the same Python applic
 ## Design skills (8 original repositories)
 
 Eight upstream Git repositories are pinned as submodules in `.design-skills/`; see [docs/DESIGN_SKILLS.md](docs/DESIGN_SKILLS.md). In a local checkout, run `python scripts/install_design_skills.py` to fetch them and install 15 focused skill folders into `.claude/skills/` and `.agents/skills/`. An internet connection is required for the first submodule fetch; Python and Git are sufficient.
+
+## Deploy to Vercel
+
+**Persistent PostgreSQL is required on Vercel.** Its serverless instances cannot share a writable SQLite database. Local setup and automated tests continue to use SQLite.
+
+1. Provision a *dedicated* PostgreSQL database (e.g. Supabase or Neon), and keep its connection URL private. SSL may be required by your provider.
+2. Import the GitHub repository `Subhana2004/restaurant-reservation` in the Vercel dashboard, using the repository root as Root Directory. `index.py` is the Python/FastAPI entrypoint.
+3. Before deploying, add `DATABASE_URL` as a Vercel server-side environment variable for Production (and Preview if needed). Never commit it or expose it in the browser.
+4. Deploy; check `/`, `/docs` and `/health`. Health should show `"storage":"postgres"`. Confirm a reservation from one browser, refresh, then retrieve/cancel it in another browser.
+
+The API creates a private `mesa` schema and seeds three demo restaurants during initialization. Booking locks the restaurant's PostgreSQL row before reading occupancy and inserting the reservation. The deployment intentionally refuses to start without durable storage rather than silently losing reservations.
+
+This is an **anonymous sample assignment**. Reservation IDs are not authentication; don't use this code for real customers without authorization.

@@ -10,6 +10,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.database import booked_guests, connect, initialize
+from app import postgres
 from app.schemas import ReservationCreate, ReservationOut, RestaurantOut, parse_slot_time
 
 STATIC_DIR = Path(__file__).resolve().parent.parent / 'static'
@@ -19,11 +20,19 @@ RESERVATION_COLUMNS = """id, restaurant_id, reservation_date AS date,
 
 
 def create_app(database_path: str | None = None) -> FastAPI:
+    # Explicit local/test database paths keep SQLite behaviour. In a serverless
+    # deployment, use durable PostgreSQL so all instances share reservations.
+    database_url = os.environ.get("DATABASE_URL") if database_path is None else None
     db_path = database_path or os.environ.get("DATABASE_PATH", "reservations.db")
+    if os.environ.get("VERCEL") and not database_url and database_path is None:
+        raise RuntimeError("DATABASE_URL is required on Vercel; SQLite files are not durable there.")
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
-        initialize(db_path)
+        if database_url:
+            postgres.initialize(database_url)
+        else:
+            initialize(db_path)
         yield
 
     app = FastAPI(
@@ -41,7 +50,7 @@ def create_app(database_path: str | None = None) -> FastAPI:
 
     @app.get("/health")
     def health() -> dict[str, str]:
-        return {"status": "ok"}
+        return {"status": "ok", "storage": "postgres" if database_url else "sqlite"}
 
     @app.get("/restaurants", response_model=list[RestaurantOut])
     def list_restaurants(
@@ -59,6 +68,9 @@ def create_app(database_path: str | None = None) -> FastAPI:
                 parse_slot_time(time)
             except ValueError as exc:
                 raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+        if database_url:
+            return postgres.restaurants(database_url, date, time, guests)
 
         with closing(connect(db_path)) as conn:
             restaurants = [dict(row) for row in conn.execute(
@@ -80,6 +92,9 @@ def create_app(database_path: str | None = None) -> FastAPI:
     )
     def create_reservation(payload: ReservationCreate) -> dict:
         """Lock the writer before checking seats, preventing concurrent overbooking."""
+        if database_url:
+            return postgres.create(database_url, payload)
+
         with closing(connect(db_path)) as conn:
             try:
                 conn.execute("BEGIN IMMEDIATE")
@@ -122,6 +137,8 @@ def create_app(database_path: str | None = None) -> FastAPI:
 
     @app.get("/reservations/{reservation_id}", response_model=ReservationOut)
     def get_reservation(reservation_id: int) -> dict:
+        if database_url:
+            return postgres.get(database_url, reservation_id)
         with closing(connect(db_path)) as conn:
             reservation = conn.execute(
                 f"SELECT {RESERVATION_COLUMNS} FROM reservations WHERE id = ?",
@@ -133,6 +150,9 @@ def create_app(database_path: str | None = None) -> FastAPI:
 
     @app.delete("/reservations/{reservation_id}", status_code=status.HTTP_204_NO_CONTENT)
     def cancel_reservation(reservation_id: int) -> Response:
+        if database_url:
+            postgres.cancel(database_url, reservation_id)
+            return Response(status_code=status.HTTP_204_NO_CONTENT)
         with closing(connect(db_path)) as conn:
             try:
                 conn.execute("BEGIN IMMEDIATE")
