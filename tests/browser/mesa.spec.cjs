@@ -7,6 +7,9 @@ test("a visitor can plan, discover, shortlist, compare, and book a demo table", 
   await page.goto(base);
   await expect(page.locator(".editorial-steps")).toBeVisible();
   await expect(page.locator(".hero-photo-caption")).toBeVisible();
+  await expect(page.locator(".reservation-dock #search-form")).toBeVisible();
+  await expect(page.locator("#hero-plan-party")).toHaveText("2 people");
+  await expect(page.locator(".restaurant-card").first()).toHaveCSS("display", "grid");
   await expect(page.locator(".journey-rail")).toBeHidden();
   await expect(page.locator(".coach-rail")).toBeHidden();
   await expect(page.locator(".hero-plate")).toHaveAttribute("src", /images.unsplash.com/);
@@ -17,6 +20,8 @@ test("a visitor can plan, discover, shortlist, compare, and book a demo table", 
 
   await page.locator('[data-party="4"]').click();
   await expect(page.locator("#coach-guests")).toHaveText("4 people");
+  await expect(page.locator("#hero-plan-party")).toHaveText("4 people");
+  await expect(page.locator("#hero-plan-date")).toContainText("UTC");
   await expect(page.locator("#availability-note")).toContainText("4 guests");
 
   await page.locator('[data-vibe="comfort"]').click();
@@ -67,6 +72,8 @@ test("mobile visitors get working navigation and a usable two-pane discovery flo
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto(base);
   await expect(page.locator(".mobile-nav")).toBeVisible();
+  await expect(page.locator(".reservation-dock #search-form")).toBeVisible();
+  await expect(page.locator(".restaurant-card").first()).toHaveCSS("display", "flex");
   await expect(page.locator("#restaurant-grid .restaurant-card")).toHaveCount(3);
   await expect(page.locator(".hero-visual")).toBeVisible();
   await page.locator('[data-mobile-tab="places"]').click();
