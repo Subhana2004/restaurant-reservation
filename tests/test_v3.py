@@ -40,7 +40,7 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert "background:#EAF1E9" in styles.text
         favicon = client.get("/v3-assets/favicon.svg")
         assert favicon.status_code == 200
-        assert '#AD432E' in favicon.text
+        assert '#4358BA' in favicon.text
         studio_js = client.get("/v3-assets/studio.js")
         assert studio_js.status_code == 200
         assert "GET" not in studio_js.text or "api(" in studio_js.text
