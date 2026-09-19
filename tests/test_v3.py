@@ -12,11 +12,22 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert "Make room" in page.text
         assert "good stuff." in page.text
         assert 'id="availability-note"' in page.text
+        for name in ("studio-heading", "plan-summary", "favorite-count", "surprise-me", "details-dialog"):
+            assert f'id="{name}"' in page.text
+        assert 'data-slot="19:00"' in page.text
+        assert 'data-vibe="comfort"' in page.text
+        assert 'data-filter="saved"' in page.text
         for name in ("search-form", "restaurant-grid", "booking-dialog", "reservations-dialog", "cancel-dialog", "open-reservations"):
             assert f'id="{name}"' in page.text
         assert client.get("/v3/").status_code == 200
         assert client.get("/v3-assets/app.js").status_code == 200
         assert client.get("/v3-assets/styles.css").status_code == 200
+        studio_js = client.get("/v3-assets/studio.js")
+        assert studio_js.status_code == 200
+        assert "GET" not in studio_js.text or "api(" in studio_js.text
+        assert "data-card-time" in studio_js.text
+        assert "mesa-favorite-places-v1" in studio_js.text
+        assert client.get("/v3-assets/studio.css").status_code == 200
         assert client.get("/v2-assets/olive.svg").status_code == 200
         assert len(client.get("/restaurants").json()) == 3
         assert client.get("/docs").status_code == 200
