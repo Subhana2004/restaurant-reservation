@@ -9,8 +9,8 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert client.get("/v2").status_code == 200
         page = client.get("/v3")
         assert page.status_code == 200
-        assert "Good company" in page.text
-        assert "great table." in page.text
+        assert "Good food." in page.text
+        assert "Better" in page.text
         assert 'id="availability-note"' in page.text
         assert 'class="workspace-shell"' in page.text
         assert 'class="journey-rail"' in page.text
@@ -43,7 +43,7 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert "background:#EAF1E9" in styles.text
         favicon = client.get("/v3-assets/favicon.svg")
         assert favicon.status_code == 200
-        assert '#71384D' in favicon.text
+        assert '#BD432B' in favicon.text
         studio_js = client.get("/v3-assets/studio.js")
         assert studio_js.status_code == 200
         assert "GET" not in studio_js.text or "api(" in studio_js.text
@@ -63,16 +63,24 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert "sortCards" in workspace_js.text
         dining_css = client.get("/v3-assets/dining.css")
         assert dining_css.status_code == 200
-        assert "--primary:#71384D" in dining_css.text
-        assert "--canvas:#F7F3ED" in dining_css.text
-        assert "--hero-warm:#F2E3D5" in dining_css.text
-        assert "--occasion-warm:#F5E9DC" in dining_css.text
-        assert "--spice-ink:#94442D" in dining_css.text
-        assert "--status-ink:#276F5B" in dining_css.text
+        assert "--primary:#BD432B" in dining_css.text
+        assert "--canvas:#F8F7F2" in dining_css.text
+        assert "--hero-warm:#F5E6BF" in dining_css.text
+        assert "--occasion-warm:#F3EFE3" in dining_css.text
+        assert "--spice-ink:#A83B27" in dining_css.text
+        assert "--status-ink:#316A4C" in dining_css.text
         assert '--jade:var(--status-ink)' in dining_css.text
-        assert '<meta name="theme-color" content="#F7F3ED"' in page.text
+        assert '<meta name="theme-color" content="#F8F7F2"' in page.text
         assert ".editorial-steps" in dining_css.text
         assert ".card-image img" in dining_css.text
+        paprika = client.get("/v3-assets/paprika.css")
+        assert paprika.status_code == 200
+        assert "--primary:#BD432B" in paprika.text
+        assert "--hero-warm:#F5E6BF" in paprika.text
+        assert '"Plus Jakarta Sans"' in paprika.text
+        assert ".caption-badge" in paprika.text
+        assert ".vibe-chip.active" in paprika.text
+        assert "paprika.css" in page.text
         dining_js = client.get("/v3-assets/dining.js")
         assert dining_js.status_code == 200
         assert "fallbackPhoto" in dining_js.text
