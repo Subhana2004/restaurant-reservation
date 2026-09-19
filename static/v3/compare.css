@@ -108,3 +108,7 @@ body.has-compare-tray{padding-bottom:89px}
 @media(prefers-reduced-motion:reduce){
   .hero-quick button,.compare-card-button,.compare-open,.compare-book{transition:none}
 }
+
+/* Keep system feedback visible above the persistent comparison controls. */
+.has-compare-tray .toast{bottom:105px}
+@media(max-width:760px){.has-compare-tray .toast{bottom:127px}}
