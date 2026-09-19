@@ -21,3 +21,4 @@ jobs:
           node --check static/v3/app.js
           node --check static/v3/studio.js
           node --check static/v3/compare.js
+          node --check static/v3/workspace.js
