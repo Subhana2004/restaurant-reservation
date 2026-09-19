@@ -7,7 +7,7 @@
   --ink:#292425;--ink-soft:#655B5B;--line:#E4D9D0;
   --navy:#34262C;--primary:#71384D;--primary-deep:#512638;
   --primary-soft:#F5E7EB;--apricot:#AA5038;--apricot-soft:#F6E8DA;
-  --hero-warm:#F2E3D5;--occasion-warm:#F5E9DC;--caption:#746868;
+  --hero-warm:#F2E3D5;--occasion-warm:#F5E9DC;--caption:#695A58;--spice-ink:#94442D;
   --status-ink:#276F5B;--status-surface:#E8F2EB;
   --jade:var(--status-ink);--jade-soft:var(--status-surface);--warning:#895137;--warning-soft:#F9EEDF;
   --cream:var(--canvas);--paper:var(--surface);--green:var(--ink);
@@ -53,9 +53,9 @@ body{background:var(--canvas);color:var(--ink);font-size:15px;line-height:1.55}
   grid-template-columns:minmax(0,1fr) minmax(360px,.97fr);
   gap:clamp(25px,4vw,60px);align-items:stretch;min-height:490px}
 .workspace-content .hero-copy{display:flex;flex-direction:column;align-items:start;padding:41px 0 31px;min-width:0}
-.workspace-content .kicker{color:#877675;font-size:10px;font-weight:800;letter-spacing:.075em;margin-bottom:16px}
+.workspace-content .kicker{color:var(--caption);font-size:10px;font-weight:800;letter-spacing:.075em;margin-bottom:16px}
 .workspace-content .kicker-dot{background:var(--apricot)}
-.workspace-content .edition{color:#877675;border-color:#C8B7AA}
+.workspace-content .edition{color:var(--caption);border-color:#C8B7AA}
 .workspace-content .hero h1{max-width:650px;margin:0 0 22px;
   font:400 clamp(49px,5.1vw,77px)/1.02 var(--serif);letter-spacing:-.055em;color:var(--ink)}
 .workspace-content .hero h1 em{font-style:italic;color:var(--primary);font-weight:400}
@@ -106,7 +106,7 @@ body{background:var(--canvas);color:var(--ink);font-size:15px;line-height:1.55}
   border-radius:17px;padding:8px;border:1px solid #E7DCD2;background:white;box-shadow:var(--shadow)}
 .workspace-content .field{padding:10px 18px;border-right:1px solid #E8DED5}
 .workspace-content .field:last-of-type{border-right:0}
-.workspace-content .field-index{font-size:10px;letter-spacing:.08em;color:#746868;margin-bottom:7px}
+.workspace-content .field-index{font-size:10px;letter-spacing:.08em;color:var(--caption);margin-bottom:7px}
 .workspace-content .field-icon{color:var(--primary);font-size:18px}
 .workspace-content .field input,.workspace-content .field select{font-size:15px;font-weight:750}
 .workspace-content .guest-stepper .step{min-width:36px;min-height:36px;background:#F7ECEC;border-color:#E7D8DD;color:var(--primary);border-radius:9px}
@@ -132,7 +132,7 @@ body{background:var(--canvas);color:var(--ink);font-size:15px;line-height:1.55}
 .workspace-content .vibe-chip>span:first-child{display:grid;place-items:center;flex:none;
   width:39px;height:39px;border-radius:10px;background:#F5E8E4;color:var(--primary);font-size:21px}
 .workspace-content .vibe-chip>span:last-child{display:block;font-size:13px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
-.workspace-content .vibe-chip small{display:block;color:#857878;font-size:10px;font-weight:650;margin-top:4px}
+.workspace-content .vibe-chip small{display:block;color:var(--caption);font-size:10px;font-weight:650;margin-top:4px}
 .workspace-content .vibe-chip:hover{border-color:#B99AAB;transform:translateY(-1px)}
 .workspace-content .vibe-chip.active,.workspace-content .vibe-chip[aria-pressed=true]{border-color:var(--primary);background:#F5E7EB;
   box-shadow:inset 0 0 0 1px var(--primary)}
@@ -403,3 +403,36 @@ body{background:var(--canvas);color:var(--ink);font-size:15px;line-height:1.55}
   .share-plan{grid-column:1;grid-row:auto;justify-self:start}
   .photo-open{opacity:1;transform:none}
 }
+
+/* The second editorial ink colour is intentionally not used as a competing CTA:
+   it labels the journey, highlights tiny design details and warms the food UI. */
+.workspace-content .hero-section-label>span,
+.workspace-content .kicker-dot,
+.workspace-content .photo-footnote>span:first-child{color:var(--spice-ink)}
+.workspace-content .kicker-dot{background:var(--apricot)}
+.workspace-content .hero h1 em{color:var(--primary)}
+.workspace-content .hero-quick button:focus-visible,
+.workspace-content .vibe-chip:focus-visible,
+.workspace-content .segment:focus-visible{outline-color:var(--apricot)}
+.workspace-content .booking-heading .eyebrow,
+.workspace-content .places-heading .eyebrow{display:inline-flex;gap:9px;align-items:center}
+.workspace-content .booking-heading .eyebrow::before,
+.workspace-content .places-heading .eyebrow::before{
+ content:"";width:7px;height:7px;flex:none;border-radius:50%;background:var(--apricot)
+}
+.workspace-content .plan-studio::before{
+ content:"";position:absolute;top:0;left:34px;right:34px;height:3px;
+ border-radius:0 0 3px 3px;background:linear-gradient(90deg,var(--primary),var(--apricot) 55%,transparent 94%)
+}
+.workspace-content .count-mark strong{color:var(--primary)}
+.workspace-content .card-tag{color:var(--primary-deep)}
+.workspace-content .card-topline{color:var(--spice-ink)}
+.workspace-content .favorite-button.is-saved{background:var(--primary);color:white}
+.workspace-content .available-seats{color:var(--status-ink)}
+.workspace-content .availability-note[data-mode=preview] .availability-pulse,
+.workspace-content .availability-note[data-mode=unavailable] .availability-pulse{
+ background:var(--warning)
+}
+.compare-open:not(:disabled),
+.compare-book:not(:disabled){background:var(--primary)}
+@media(max-width:590px){.workspace-content .plan-studio::before{left:19px;right:19px}}
