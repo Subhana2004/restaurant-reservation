@@ -68,7 +68,7 @@ body{font-family:var(--sans);background:var(--canvas);color:var(--ink)}
  color:var(--ink);font:800 10px var(--sans);letter-spacing:.015em}
 .caption-badge{background:var(--primary);color:#fff;padding:8px 10px;border-radius:7px;
  font:800 9px var(--sans);letter-spacing:.03em}
-.hero-photo-caption>span:last-child{display:flex;align-items:center;gap:12px;color:#554E3D}
+.hero-photo-caption>span:last-child{display:flex;align-items:center;gap:10px;color:#554E3D;font:800 10px/1.4 var(--sans);letter-spacing:.015em}
 .hero-photo-caption>span:last-child>span{font-size:19px;color:var(--primary)}
 .photo-footnote{color:#6F684E;font:800 9px var(--sans);letter-spacing:.075em}
 .photo-footnote>span:first-child{color:var(--primary)}
@@ -237,3 +237,8 @@ body{font-family:var(--sans);background:var(--canvas);color:var(--ink)}
  .workspace-content .hero-cta,.workspace-content .restaurant-card,.workspace-content .vibe-chip{transition:none!important}
  .workspace-content .hero-cta:hover,.workspace-content .vibe-chip:hover{transform:none!important}
 }
+
+/* Captions must read like modern product labels, not secondary headlines. */
+.workspace-content .card-tag{max-width:calc(100% - 30px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.workspace-content .card-topline span:last-child{font-size:9px;letter-spacing:.025em}
+@media(max-width:590px){.hero-photo-caption>span:last-child{font-size:9px}}
