@@ -9,7 +9,9 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert client.get("/v2").status_code == 200
         page = client.get("/v3")
         assert page.status_code == 200
-        assert "Good things" in page.text
+        assert "Make room" in page.text
+        assert "the good stuff." in page.text
+        assert 'id="availability-note"' in page.text
         for name in ("search-form", "restaurant-grid", "booking-dialog", "reservations-dialog", "cancel-dialog", "open-reservations"):
             assert f'id="{name}"' in page.text
         assert client.get("/v3/").status_code == 200
