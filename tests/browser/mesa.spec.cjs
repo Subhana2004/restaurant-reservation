@@ -8,6 +8,7 @@ test("a visitor can plan, discover, shortlist, compare, and book a demo table", 
   await expect(page.locator(".journey-rail")).toBeVisible();
   await expect(page.locator(".coach-rail")).toBeVisible();
   await expect(page.locator("#restaurant-grid .restaurant-card")).toHaveCount(3);
+  await page.screenshot({ path: "mesa-v4-first-fold.png" });
 
   await page.locator('[data-party="4"]').click();
   await expect(page.locator("#coach-guests")).toHaveText("4 people");
