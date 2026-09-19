@@ -22,6 +22,7 @@ jobs:
           node --check static/v3/studio.js
           node --check static/v3/compare.js
           node --check static/v3/workspace.js
+          node --check static/v3/dining.js
 
   browser:
     runs-on: ubuntu-latest
