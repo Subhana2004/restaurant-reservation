@@ -1,6 +1,6 @@
 # Restaurant Reservation API
 
-A small, tested restaurant reservation service built with **Python, FastAPI and SQLite**.
+A small, tested restaurant reservation service built with **Python, FastAPI and SQLite**, with an integrated, responsive reservation website called **mesa.**
 It supports listing restaurants, booking a date/time slot, checking remaining seats,
 and cancelling a reservation without deleting its history.
 
@@ -18,7 +18,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-Open **http://127.0.0.1:8000/docs** for interactive Swagger UI. The database file
+Open **http://127.0.0.1:8000/** to use the reservation website, or **http://127.0.0.1:8000/docs** for interactive Swagger UI. The website is served by FastAPI and calls the same reservation endpoints, so no separate Node server or API key is required. The database file
 `reservations.db` is created automatically, with three sample restaurants. Override
 its location with the `DATABASE_PATH` environment variable if needed.
 
@@ -86,3 +86,13 @@ Tests cover seeded restaurants, creating and reading bookings, full and partial
 capacity, separate time slots, cancellation and seat release, invalid input,
 missing resources, and concurrent overbooking. GitHub Actions runs the same
 suite on pushes and pull requests.
+
+## Website
+
+The responsive **mesa.** interface supports live restaurant availability, date/time/party selection, creating reservations, cancellation, looking up a confirmation ID, and displaying browser-saved reservations. It includes loading, empty, error and success states, keyboard-accessible dialogs and reduced-motion support. Since this API is an unauthenticated coding demo, localStorage stores **only reservation IDs**: bookings are not private, and this is not a production user account system.
+
+Static frontend files live in `static/` and are served by the same Python application at `/`. The frontend uses exact UTC time slots to match the assignment's API semantics.
+
+## Design skills (8 original repositories)
+
+Eight upstream Git repositories are pinned as submodules in `.design-skills/`; see [docs/DESIGN_SKILLS.md](docs/DESIGN_SKILLS.md). In a local checkout, run `python scripts/install_design_skills.py` to fetch them and install 15 focused skill folders into `.claude/skills/` and `.agents/skills/`. An internet connection is required for the first submodule fetch; Python and Git are sufficient.

@@ -3,11 +3,16 @@
 from contextlib import asynccontextmanager, closing
 from datetime import date
 import os
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Query, Response, status
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.database import booked_guests, connect, initialize
 from app.schemas import ReservationCreate, ReservationOut, RestaurantOut, parse_slot_time
+
+STATIC_DIR = Path(__file__).resolve().parent.parent / 'static'
 
 RESERVATION_COLUMNS = """id, restaurant_id, reservation_date AS date,
                          reservation_time AS time, guests, status"""
@@ -27,6 +32,12 @@ def create_app(database_path: str | None = None) -> FastAPI:
         version="1.0.0",
         lifespan=lifespan,
     )
+
+    app.mount('/static', StaticFiles(directory=STATIC_DIR), name='static')
+
+    @app.get('/', include_in_schema=False)
+    def website() -> FileResponse:
+        return FileResponse(STATIC_DIR / 'index.html')
 
     @app.get("/health")
     def health() -> dict[str, str]:
