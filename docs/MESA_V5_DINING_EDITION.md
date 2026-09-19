@@ -18,7 +18,7 @@ Mesa no longer imitates Hallium's three-panel app shell. The underlying *lesson*
 
 Photo | Creator | License / source
 --- | --- | ---
-Hero editorial table setting (photo-1763867641433-e7d2c0f62361) | Neon Wang | [Unsplash, free license](https://unsplash.com/photos/overhead-view-of-a-table-set-with-gourmet-dishes-rlClfxPYxQM)
+Hero close-up pasta (photo-1473093226795-af9932fe5856) | Eaters Collective | [Unsplash, free license](https://unsplash.com/photos/pasta-dish-on-white-plate-ddZYOtZUnBk)
 Olive Garden Bistro pasta (photo-1607375658859-39f31567ce13) | Gabriella Clare Marino | [Unsplash, free license](https://unsplash.com/photos/a-plate-of-pasta-with-shrimp-and-tomatoes-zW65PndoBC0)
 The Spice Table curry (photo-1603894584373-5ac82b2ae398) | Raman | [Unsplash, free license](https://unsplash.com/photos/brown-and-green-dish-on-brown-wooden-bowl-sqcH2q7lkvo)
 Seaside Kitchen grilled fish (photo-1519708227418-c8fd9a32b7a2) | Caroline Attwood | [Unsplash, free license](https://unsplash.com/photos/grilled-fish-cooked-vegetables-and-fork-on-plate-bpPTlXWTOvg)
