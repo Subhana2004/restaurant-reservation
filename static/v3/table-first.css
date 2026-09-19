@@ -1,11 +1,11 @@
 /* MESA V7 / TABLE FIRST
-   The V6 Paprika & Butter palette is locked. This is a layout and functional
+   V6 and V7 are preserved in their original branches. This is a layout and functional
    hierarchy experiment, isolated from the accepted V6 baseline. */
 
 .workspace-content .hero{
  margin-top:20px;
  border-radius:25px;
- background:linear-gradient(118deg,#F5E6BF 0%,#F7EAC9 63%,#FAEBCD 100%);
+ background:linear-gradient(118deg,#E2ECCF 0%,#EEF3DE 63%,#E7F0D8 100%);
 }
 .workspace-content .hero::after{width:420px;height:420px;bottom:-175px;right:-155px;opacity:.28}
 .workspace-content .hero-section-label{padding:21px 30px 0;letter-spacing:.12em;font-size:9px}
@@ -29,7 +29,7 @@
 .hero-live-details{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap;
  text-align:right;min-width:0;font:800 11px/1.35 var(--sans);letter-spacing:-.015em;color:var(--ink)}
 .hero-live-details strong{font-weight:800}
-.hero-live-details .hero-live-dot{color:#B6A692}
+.hero-live-details .hero-live-dot{color:#B7C5B0}
 .hero-live-details #hero-plan-party{color:var(--primary);font-weight:800}
 .photo-footnote{font-size:8px;letter-spacing:.09em}
 
@@ -37,18 +37,18 @@
    scrolling through a second oversized marketing section. */
 .reservation-dock{position:relative;z-index:3;width:min(calc(100% - 104px),1320px);
  margin:-43px auto 0;scroll-margin-top:97px}
-.reservation-dock-inner{background:#FFFFFF;border:1px solid #E6E3D8;border-radius:19px;
- box-shadow:0 16px 52px #24271B17,0 3px 9px #24271B07;padding:19px 20px 15px}
+.reservation-dock-inner{background:#FFFFFF;border:1px solid #DFE7DB;border-radius:19px;
+ box-shadow:0 16px 52px #1B302717,0 3px 9px #1B302707;padding:19px 20px 15px}
 .workspace-content .reservation-dock .booking-heading{display:flex;align-items:center;
  justify-content:space-between;margin-bottom:11px;gap:12px}
 .workspace-content .reservation-dock .booking-heading h2{font:800 clamp(20px,2.2vw,29px)/1.17 var(--sans);
  letter-spacing:-.063em;color:var(--ink);margin:4px 0 0}
 .workspace-content .reservation-dock .booking-heading .eyebrow{font:800 9px/1.3 var(--sans);
  letter-spacing:.09em;color:var(--primary);margin:0}
-.workspace-content .reservation-dock .booking-heading .eyebrow span{padding:0 4px;color:#C79B64}
-.workspace-content .reservation-dock .booking-heading>p{max-width:235px;color:#696C60;font:600 11px/1.55 var(--sans)}
-.workspace-content .reservation-dock .finder-form{border-radius:12px;border:1px solid #EBE8E0;
- box-shadow:none;background:#F9F8F3;padding:6px;gap:0;margin:0}
+.workspace-content .reservation-dock .booking-heading .eyebrow span{padding:0 4px;color:#A7C76D}
+.workspace-content .reservation-dock .booking-heading>p{max-width:235px;color:#56665B;font:600 11px/1.55 var(--sans)}
+.workspace-content .reservation-dock .finder-form{border-radius:12px;border:1px solid #E3EBDF;
+ box-shadow:none;background:#F8FAF5;padding:6px;gap:0;margin:0}
 .workspace-content .reservation-dock .field{padding:7px 14px;min-height:59px;border-right:1px solid #E5E3DA}
 .workspace-content .reservation-dock .field:last-of-type{border-right:0}
 .workspace-content .reservation-dock .field-index{margin-bottom:3px;font-size:9px}
@@ -59,22 +59,22 @@
 .workspace-content .reservation-dock .finder-extras{display:flex;gap:15px;justify-content:space-between;
  align-items:center;margin:12px 2px 0;flex-wrap:wrap}
 .workspace-content .reservation-dock .quick-dates{gap:6px}
-.workspace-content .reservation-dock .quick-dates>span{font-size:8px;color:#777568}
+.workspace-content .reservation-dock .quick-dates>span{font-size:8px;color:#5C6B5E}
 .workspace-content .reservation-dock .quick-dates button{min-height:30px;padding:6px 10px;
- font:800 9px var(--sans);border:1px solid #E7E6DC;border-radius:8px;background:#F8F8F3}
+ font:800 9px var(--sans);border:1px solid #E1EADD;border-radius:8px;background:#F6F9F2}
 .workspace-content .reservation-dock .quick-dates button:hover,
 .workspace-content .reservation-dock .quick-dates button[aria-pressed=true]{
- background:var(--primary-soft);border-color:#E8B49E;color:var(--primary)}
+ background:var(--primary-soft);border-color:#AACF89;color:var(--primary)}
 .workspace-content .reservation-dock .finder-extras p{font:800 9px/1.4 var(--sans);
- color:#65695C;letter-spacing:.035em}
+ color:#586C5D;letter-spacing:.035em}
 .editorial-steps{width:min(calc(100% - 104px),1320px);margin:21px auto 0;
- border-radius:11px;box-shadow:none;border:0;border-top:1px solid #E7E4D9;
- border-bottom:1px solid #E7E4D9;background:transparent;padding:16px 22px}
+ border-radius:11px;box-shadow:none;border:0;border-top:1px solid #DEE8DB;
+ border-bottom:1px solid #DEE8DB;background:transparent;padding:16px 22px}
 .editorial-step{font-size:10px;font-weight:800;gap:10px}
 .editorial-step b{width:26px;height:26px;border-radius:50%}
 .explore{padding-top:27px}
 .workspace-content .plan-studio{margin-top:0}
-.workspace-content .plan-studio::before{height:2px;background:linear-gradient(90deg,var(--primary),#D4A359 60%,transparent)}
+.workspace-content .plan-studio::before{height:2px;background:linear-gradient(90deg,var(--primary),#ACCC74 60%,transparent)}
 .workspace-content .studio-intro h3{font-size:clamp(29px,2.7vw,38px)}
 .workspace-content .vibe-chip{min-height:81px}
 .workspace-content .studio-bottom{padding-top:17px}
@@ -87,8 +87,8 @@
    retaining all card buttons and API availability labels in the original DOM. */
 .workspace-content .restaurant-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
  gap:19px}
-.workspace-content .restaurant-card{border-radius:18px;border-color:#E6E6DB;
- box-shadow:0 4px 20px #2A2A1B0B}
+.workspace-content .restaurant-card{border-radius:18px;border-color:#E0E9DD;
+ box-shadow:0 4px 20px #193C2F0B}
 .workspace-content .restaurant-card:first-child{grid-column:1/-1;display:grid;
  grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);min-height:366px}
 .workspace-content .restaurant-card:first-child .card-image{height:100%;min-height:366px}
@@ -160,7 +160,7 @@
  .hero-live-details{font-size:9px;gap:4px}
  .photo-footnote{font-size:7px}
  .reservation-dock{width:calc(100% - 24px);margin:-8px auto 0}
- .reservation-dock-inner{padding:16px 12px 13px;border-radius:15px;box-shadow:0 8px 24px #24271B12}
+ .reservation-dock-inner{padding:16px 12px 13px;border-radius:15px;box-shadow:0 8px 24px #1B302712}
  .workspace-content .reservation-dock .booking-heading{flex-direction:column;align-items:start;margin-bottom:11px;gap:5px}
  .workspace-content .reservation-dock .booking-heading h2{font-size:24px}
  .workspace-content .reservation-dock .booking-heading>p{max-width:none;font-size:10px}
