@@ -272,7 +272,7 @@
       copyPlan.timer = setTimeout(() => {button.firstChild.textContent = "Copy this plan ";}, 1900);
     } else {
       toast("Copy unavailable in this browser. You can select the plan summary.");
-      byId("plan-summary").focus();
+      byId("copy-plan").focus();
     }
   }
   function initStudio() {
