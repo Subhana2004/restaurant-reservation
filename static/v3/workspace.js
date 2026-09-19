@@ -62,7 +62,7 @@
     const progress=stageFromState();
     $("rail-progress-text").textContent=progress.label;
     $("rail-progress-fill").style.width=progress.pct+"%";
-    $("rail-progress-track")?.setAttribute("aria-label","Discovery progress: "+progress.pct+" percent");
+    document.querySelector(".rail-progress-track")?.setAttribute("aria-label","Discovery progress: "+progress.pct+" percent");
     updateTabs(progress.stage);
     const c=compareCount();
     $("header-compare").disabled=c!==2;
