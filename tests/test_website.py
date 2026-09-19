@@ -7,7 +7,7 @@ def test_homepage_is_served(tmp_path):
     with TestClient(create_app(str(tmp_path / "test.db"))) as client:
         r = client.get("/")
         assert r.status_code == 200
-        assert "mesa." in r.text
+        assert "<title>Mesa" in r.text
         assert 'id="search-form"' in r.text
         assert 'id="booking-dialog"' in r.text
 
