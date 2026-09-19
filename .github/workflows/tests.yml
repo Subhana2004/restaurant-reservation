@@ -23,6 +23,7 @@ jobs:
           node --check static/v3/compare.js
           node --check static/v3/workspace.js
           node --check static/v3/dining.js
+          # Latest food-first visual layer is pure CSS; test asset delivery in pytest.
 
   browser:
     runs-on: ubuntu-latest
