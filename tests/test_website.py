@@ -9,7 +9,7 @@ def test_homepage_is_served(tmp_path):
         assert r.status_code == 200
         assert "mesa." in r.text
         assert 'id="search-form"' in r.text
-        assert 'id="saved-dialog"' in r.text
+        assert 'id="booking-dialog"' in r.text
 
 
 def test_frontend_assets_available(tmp_path):
