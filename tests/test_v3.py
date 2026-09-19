@@ -81,6 +81,17 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert ".caption-badge" in paprika.text
         assert ".vibe-chip.active" in paprika.text
         assert "paprika.css" in page.text
+        assert 'class="reservation-dock"' in page.text
+        assert page.text.count('id="search-form"') == 1
+        assert 'id="hero-plan-date"' in page.text
+        assert 'id="hero-plan-party"' in page.text
+        table_css = client.get("/v3-assets/table-first.css")
+        assert table_css.status_code == 200
+        assert ".reservation-dock" in table_css.text
+        assert ".restaurant-card:first-child" in table_css.text
+        table_js = client.get("/v3-assets/table-first.js")
+        assert table_js.status_code == 200
+        assert "updateHeroPlan" in table_js.text
         dining_js = client.get("/v3-assets/dining.js")
         assert dining_js.status_code == 200
         assert "fallbackPhoto" in dining_js.text
