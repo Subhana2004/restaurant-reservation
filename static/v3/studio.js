@@ -232,8 +232,52 @@
     openDetails(id);
     toast(state.preview ? "Explore this sample place · live booking isn't configured yet" : "A little discovery, just for you ✳");
   }
+  async function copyPlan() {
+    const selection = criteria();
+    if (!validCriteria(selection)) {
+      toast("Choose a future UTC slot before copying your plan.");
+      return;
+    }
+    const message = [
+      "Mesa · our table plan",
+      "When: " + formatDate(selection.date) + " at " + selection.time + " UTC",
+      "Guests: " + selection.guests,
+      "Mood: " + VIBES[currentVibe],
+      "This is a plan, not a confirmed reservation."
+    ].join("\n");
+    let copied = false;
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(message);
+        copied = true;
+      } else {
+        const input = document.createElement("textarea");
+        input.value = message;
+        input.setAttribute("readonly", "");
+        input.style.position = "fixed";
+        input.style.opacity = "0";
+        document.body.append(input);
+        input.select();
+        copied = document.execCommand("copy");
+        input.remove();
+      }
+    } catch {
+      copied = false;
+    }
+    if (copied) {
+      toast("Plan copied · share the details, then confirm the booking here.");
+      const button = byId("copy-plan");
+      button.firstChild.textContent = "Copied! ";
+      clearTimeout(copyPlan.timer);
+      copyPlan.timer = setTimeout(() => {button.firstChild.textContent = "Copy this plan ";}, 1900);
+    } else {
+      toast("Copy unavailable in this browser. You can select the plan summary.");
+      byId("plan-summary").focus();
+    }
+  }
   function initStudio() {
     ticket();
+    byId("copy-plan").addEventListener("click", copyPlan);
     byId("date").addEventListener("change", ticket);
     byId("time").addEventListener("change", ticket);
     byId("guests").addEventListener("change", ticket);
