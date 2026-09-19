@@ -39,3 +39,5 @@ Photos illustrate fictional sample venues, not real restaurants. The actual loca
 
 
 Preview deployment request: branch-specific preview requested on 20 September 2026; no change to accepted source or reservation behaviour.
+
+Branch-specific Vercel preview deployment retry after V7 reached READY; code, styling and tested reservation behaviour unchanged.
