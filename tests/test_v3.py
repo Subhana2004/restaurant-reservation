@@ -43,7 +43,7 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert "background:#EAF1E9" in styles.text
         favicon = client.get("/v3-assets/favicon.svg")
         assert favicon.status_code == 200
-        assert '#693A50' in favicon.text
+        assert '#71384D' in favicon.text
         studio_js = client.get("/v3-assets/studio.js")
         assert studio_js.status_code == 200
         assert "GET" not in studio_js.text or "api(" in studio_js.text
@@ -63,8 +63,14 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert "sortCards" in workspace_js.text
         dining_css = client.get("/v3-assets/dining.css")
         assert dining_css.status_code == 200
-        assert "--primary:#693A50" in dining_css.text
-        assert "--canvas:#F9F7F2" in dining_css.text
+        assert "--primary:#71384D" in dining_css.text
+        assert "--canvas:#F7F3ED" in dining_css.text
+        assert "--hero-warm:#F2E3D5" in dining_css.text
+        assert "--occasion-warm:#F5E9DC" in dining_css.text
+        assert "--spice-ink:#94442D" in dining_css.text
+        assert "--status-ink:#276F5B" in dining_css.text
+        assert '--jade:var(--status-ink)' in dining_css.text
+        assert '<meta name="theme-color" content="#F7F3ED"' in page.text
         assert ".editorial-steps" in dining_css.text
         assert ".card-image img" in dining_css.text
         dining_js = client.get("/v3-assets/dining.js")
