@@ -3,19 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#F4E5D5">
+  <meta name="theme-color" content="#F4F5F1">
   <meta name="description" content="A considered restaurant table finder. Compare places, check exact availability, save your favourites, and make a better plan together.">
-  <title>mesa. — Better plans start here</title>
+  <title>Mesa — Your table, your people</title>
   <link rel="icon" type="image/svg+xml" href="/v3-assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,500,50,0;0,9..144,600,50,0;0,9..144,700,50,0;1,9..144,500,50,0;1,9..144,600,50,0&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/v3-assets/styles.css">
   <link rel="stylesheet" href="/v3-assets/studio.css">
   <link rel="stylesheet" href="/v3-assets/compare.css">
+  <link rel="stylesheet" href="/v3-assets/workspace.css">
   <script src="/v3-assets/app.js" defer></script>
   <script src="/v3-assets/studio.js" defer></script>
   <script src="/v3-assets/compare.js" defer></script>
+  <script src="/v3-assets/workspace.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#explore">Skip to restaurant discovery</a>
@@ -37,16 +39,16 @@
       <div class="rail-tail"><div class="rail-progress-title"><strong>Your progress</strong><span id="rail-progress-text">Make your first plan</span></div><div class="rail-progress-track"><span id="rail-progress-fill"></span></div><div class="rail-note"><span aria-hidden="true">✳</span><div><strong>A little reminder</strong><p>Nothing is booked until you confirm a reservation.</p></div></div><div class="rail-links"><a href="/docs">The API ↗</a><a href="/v2">Earlier design ↗</a></div></div>
     </aside>
     <div class="workspace-main">
-  <main>
-    <section class="hero" aria-labelledby="hero-title">
+  <main class="workspace-content">
+    <section class="hero" aria-labelledby="hero-title"><span class="hero-section-label">YOUR TABLE STUDIO <span>✳</span> THE GOOD PLANS EDITION</span>
       <div class="container hero-grid">
         <div class="hero-copy">
-          <div class="kicker"><span class="kicker-dot"></span> LESS PLANNING, MORE GOOD TIMES <span class="edition">A MESA INVITATION</span></div>
-          <h1 id="hero-title">Your kind<br>of place.<br><em>Your people.</em></h1>
-          <p class="hero-sub">Dinner that turns into another hour. A catch-up worth leaving the house for. Make a plan you’ll actually look forward to.</p>
-          <a class="hero-cta" href="#explore"><span>Find our table</span><span class="cta-circle" aria-hidden="true">↗</span></a>
+          <div class="kicker"><span class="kicker-dot"></span> LESS PLANNING. MORE GOOD TIMES. <span class="edition">MESA / 004</span></div>
+          <h1 id="hero-title">Make room for<br><em>the good stuff.</em></h1>
+          <p class="hero-sub">A catch-up worth leaving the house for. A dinner that turns into another hour. Make plans that actually happen.</p>
+          <a class="hero-cta" href="#plan-fields"><span>Build our plan</span><span class="cta-circle" aria-hidden="true">↗</span></a>
           <div class="hero-quick" aria-label="Quick plans"><span class="hero-quick-label">OR START WITH</span><button type="button" data-hero-plan="tomorrow">Tomorrow, table for two <span aria-hidden="true">↗</span></button><button type="button" data-hero-plan="weekend">Weekend with friends <span aria-hidden="true">↗</span></button></div>
-          <div class="hero-foot"><span>GOOD FOOD / BETTER COMPANY</span><span>01 — MAKE THE PLAN ↓</span></div>
+          <div class="hero-foot"><span>REAL MOMENTS, STARTING HERE</span><span>YOUR LITTLE PLAN ↓</span></div>
         </div>
         <div class="hero-visual" aria-label="Illustration of food and a table ready for company">
           <div class="visual-frame">
@@ -63,7 +65,7 @@
     
     <section id="explore" class="explore">
       <div class="container">
-        <div class="booking-heading"><div><p class="eyebrow">01 / FIND YOUR TABLE</p><h2>Where shall we <em>meet?</em></h2></div><p>Your table, your date, your people.<br>Pick a moment and explore.</p></div>
+        <div class="booking-heading" id="plan-fields"><div><p class="eyebrow">STEP ONE  /  MAKE A PLAN</p><h2>When are we meeting?</h2></div><p>Your table, your date, your people.<br>Pick a moment and explore.</p></div>
         <form id="search-form" class="finder-form">
           <label class="field date-field" for="date"><span class="field-index">DATE</span><span class="field-main"><span class="field-icon" aria-hidden="true">▦</span><input id="date" name="date" type="date" required></span></label>
           <label class="field time-field" for="time"><span class="field-index">TIME · UTC</span><span class="field-main"><span class="field-icon" aria-hidden="true">◷</span><select id="time" name="time" required><option value="11:00">11:00</option><option value="12:00">12:00</option><option value="13:00">13:00</option><option value="14:00">14:00</option><option value="15:00">15:00</option><option value="16:00">16:00</option><option value="17:00">17:00</option><option value="18:00">18:00</option><option value="19:00" selected>19:00</option><option value="20:00">20:00</option><option value="21:00">21:00</option><option value="22:00">22:00</option></select><span class="select-arrow" aria-hidden="true">⌄</span></span></label>
@@ -74,17 +76,17 @@
         <section class="plan-studio" aria-labelledby="studio-heading">
           <div class="studio-top">
             <div class="studio-intro">
-              <p class="eyebrow">02 / YOUR KIND OF PLACE</p>
-              <h3 id="studio-heading">What’s the <em>occasion?</em></h3>
+              <p class="eyebrow">STEP TWO  /  SET THE MOOD</p>
+              <h3 id="studio-heading">What kind of evening?</h3>
               <p>Choose a feeling, try a time, find a place. Your plan stays editable until you confirm a reservation.</p>
             </div>
             
           </div>
           <div class="vibe-options" role="group" aria-label="Filter by the mood of your gathering">
-            <button type="button" class="vibe-chip active" data-vibe="all" aria-pressed="true"><span aria-hidden="true">✳</span> Anything goes</button>
-            <button type="button" class="vibe-chip" data-vibe="catchup" aria-pressed="false"><span aria-hidden="true">☕</span> A long catch-up</button>
-            <button type="button" class="vibe-chip" data-vibe="comfort" aria-pressed="false"><span aria-hidden="true">✦</span> Comfort food</button>
-            <button type="button" class="vibe-chip" data-vibe="fresh" aria-pressed="false"><span aria-hidden="true">≈</span> Something fresh</button>
+            <button type="button" class="vibe-chip active" data-vibe="all" aria-pressed="true"><span aria-hidden="true">✳</span><span>Anything goes<small>Surprise us</small></span></button>
+            <button type="button" class="vibe-chip" data-vibe="catchup" aria-pressed="false"><span aria-hidden="true">☕</span><span>Catch-up<small>Stay a little longer</small></span></button>
+            <button type="button" class="vibe-chip" data-vibe="comfort" aria-pressed="false"><span aria-hidden="true">✦</span><span>Comfort food<small>Just what you need</small></span></button>
+            <button type="button" class="vibe-chip" data-vibe="fresh" aria-pressed="false"><span aria-hidden="true">≈</span><span>Something fresh<small>Change of scenery</small></span></button>
           </div>
           <div class="studio-bottom">
             <div class="time-studio">
@@ -103,9 +105,9 @@
           </div>
         </section>
         <div class="section-divider"></div>
-        <div class="places-heading"><div><p class="eyebrow">03 / THE COLLECTION</p><h2>Pick a place, <em>make a plan.</em></h2><p class="section-intro">A little shortlist to explore, compare and save for later. Seat counts reflect your selected UTC time when the demo API is connected.</p></div><div class="count-mark"><strong id="restaurant-count">—</strong><span>PLACES<br>SHOWN</span></div></div>
+        <div class="places-heading" id="places"><div><p class="eyebrow">STEP THREE  /  FIND YOUR PLACE</p><h2>A place worth meeting.</h2><p class="section-intro">Explore, shortlist and compare. All the good details, one spot.</p></div><div class="count-mark"><strong id="restaurant-count">—</strong><span>PLACES<br>SHOWN</span></div></div>
         <div class="availability-note" role="status" aria-live="polite"><span class="availability-pulse" aria-hidden="true"></span><span id="availability-note">Checking your chosen moment…</span><span class="availability-note-spark" aria-hidden="true">↗</span></div><div id="system-message" class="system-message" role="status" aria-live="polite" hidden></div>
-        <div class="list-tools"><label class="searchbox" for="restaurant-query"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7"></circle><path d="m16 16 5 5"></path></svg><input id="restaurant-query" type="search" placeholder="A place on your mind?" autocomplete="off"><span class="search-shortcut" aria-hidden="true">⌕</span></label><div class="segmented" role="group" aria-label="Filter restaurants by availability"><button type="button" class="segment selected" data-filter="all" aria-pressed="true">All places</button><button type="button" class="segment" data-filter="available" aria-pressed="false">Seats available</button><button type="button" class="segment" data-filter="saved" aria-pressed="false">♡ Shortlist <span id="favorite-count">0</span></button></div><button class="surprise-button" id="surprise-me" type="button">Surprise me <span aria-hidden="true">↗</span></button></div>
+        <div class="list-tools"><label class="searchbox" for="restaurant-query"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7"></circle><path d="m16 16 5 5"></path></svg><input id="restaurant-query" type="search" placeholder="A place on your mind?" autocomplete="off"><span class="search-shortcut" aria-hidden="true">⌕</span></label><div class="segmented" role="group" aria-label="Filter restaurants by availability"><button type="button" class="segment selected" data-filter="all" aria-pressed="true">All places</button><button type="button" class="segment" data-filter="available" aria-pressed="false">Seats available</button><button type="button" class="segment" data-filter="saved" aria-pressed="false">♡ Shortlist <span id="favorite-count">0</span></button></div><label class="sort-control" for="sort-restaurants">Sort <select id="sort-restaurants" aria-label="Sort places"><option value="recommended">Suggested</option><option value="capacity">Larger tables</option><option value="name">A to Z</option><option value="seats">More seats</option></select></label><button class="surprise-button" id="surprise-me" type="button">Surprise me <span aria-hidden="true">↗</span></button></div>
         <p class="compare-tip">✳ Tip: add two places to your compare tray to choose side by side.</p>
         <div class="restaurant-grid" id="restaurant-grid" aria-live="polite" aria-busy="true"><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div></div>
         <p class="smallprint">This is a sample collection, not real restaurant inventory. Seat counts are fetched for exact UTC slots; a reservation is confirmed only after completing the booking. <a href="/docs">Explore the API ↗</a></p>
