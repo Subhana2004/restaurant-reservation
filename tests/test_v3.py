@@ -43,7 +43,7 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert "background:#EAF1E9" in styles.text
         favicon = client.get("/v3-assets/favicon.svg")
         assert favicon.status_code == 200
-        assert '#BD432B' in favicon.text
+        assert '#24513E' in favicon.text
         studio_js = client.get("/v3-assets/studio.js")
         assert studio_js.status_code == 200
         assert "GET" not in studio_js.text or "api(" in studio_js.text
@@ -63,24 +63,31 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert "sortCards" in workspace_js.text
         dining_css = client.get("/v3-assets/dining.css")
         assert dining_css.status_code == 200
-        assert "--primary:#BD432B" in dining_css.text
-        assert "--canvas:#F8F7F2" in dining_css.text
-        assert "--hero-warm:#F5E6BF" in dining_css.text
-        assert "--occasion-warm:#F3EFE3" in dining_css.text
-        assert "--spice-ink:#A83B27" in dining_css.text
-        assert "--status-ink:#316A4C" in dining_css.text
+        assert "--primary:#24513E" in dining_css.text
+        assert "--canvas:#F8FAF5" in dining_css.text
+        assert "--hero-warm:#E2ECCF" in dining_css.text
+        assert "--occasion-warm:#EFF4E9" in dining_css.text
+        assert "--spice-ink:#315E41" in dining_css.text
+        assert "--status-ink:#17696B" in dining_css.text
         assert '--jade:var(--status-ink)' in dining_css.text
-        assert '<meta name="theme-color" content="#F8F7F2"' in page.text
+        assert '<meta name="theme-color" content="#F8FAF5"' in page.text
         assert ".editorial-steps" in dining_css.text
         assert ".card-image img" in dining_css.text
         paprika = client.get("/v3-assets/paprika.css")
         assert paprika.status_code == 200
-        assert "--primary:#BD432B" in paprika.text
-        assert "--hero-warm:#F5E6BF" in paprika.text
+        assert "--primary:#24513E" in paprika.text
+        assert "--hero-warm:#E2ECCF" in paprika.text
         assert '"Plus Jakarta Sans"' in paprika.text
         assert ".caption-badge" in paprika.text
         assert ".vibe-chip.active" in paprika.text
         assert "paprika.css" in page.text
+        herb = client.get("/v3-assets/herb-lime.css")
+        assert herb.status_code == 200
+        assert "--primary:#24513E" in herb.text
+        assert "--lime:#D8ED91" in herb.text
+        assert "--status-ink:#17696B" in herb.text
+        assert ".restaurant-card:first-child .card-main" in herb.text
+        assert "herb-lime.css" in page.text
         assert 'class="reservation-dock"' in page.text
         assert page.text.count('id="search-form"') == 1
         assert 'id="hero-plan-date"' in page.text
