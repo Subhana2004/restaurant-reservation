@@ -77,6 +77,9 @@ test("mobile visitors get working navigation and a usable two-pane discovery flo
   await expect(page.locator("#restaurant-grid .restaurant-card")).toHaveCount(3);
   await expect(page.locator(".hero-visual")).toBeVisible();
   await expect(page.locator(".visual-frame")).toBeVisible();
+  const photoFrame = await page.locator(".visual-frame").boundingBox();
+  expect(photoFrame.width).toBeGreaterThan(250);
+  expect(photoFrame.height).toBeGreaterThan(200);
   await expect(page.locator(".hero-plate")).toBeVisible();
   await expect.poll(() => page.locator(".hero-plate").evaluate(img => img.naturalWidth)).toBeGreaterThan(0);
   await expect(page.locator(".hero-photo-caption")).toBeVisible();
