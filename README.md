@@ -106,6 +106,6 @@ Eight upstream Git repositories are pinned as submodules in `.design-skills/`; s
 3. Before deploying, add `DATABASE_URL` as a Vercel server-side environment variable for Production (and Preview if needed). Never commit it or expose it in the browser.
 4. Deploy; check `/`, `/docs` and `/health`. Health should show `"storage":"postgres"`. Confirm a reservation from one browser, refresh, then retrieve/cancel it in another browser.
 
-The API creates a private `mesa` schema and seeds three demo restaurants during initialization. Booking locks the restaurant's PostgreSQL row before reading occupancy and inserting the reservation. The deployment intentionally refuses to start without durable storage rather than silently losing reservations.
+The API creates a private `mesa` schema and seeds three demo restaurants during initialization. Booking locks the restaurant's PostgreSQL row before reading occupancy and inserting the reservation. If DATABASE_URL is missing, the website remains visible as a clearly labelled visual preview, while reservation endpoints return HTTP 503 and health reports `setup_required`. This avoids silently losing reservations in ephemeral storage.
 
 This is an **anonymous sample assignment**. Reservation IDs are not authentication; don't use this code for real customers without authorization.

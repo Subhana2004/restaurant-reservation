@@ -24,14 +24,22 @@ def create_app(database_path: str | None = None) -> FastAPI:
     # deployment, use durable PostgreSQL so all instances share reservations.
     database_url = os.environ.get("DATABASE_URL") if database_path is None else None
     db_path = database_path or os.environ.get("DATABASE_PATH", "reservations.db")
-    if os.environ.get("VERCEL") and not database_url and database_path is None:
-        raise RuntimeError("DATABASE_URL is required on Vercel; SQLite files are not durable there.")
+    # Let the UI and health endpoint load even before a Vercel database is
+    # configured. Never silently fall back to an ephemeral serverless SQLite DB.
+    missing_database = bool(os.environ.get("VERCEL")) and not database_url and database_path is None
+
+    def require_storage() -> None:
+        if missing_database:
+            raise HTTPException(
+                status_code=503,
+                detail="Reservations are unavailable: configure DATABASE_URL in Vercel project settings and redeploy.",
+            )
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         if database_url:
             postgres.initialize(database_url)
-        else:
+        elif not missing_database:
             initialize(db_path)
         yield
 
@@ -50,6 +58,8 @@ def create_app(database_path: str | None = None) -> FastAPI:
 
     @app.get("/health")
     def health() -> dict[str, str]:
+        if missing_database:
+            return {"status": "setup_required", "storage": "unconfigured"}
         return {"status": "ok", "storage": "postgres" if database_url else "sqlite"}
 
     @app.get("/restaurants", response_model=list[RestaurantOut])
@@ -59,6 +69,7 @@ def create_app(database_path: str | None = None) -> FastAPI:
         guests: int = Query(default=1, gt=0, le=1000),
     ) -> list[dict]:
         """Optionally include availability for one exact UTC date/time slot."""
+        require_storage()
         if (date is None) != (time is None):
             raise HTTPException(
                 status_code=422, detail="date and time must be provided together"
@@ -92,6 +103,7 @@ def create_app(database_path: str | None = None) -> FastAPI:
     )
     def create_reservation(payload: ReservationCreate) -> dict:
         """Lock the writer before checking seats, preventing concurrent overbooking."""
+        require_storage()
         if database_url:
             return postgres.create(database_url, payload)
 
@@ -137,6 +149,7 @@ def create_app(database_path: str | None = None) -> FastAPI:
 
     @app.get("/reservations/{reservation_id}", response_model=ReservationOut)
     def get_reservation(reservation_id: int) -> dict:
+        require_storage()
         if database_url:
             return postgres.get(database_url, reservation_id)
         with closing(connect(db_path)) as conn:
@@ -150,6 +163,7 @@ def create_app(database_path: str | None = None) -> FastAPI:
 
     @app.delete("/reservations/{reservation_id}", status_code=status.HTTP_204_NO_CONTENT)
     def cancel_reservation(reservation_id: int) -> Response:
+        require_storage()
         if database_url:
             postgres.cancel(database_url, reservation_id)
             return Response(status_code=status.HTTP_204_NO_CONTENT)

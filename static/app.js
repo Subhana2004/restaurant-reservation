@@ -1,6 +1,6 @@
 "use strict";
 const $ = (selector) => document.querySelector(selector);
-const state = {restaurants:[],selected:null,filter:"all",lastRequest:0,cancelId:null};
+const state = {restaurants:[],selected:null,filter:"all",lastRequest:0,cancelId:null,offline:false};
 const storageKey = "mesa-reservation-ids-v1";
 const names = ["Olive Garden Bistro","The Spice Table","Seaside Kitchen"];
 const descriptions = ["A little Mediterranean sunshine, any day of the week.","Comforting spices and familiar flavours, beautifully served.","Fresh flavours and easy evenings by the imaginary coast."];
@@ -30,15 +30,15 @@ function render(){
  $("#restaurant-list").setAttribute("aria-busy","false");
  if(!r.length){$("#restaurant-list").innerHTML='<div class="empty"><span aria-hidden="true">✳</span><h3>No tables found.</h3><p>Try a different name, date, time or party size.</p></div>';return}
  $("#restaurant-list").innerHTML=r.map(x=>{
- const index=Math.max(0,names.indexOf(x.name)),can=x.can_accommodate!==false,available=x.available_seats??x.capacity;
- return '<article class="card"><div class="card-art '+palettes[index]+'"><span class="card-kicker">✳ THE GOOD STUFF</span>'+icons[index]+'</div><div class="card-body"><h3>'+htmlEscape(x.name)+'</h3><p class="card-meta">'+descriptions[index]+'</p><div class="capacity"><span>Capacity: '+x.capacity+' guests</span><strong class="'+(can?'':'full')+'">'+(can?available+' seats left':'Fully booked for your party')+'</strong></div><button type="button" class="card-cta" data-book="'+x.id+'" '+(can?'':'disabled')+'>'+ (can?"Save a seat":"Try another time")+' <span aria-hidden="true">↗</span></button></div></article>'
+ const index=Math.max(0,names.indexOf(x.name)),can=!state.offline&&x.can_accommodate!==false,available=x.available_seats??x.capacity;
+ return '<article class="card"><div class="card-art '+palettes[index]+'"><span class="card-kicker">✳ THE GOOD STUFF</span>'+icons[index]+'</div><div class="card-body"><h3>'+htmlEscape(x.name)+'</h3><p class="card-meta">'+descriptions[index]+'</p><div class="capacity"><span>Capacity: '+x.capacity+' guests</span><strong class="'+(can?'':'full')+'">'+(state.offline?'Booking unavailable':can?available+' seats left':'Fully booked for your party')+'</strong></div><button type="button" class="card-cta" data-book="'+x.id+'" '+(can?'':'disabled')+'>'+ (state.offline?"Coming soon":can?"Save a seat":"Try another time")+' <span aria-hidden="true">↗</span></button></div></article>'
  }).join("");
 }
 async function loadRestaurants(){
  const s=slot();clearError("#list-error");if(!s.date||!future(s)){showError("#list-error","Please choose a future UTC date and time.");return}
  const req=++state.lastRequest;$("#restaurant-list").setAttribute("aria-busy","true");
- try{const p=new URLSearchParams({date:s.date,time:s.time,guests:s.guests});const data=await request("/restaurants?"+p);if(req!==state.lastRequest)return;state.restaurants=data;render()}
- catch(err){if(req!==state.lastRequest)return;showError("#list-error",err.message+" Refresh the page to retry.");$("#restaurant-list").innerHTML='<div class="empty"><h3>We couldn’t load the restaurants.</h3><p>Please check the connection and try again.</p><button class="pill dark" type="button" id="retry">Try again ↗</button></div>';$("#restaurant-list").setAttribute("aria-busy","false")}
+ try{const p=new URLSearchParams({date:s.date,time:s.time,guests:s.guests});const data=await request("/restaurants?"+p);if(req!==state.lastRequest)return;state.offline=false;state.restaurants=data;render()}
+ catch(err){if(req!==state.lastRequest)return;state.offline=true;state.restaurants=names.map((name,i)=>({id:i+1,name,capacity:[20,35,50][i],can_accommodate:false,available_seats:null}));showError("#list-error",err.message+" The restaurant cards below are a visual preview only; no booking can be made until the API is available.");render()}
 }
 function openBooking(id){const item=state.restaurants.find(x=>x.id===id);if(!item)return;state.selected=item;const s=slot();if(!future(s)){toast("Choose a future UTC date and time.");return}$("#book-name").textContent=item.name;$("#book-date").textContent=s.date;$("#book-time").textContent=s.time+" UTC";$("#book-guests").textContent=s.guests+" "+(s.guests===1?"guest":"guests");$("#book-title").innerHTML='Save your <em>seat.</em>';$("#confirm-book").hidden=false;$("#confirm-book").disabled=false;$("#confirm-book").textContent="Confirm reservation ↗";clearError("#book-error");dialogOpen("#book-dialog")}
 async function confirmBooking(){
