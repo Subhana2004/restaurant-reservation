@@ -117,3 +117,11 @@ The redesigned restaurant experience is available at **`/v2`**, without replacin
 The responsive V2 interface is in `static/v2/`, served at `/v2-assets/` by FastAPI. This is not a static mockup: when storage is connected, guests can check availability, search/filter restaurants, book, look up confirmation IDs and cancel reservations. When storage is missing, it clearly labels the cards as a non-bookable preview instead of inventing reservations. The design draws from the eight pinned frontend skill sources in `.design-skills/`: editorial typography, custom vector food artwork, accessible touch targets, restrained micro-interactions, and reduced-motion support.
 
 **V2:** `http://127.0.0.1:8000/v2` — **V1:** `http://127.0.0.1:8000/`. On Vercel, append `/v2` to the production domain. All API routes and the original homepage remain unchanged.
+
+## mesa. V3 — editorial restaurant experience
+
+V3 is an independent, redesigned frontend served at **`/v3`** with its own assets at `/v3-assets/`. V1 at `/` and V2 at `/v2` remain intact. V3 reuses the original real FastAPI booking endpoints and existing V2 restaurant illustration assets rather than simulating reservations.
+
+Features: responsive editorial hero, date/UTC time/guest search, quick date buttons, restaurant name search and availability filters, live capacity checks, confirmation dialog, browser-saved reservation IDs, ID lookup, cancellation with confirmation, and API-error preview mode that disables booking when persistent storage is unconfigured. It respects reduced-motion preferences and includes keyboard-accessible native dialogs.
+
+**Local URL:** `http://127.0.0.1:8000/v3`. **Deployment URL:** append `/v3` to the existing restaurant-reservation Vercel domain after the main branch deploys. Vercel still requires `DATABASE_URL` for real booking; see deployment guidance above.
