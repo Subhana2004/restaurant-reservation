@@ -85,7 +85,7 @@
       const status = compareStatus(row);
       const canBook = !state.preview && reflectsCurrentSlot() && row.can_accommodate === true && validCriteria(input);
       return '<article class="compare-place">'+
-        '<div class="compare-place-art"><img src="/v2-assets/'+escapeHTML(info.image)+'" width="600" height="390" loading="lazy" alt="Illustration for '+escapeHTML(row.name)+'">'+
+        '<div class="compare-place-art"><img src="'+escapeHTML(info.photo || "/v2-assets/"+info.image)+'" data-fallback="/v2-assets/'+escapeHTML(info.image)+'" width="600" height="390" loading="lazy" decoding="async" alt="'+escapeHTML(info.photoAlt || "Sample food photography for "+row.name)+'">'+
         '<span>OPTION '+String(index+1).padStart(2,"0")+'</span></div>'+
         '<div class="compare-place-body"><p class="compare-cuisine">'+escapeHTML(info.type)+'</p><h3>'+escapeHTML(row.name)+'</h3>'+
         '<p class="compare-description">'+escapeHTML(info.description)+'</p>'+
