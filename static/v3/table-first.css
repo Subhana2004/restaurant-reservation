@@ -129,7 +129,7 @@
  .workspace-content .hero-grid{min-height:0;grid-template-columns:1fr}
  .workspace-content .hero-copy{padding:26px 0 4px}
  .workspace-content .hero-visual{padding-top:15px}
- .workspace-content .visual-frame{min-height:315px;max-height:370px}
+ .workspace-content .visual-frame{width:100%;max-width:none;margin:0;flex:none;height:330px;min-height:0;max-height:none}
  .reservation-dock,.editorial-steps{width:calc(100% - 48px)}
  .reservation-dock{margin-top:-24px}
  .reservation-dock-inner{padding:20px}
@@ -154,7 +154,7 @@
  .workspace-content .hero-quick{margin-top:12px}
  .workspace-content .hero-quick button{font-size:9px}
  .workspace-content .hero-visual{padding-top:15px;padding-bottom:18px}
- .workspace-content .visual-frame{min-height:221px;max-height:270px;border-radius:15px 62px 15px 15px}
+ .workspace-content .visual-frame{width:100%;max-width:none;margin:0;flex:none;height:250px;min-height:0;max-height:none;border-radius:15px 62px 15px 15px}
  .hero-photo-caption{left:9px;right:9px;bottom:9px;padding:8px 9px;min-height:41px}
  .hero-photo-caption .caption-badge{font-size:8px;padding:7px 8px}
  .hero-live-details{font-size:9px;gap:4px}
