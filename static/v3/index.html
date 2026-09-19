@@ -19,16 +19,24 @@
 </head>
 <body>
   <a class="skip-link" href="#explore">Skip to restaurant discovery</a>
-  <div class="top-note"><div class="container top-note-inner"><span>MESA / TABLE CLUB <span aria-hidden="true">✳</span></span><span>THE LITTLE ART OF GETTING TOGETHER</span></div></div>
-  <header class="header" id="top">
-    <div class="container header-inner">
-      <a href="#top" class="logo" aria-label="Mesa home">mesa<span>.</span></a>
-      <nav class="main-nav" aria-label="Main navigation">
-        <a href="#explore">Find a table</a><a href="#studio-heading">Set the mood</a><a href="#restaurant-grid">The places</a>
-      </nav>
-      <button class="saved-button" type="button" id="open-reservations"><span class="saved-icon" aria-hidden="true">▤</span> My tables <span class="saved-count" id="saved-count" hidden></span><span aria-hidden="true" class="saved-arrow">↗</span></button>
-    </div>
+  <header class="workspace-header" id="top">
+    <a href="#explore" class="workspace-brand" aria-label="Mesa Home"><span class="brand-mark" aria-hidden="true">m.</span><span class="brand-words"><strong>mesa<span>.</span></strong><small>better plans together</small></span></a>
+    <nav class="workspace-tabs" aria-label="Primary"><a href="#explore" class="workspace-tab" data-work-nav="plan">⌕ <span>Plan</span></a><a href="#places" class="workspace-tab" data-work-nav="places">▦ <span>Discover</span></a><button type="button" class="workspace-tab" data-open-compare id="header-compare" disabled>⇄ <span>Compare</span><b id="header-compare-count">0</b></button></nav>
+    <div class="workspace-actions"><span class="demo-indicator"><span aria-hidden="true"></span> Interactive demo</span><button class="saved-button" type="button" id="open-reservations"><span aria-hidden="true">▤</span> My tables <span class="saved-count" id="saved-count" hidden></span></button></div>
   </header>
+  <div class="workspace-shell">
+    <aside class="journey-rail" aria-label="Your table journey">
+      <div class="rail-intro"><span class="rail-kicker">THE MESA WAY</span><h2>Make it a<br>good one<span>.</span></h2><p>Less organising.<br>More being together.</p></div>
+      <p class="rail-section-title">YOUR JOURNEY <span>01—04</span></p>
+      <nav class="journey-list" aria-label="Reservation journey">
+        <a href="#explore" class="journey-step is-active" data-step="plan"><span class="journey-no">01</span><span><strong>Make a plan</strong><small>Pick the moment</small></span></a>
+        <a href="#places" class="journey-step" data-step="discover"><span class="journey-no">02</span><span><strong>Find your place</strong><small>Explore &amp; save</small></span></a>
+        <button type="button" class="journey-step" data-open-compare data-step="compare"><span class="journey-no">03</span><span><strong>Compare options</strong><small>Choose your two</small></span></button>
+        <button type="button" class="journey-step" data-open-tables data-step="review"><span class="journey-no">04</span><span><strong>My reservations</strong><small>Review &amp; manage</small></span></button>
+      </nav>
+      <div class="rail-tail"><div class="rail-progress-title"><strong>Your progress</strong><span id="rail-progress-text">Make your first plan</span></div><div class="rail-progress-track"><span id="rail-progress-fill"></span></div><div class="rail-note"><span aria-hidden="true">✳</span><div><strong>A little reminder</strong><p>Nothing is booked until you confirm a reservation.</p></div></div><div class="rail-links"><a href="/docs">The API ↗</a><a href="/v2">Earlier design ↗</a></div></div>
+    </aside>
+    <div class="workspace-main">
   <main>
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-grid">
@@ -111,6 +119,17 @@
     </section>
     <section class="closing" id="about"><div class="container closing-inner"><span class="closing-spark" aria-hidden="true">✳</span><p>MAKE ROOM FOR GOOD COMPANY.</p><h2>See you <em>at the table.</em></h2><a href="#explore" class="closing-cta">Save a seat <span aria-hidden="true">↗</span></a></div></section>
   </main>
+      </div>
+    <aside class="coach-rail" aria-label="Your live table plan">
+      <div class="coach-label"><span class="coach-dot"></span> YOUR COMPANION <span>MESA / NOW</span></div>
+      <h2>One choice<br>at a time.</h2><p class="coach-lede">Your evening takes shape as you explore. Keep the important details here.</p>
+      <div class="coach-receipt"><span class="coach-card-label">YOUR LITTLE PLAN <span aria-hidden="true">✳</span></span><strong id="coach-plan">Picking your moment…</strong><div class="coach-divider"></div><div class="coach-row"><span>Date</span><b id="coach-date">—</b></div><div class="coach-row"><span>Time</span><b id="coach-time">—</b></div><div class="coach-row"><span>People</span><b id="coach-guests">2</b></div><div class="coach-divider"></div><div class="coach-receipt-footer"><span id="coach-mood">Any kind of gathering</span><span aria-hidden="true">↗</span></div></div>
+      <div class="coach-next"><span aria-hidden="true" class="coach-spark">✳</span><div><strong id="coach-next-title">Start with a date</strong><p id="coach-next-description">Pick your moment and see the places available for your group.</p><button type="button" id="coach-next-button">Find a table <span aria-hidden="true">↗</span></button></div></div>
+      <div class="coach-stats"><div><strong id="coach-results">—</strong><span>Places shown</span></div><div><strong id="coach-shortlisted">0</strong><span>Shortlisted</span></div></div>
+      <div class="coach-note"><strong>GOOD TO KNOW</strong><p>This is a sample restaurant collection. The booking API confirms reservations only when its database is connected.</p></div>
+    </aside>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobile navigation"><a href="#explore" data-mobile-tab="plan"><span aria-hidden="true">⌕</span>Plan</a><a href="#places" data-mobile-tab="places"><span aria-hidden="true">▦</span>Places</a><button type="button" data-open-compare><span aria-hidden="true">⇄</span>Compare</button><button type="button" data-open-tables><span aria-hidden="true">▤</span>My tables</button></nav>
   <footer class="footer"><div class="container footer-main"><div><a class="footer-logo" href="#top">mesa<span>.</span></a><p>More good times around good tables.</p></div><div class="footer-links"><a href="#explore">Discover</a><a href="#how-it-works">How it works</a><a href="/v2">Previous edition ↗</a><a href="/classic">Classic ↗</a></div></div><div class="container footer-bottom"><span>© <span id="year"></span> MESA. A RESTAURANT RESERVATION DEMO.</span><span>AN INTERACTIVE RESTAURANT API DEMO</span><a href="#top">BACK TO TOP ↑</a></div></footer>
 
   <dialog class="modal-dialog" id="booking-dialog" aria-labelledby="booking-title"><div class="dialog-inner"><button class="close-dialog" type="button" data-close="booking-dialog" aria-label="Close booking">×</button><p class="dialog-eyebrow">✳ LET'S MAKE IT OFFICIAL</p><h2 id="booking-title">It's a <em>date.</em></h2><p class="dialog-description" id="booking-restaurant">Your table is one click away.</p><div class="booking-recap"><div><span>DATE</span><strong id="recap-date">—</strong></div><div><span>TIME</span><strong id="recap-time">—</strong></div><div><span>PARTY</span><strong id="recap-guests">—</strong></div></div><p class="form-feedback" role="alert" id="booking-feedback" hidden></p><button class="button button-primary full" type="button" id="confirm-booking">Confirm my table <span aria-hidden="true">↗</span></button><button class="button button-secondary full" type="button" id="view-reservations-after-booking" hidden>See my tables <span aria-hidden="true">↗</span></button><p class="fine-note">No payment required · Time slots are UTC</p></div></dialog>
