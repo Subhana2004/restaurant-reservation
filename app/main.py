@@ -64,9 +64,14 @@ def create_app(database_path: str | None = None) -> FastAPI:
     def website_v2() -> FileResponse:
         return FileResponse(STATIC_DIR / 'v2' / 'index.html')
 
+    @app.get('/classic', include_in_schema=False)
+    @app.get('/classic/', include_in_schema=False)
+    def website_classic() -> FileResponse:
+        return FileResponse(STATIC_DIR / 'index.html')
+
     @app.get('/', include_in_schema=False)
     def website() -> FileResponse:
-        return FileResponse(STATIC_DIR / 'index.html')
+        return FileResponse(STATIC_DIR / 'v3' / 'index.html')
 
     @app.get("/health")
     def health() -> dict[str, str]:
