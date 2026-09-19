@@ -52,6 +52,12 @@ def create_app(database_path: str | None = None) -> FastAPI:
 
     app.mount('/static', StaticFiles(directory=STATIC_DIR), name='static')
     app.mount('/v2-assets', StaticFiles(directory=STATIC_DIR / 'v2'), name='v2-assets')
+    app.mount('/v3-assets', StaticFiles(directory=STATIC_DIR / 'v3'), name='v3-assets')
+
+    @app.get('/v3', include_in_schema=False)
+    @app.get('/v3/', include_in_schema=False)
+    def website_v3() -> FileResponse:
+        return FileResponse(STATIC_DIR / 'v3' / 'index.html')
 
     @app.get('/v2', include_in_schema=False)
     @app.get('/v2/', include_in_schema=False)
