@@ -7,7 +7,7 @@ const catalogue = [
   {name: "The Spice Table", type: "COMFORT FOOD", description: "The kind of food that makes everyone stay a little longer.", image: "spice.svg", mood: "A LITTLE SOMETHING BOLD"},
   {name: "Seaside Kitchen", type: "FRESH & COASTAL", description: "Fresh plates and warm conversations, no coast required.", image: "seaside.svg", mood: "SLOW EVENINGS AHEAD"}
 ];
-const state = {restaurants: [], preview: false, filter: "all", requestId: 0, selected: null, selectedSlot: null, cancelledId: null};
+const state = {restaurants: [], preview: false, filter: "all", requestId: 0, selected: null, selectedSlot: null, cancelledId: null, loadedSlot: null};
 const byId = (id) => document.getElementById(id);
 
 function show(id, message) { const target = byId(id); target.textContent = message; target.hidden = false; }
@@ -70,6 +70,7 @@ async function loadRestaurants() {
   const input = criteria(); hide("system-message");
   if (!validCriteria(input)) { announceAvailability("Pick a future UTC date and time to check tables.", "unavailable"); show("system-message", "Choose a future date and time in UTC and enter between 1 and 1,000 guests."); return; }
   const requestId = ++state.requestId;
+  state.loadedSlot = null;
   announceAvailability("Looking for a lovely place for your people…", "live");
   byId("restaurant-grid").setAttribute("aria-busy", "true");
   byId("search-button").disabled = true;
@@ -79,12 +80,12 @@ async function loadRestaurants() {
     const restaurants = await api(`/restaurants?${params}`);
     if (requestId !== state.requestId) return;
     if (!Array.isArray(restaurants)) throw new Error("The restaurant service returned an unexpected response.");
-    state.restaurants = restaurants; state.preview = false;
+    state.restaurants = restaurants; state.preview = false; state.loadedSlot = {...input};
     const open = restaurants.filter((place) => place.can_accommodate).length;
     announceAvailability(`${open} of ${restaurants.length} places have room for ${input.guests} ${input.guests === 1 ? "guest" : "guests"} · ${formatDate(input.date)} at ${input.time} UTC`, open ? "live" : "unavailable");
   } catch (error) {
     if (requestId !== state.requestId) return;
-    state.restaurants = seedPreview(); state.preview = true;
+    state.restaurants = seedPreview(); state.preview = true; state.loadedSlot = null;
     announceAvailability("Visual preview only · live booking is not available", "preview");
     const reason = error.status === 503 ? "Reservations haven't been connected to a persistent database yet." : "We couldn't reach the reservation service right now.";
     show("system-message", `${reason} These restaurant cards are a design preview only; bookings stay disabled until the API is working. ${error.status === 503 ? "The Vercel project needs DATABASE_URL and a redeployment." : "Please try again shortly."}`);
@@ -101,6 +102,7 @@ function beginBooking(id) {
   const restaurant = state.restaurants.find((r) => r.id === id);
   if (!restaurant || !restaurant.can_accommodate) return;
   const selectedSlot = criteria(); if (!validCriteria(selectedSlot)) { toast("Select a future UTC date and time."); return; }
+  if (!state.loadedSlot || state.loadedSlot.date !== selectedSlot.date || state.loadedSlot.time !== selectedSlot.time || state.loadedSlot.guests !== selectedSlot.guests) { toast("Checking the availability for this moment. Try again after it updates."); scheduleSearch(); return; }
   state.selected = restaurant; state.selectedSlot = selectedSlot;
   byId("booking-title").innerHTML = 'It’s a <em>date.</em>';
   byId("booking-restaurant").textContent = `Confirm your table at ${restaurant.name}.`;
