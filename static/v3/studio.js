@@ -220,16 +220,17 @@
     openDialog("details-dialog");
   }
   function surpriseMe() {
-    const ids = [...byId("restaurant-grid").querySelectorAll(".restaurant-card.is-bookable")]
-      .map((card) => Number(card.dataset.venueId));
-    if (!ids.length) {
-      toast("No available match right now. Try another time or clear a filter.");
+    const cards = [...byId("restaurant-grid").querySelectorAll(".restaurant-card")];
+    const available = cards.filter((card) => card.classList.contains("is-bookable"));
+    const pool = available.length ? available : cards;
+    if (!pool.length) {
+      toast("No matches for these choices. Try clearing a filter.");
       byId("restaurant-query").focus();
       return;
     }
-    const id = ids[Math.floor(Math.random() * ids.length)];
+    const id = Number(pool[Math.floor(Math.random() * pool.length)].dataset.venueId);
     openDetails(id);
-    toast("A little discovery, just for you ✳");
+    toast(state.preview ? "Explore this sample place · live booking isn't configured yet" : "A little discovery, just for you ✳");
   }
   function initStudio() {
     ticket();
