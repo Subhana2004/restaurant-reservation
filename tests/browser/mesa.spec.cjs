@@ -46,6 +46,12 @@ test("a visitor can plan, discover, shortlist, compare, and book a demo table", 
   await page.locator("#view-reservations-after-booking").click();
   await expect(page.locator("#reservations-dialog")).toBeVisible();
   await expect(page.locator("#reservations-list .reservation-entry")).toHaveCount(1);
+  await page.locator("#reservations-list [data-cancel]").click();
+  await expect(page.locator("#cancel-dialog")).toBeVisible();
+  await page.locator("#confirm-cancel").click();
+  await expect(page.locator("#reservations-list .reservation-entry .status")).toHaveText("CANCELLED");
+  await page.locator('#reservations-dialog [data-close]').click();
+  await page.screenshot({ path: "mesa-v4-desktop.png", fullPage: true });
   expect(errors).toEqual([]);
 });
 
