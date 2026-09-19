@@ -9,13 +9,16 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert client.get("/v2").status_code == 200
         page = client.get("/v3")
         assert page.status_code == 200
-        assert "Make room for" in page.text
-        assert "the good stuff." in page.text
+        assert "Good company" in page.text
+        assert "great table." in page.text
         assert 'id="availability-note"' in page.text
         assert 'class="workspace-shell"' in page.text
         assert 'class="journey-rail"' in page.text
         assert 'class="coach-rail"' in page.text
         assert 'class="mobile-nav"' in page.text
+        assert 'class="editorial-steps"' in page.text
+        assert 'class="hero-photo-caption"' in page.text
+        assert 'id="share-plan"' in page.text
         for name in ("rail-progress-fill", "coach-date", "coach-plan", "coach-next-button", "sort-restaurants"):
             assert f'id="{name}"' in page.text
         for name in ("plan", "discover", "compare", "review"):
@@ -40,7 +43,7 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert "background:#EAF1E9" in styles.text
         favicon = client.get("/v3-assets/favicon.svg")
         assert favicon.status_code == 200
-        assert '#4358BA' in favicon.text
+        assert '#693A50' in favicon.text
         studio_js = client.get("/v3-assets/studio.js")
         assert studio_js.status_code == 200
         assert "GET" not in studio_js.text or "api(" in studio_js.text
@@ -58,6 +61,18 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert workspace_js.status_code == 200
         assert "stageFromState" in workspace_js.text
         assert "sortCards" in workspace_js.text
+        dining_css = client.get("/v3-assets/dining.css")
+        assert dining_css.status_code == 200
+        assert "--primary:#693A50" in dining_css.text
+        assert "--canvas:#F9F7F2" in dining_css.text
+        assert ".editorial-steps" in dining_css.text
+        assert ".card-image img" in dining_css.text
+        dining_js = client.get("/v3-assets/dining.js")
+        assert dining_js.status_code == 200
+        assert "fallbackPhoto" in dining_js.text
+        assert "share-plan" in dining_js.text
+        assert "renderDiningCollection" in dining_js.text
+        assert "photo-1603894584373" in client.get("/v3-assets/app.js").text
         assert "data-party" in workspace_js.text
         compare_js = client.get("/v3-assets/compare.js")
         assert compare_js.status_code == 200
