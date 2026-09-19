@@ -109,3 +109,11 @@ Eight upstream Git repositories are pinned as submodules in `.design-skills/`; s
 The API creates a private `mesa` schema and seeds three demo restaurants during initialization. Booking locks the restaurant's PostgreSQL row before reading occupancy and inserting the reservation. If DATABASE_URL is missing, the website remains visible as a clearly labelled visual preview, while reservation endpoints return HTTP 503 and health reports `setup_required`. This avoids silently losing reservations in ephemeral storage.
 
 This is an **anonymous sample assignment**. Reservation IDs are not authentication; don't use this code for real customers without authorization.
+
+## mesa. V2 — separate redesigned frontend
+
+The redesigned restaurant experience is available at **`/v2`**, without replacing the original site at `/`. It uses the same FastAPI reservation endpoints, PostgreSQL/SQLite storage, and browser-saved reservation IDs as V1.
+
+The responsive V2 interface is in `static/v2/`, served at `/v2-assets/` by FastAPI. This is not a static mockup: when storage is connected, guests can check availability, search/filter restaurants, book, look up confirmation IDs and cancel reservations. When storage is missing, it clearly labels the cards as a non-bookable preview instead of inventing reservations. The design draws from the eight pinned frontend skill sources in `.design-skills/`: editorial typography, custom vector food artwork, accessible touch targets, restrained micro-interactions, and reduced-motion support.
+
+**V2:** `http://127.0.0.1:8000/v2` — **V1:** `http://127.0.0.1:8000/`. On Vercel, append `/v2` to the production domain. All API routes and the original homepage remain unchanged.
