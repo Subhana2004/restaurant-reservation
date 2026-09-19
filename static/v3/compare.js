@@ -126,22 +126,9 @@
       if(details) {
         const id=Number(details.dataset.compareDetails);
         closeDialog("compare-dialog");
-        if (currentRow(id)) {
-          // The venue modal uses the same exact selected API criteria.
-          const card=$("restaurant-grid").querySelector('[data-venue-id="'+id+'"] [data-details]');
-          if(card) card.click();
-          else {
-            resetAndReveal(id);
-          }
-        }
+        if (currentRow(id)) window.mesaOpenDetails?.(id);
       }
     });
-    function resetAndReveal(id) {
-      // Never switch filters silently: keep comparison open when the requested
-      // venue is filtered from the grid, and explain the next action.
-      openComparison();
-      toast("Clear a filter to explore "+titleFor(id)+".");
-    }
     $("date").addEventListener("change",()=>{if($("compare-dialog").open) renderComparison()});
     $("time").addEventListener("change",()=>{if($("compare-dialog").open) renderComparison()});
     $("guests").addEventListener("change",()=>{if($("compare-dialog").open) renderComparison()});
