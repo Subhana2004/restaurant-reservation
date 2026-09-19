@@ -109,3 +109,8 @@
 @media(prefers-reduced-motion:reduce){
   .favorite-button,.vibe-chip,.time-options button,.surprise-button,.meter-fill{transition:none}
 }
+.copy-plan{display:inline-flex;align-items:center;justify-content:space-between;gap:12px;align-self:flex-start;
+  min-height:34px;margin-top:5px;padding:6px 10px;border:1px solid #cadacb;border-radius:7px;
+  background:#e9f0e6;color:#315940;font:800 11px var(--sans);transition:background .15s,color .15s}
+.copy-plan:hover{background:#dfe9db}
+.copy-plan span{font-size:15px;line-height:1}
