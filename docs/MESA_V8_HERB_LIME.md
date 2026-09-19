@@ -36,3 +36,6 @@ White text on primary exceeds 9:1; dark herb text on lime exceeds 7:1. Contrast 
 ## Assignment limitation
 
 Photos illustrate fictional sample venues, not real restaurants. The actual local SQLite API runs confirmed demo bookings, lookup and cancellation. A persistent `DATABASE_URL` is necessary for durable serverless Vercel booking; without it preview mode is disclosed, never pretended.
+
+
+Preview deployment request: branch-specific preview requested on 20 September 2026; no change to accepted source or reservation behaviour.
