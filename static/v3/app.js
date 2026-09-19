@@ -27,6 +27,26 @@ async function api(path, options) { const response = await fetch(path, options);
 function openDialog(id) { const dialog = byId(id); if (!dialog.open) dialog.showModal(); }
 function closeDialog(id) { const dialog = byId(id); if (dialog.open) dialog.close(); }
 function seedPreview() { return catalogue.map((entry, index) => ({id: index + 1, name: entry.name, capacity: [20, 35, 50][index], available_seats: null, can_accommodate: false})); }
+function announceAvailability(text, mode = "live") {
+  const banner = byId("availability-note");
+  if (!banner) return;
+  banner.textContent = text;
+  banner.closest(".availability-note")?.setAttribute("data-mode", mode);
+}
+function initScrollReveal() {
+  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const items = document.querySelectorAll(".booking-heading, .finder-form, .places-heading, .restaurant-grid, .how-left, .how-step, .closing-inner");
+  if (!items.length) return;
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    }
+  }, {threshold: 0.07, rootMargin: "0px 0px 36px 0px"});
+  items.forEach((item) => { item.classList.add("reveal-on-view"); observer.observe(item); });
+  document.documentElement.classList.add("reveal-ready");
+}
 function restaurantInfo(row) { return catalogue.find((r) => r.name === row.name) || {type: "A GOOD PLACE", image: catalogue[(Math.max(row.id, 1) - 1) % catalogue.length].image, description: "A place to make some lovely memories.", mood: "COME AS YOU ARE"}; }
 
 function renderRestaurants() {
@@ -48,8 +68,9 @@ function renderRestaurants() {
 
 async function loadRestaurants() {
   const input = criteria(); hide("system-message");
-  if (!validCriteria(input)) { show("system-message", "Choose a future date and time in UTC and enter between 1 and 1,000 guests."); return; }
+  if (!validCriteria(input)) { announceAvailability("Pick a future UTC date and time to check tables.", "unavailable"); show("system-message", "Choose a future date and time in UTC and enter between 1 and 1,000 guests."); return; }
   const requestId = ++state.requestId;
+  announceAvailability("Looking for a lovely place for your people…", "live");
   byId("restaurant-grid").setAttribute("aria-busy", "true");
   byId("search-button").disabled = true;
   byId("search-button").firstChild.textContent =  "Checking tables ";
@@ -59,9 +80,12 @@ async function loadRestaurants() {
     if (requestId !== state.requestId) return;
     if (!Array.isArray(restaurants)) throw new Error("The restaurant service returned an unexpected response.");
     state.restaurants = restaurants; state.preview = false;
+    const open = restaurants.filter((place) => place.can_accommodate).length;
+    announceAvailability(`${open} of ${restaurants.length} places have room for ${input.guests} ${input.guests === 1 ? "guest" : "guests"} · ${formatDate(input.date)} at ${input.time} UTC`, open ? "live" : "unavailable");
   } catch (error) {
     if (requestId !== state.requestId) return;
     state.restaurants = seedPreview(); state.preview = true;
+    announceAvailability("Visual preview only · live booking is not available", "preview");
     const reason = error.status === 503 ? "Reservations haven't been connected to a persistent database yet." : "We couldn't reach the reservation service right now.";
     show("system-message", `${reason} These restaurant cards are a design preview only; bookings stay disabled until the API is working. ${error.status === 503 ? "The Vercel project needs DATABASE_URL and a redeployment." : "Please try again shortly."}`);
   } finally {
@@ -125,6 +149,15 @@ async function confirmCancellation() {
 }
 function init() {
   byId("year").textContent = new Date().getFullYear();
+  initScrollReveal();
+  document.addEventListener("keydown", (event) => {
+    const current = document.activeElement;
+    const isTyping = current?.matches("input, select, textarea, [contenteditable]");
+    if (event.key === "/" && !isTyping && !event.ctrlKey && !event.metaKey && !document.querySelector("dialog[open]")) {
+      event.preventDefault();
+      byId("restaurant-query").focus();
+    }
+  });
   byId("date").value = todayUTC(1); byId("date").min = todayUTC(); updateCount(); updateStepper();
   byId("search-form").addEventListener("submit", (event) => {event.preventDefault();clearTimeout(scheduleSearch.timer);loadRestaurants();});
   ["date", "time", "guests"].forEach((id) => byId(id).addEventListener("change", () => {updateStepper();scheduleSearch();}));
