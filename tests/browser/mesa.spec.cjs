@@ -7,21 +7,25 @@ test("a visitor can plan, discover, shortlist, compare, and book a demo table", 
   await page.goto(base);
   await expect(page.locator(".editorial-steps")).toBeVisible();
   await expect(page.locator(".hero-photo-caption")).toBeVisible();
-  await expect(page.locator(".hero-cta")).toHaveCSS("background-color", "rgb(36, 81, 62)");
+  await expect(page.locator(".hero-cta")).toHaveCSS("background-color", "rgb(216, 237, 145)");
   await expect(page.locator(".reservation-dock #search-form")).toBeVisible();
+  await expect(page.locator("#hero-title .headline-top")).toHaveCSS("font-family", /Instrument Serif/);
+  await expect(page.locator("#hero-title .headline-bottom")).toHaveCSS("font-family", /Manrope/);
+  await expect(page.locator(".reservation-dock .booking-heading h2")).toHaveCSS("font-family", /Instrument Serif/);
+  await expect(page.locator(".workspace-content .hero")).toHaveCSS("background-color", "rgb(23, 60, 45)");
   await expect(page.locator("#hero-plan-party")).toHaveText("2 people");
   await expect(page.locator(".restaurant-card").first()).toHaveCSS("display", "grid");
-  await expect(page.locator(".workspace-tab.is-current")).toHaveCSS("background-color", "rgb(36, 81, 62)");
-  await expect(page.locator(".hero-cta")).toHaveCSS("background-color", "rgb(36, 81, 62)");
-  await expect(page.locator(".hero-photo-caption .caption-badge")).toHaveCSS("background-color", "rgb(216, 237, 145)");
-  await expect(page.locator(".workspace-content .restaurant-card:first-child .card-main")).toHaveCSS("color", "rgb(255, 255, 255)");
+  await expect(page.locator(".workspace-tab.is-current")).toHaveCSS("background-color", "rgb(216, 237, 145)");
+  await expect(page.locator(".hero-cta")).toHaveCSS("background-color", "rgb(216, 237, 145)");
+  await expect(page.locator(".hero-photo-caption .caption-badge")).toHaveCSS("background-color", "rgb(23, 60, 45)");
+  await expect(page.locator(".workspace-content .restaurant-card:first-child .card-main")).toHaveCSS("background-color", "rgb(237, 243, 230)");
   await expect(page.locator(".journey-rail")).toBeHidden();
   await expect(page.locator(".coach-rail")).toBeHidden();
   await expect(page.locator(".hero-plate")).toHaveAttribute("src", /images.unsplash.com/);
   await expect(page.locator("#restaurant-grid .restaurant-card")).toHaveCount(3);
   await expect(page.locator(".restaurant-card .photo-open")).toHaveCount(3);
   await expect(page.locator(".restaurant-card .card-image img").first()).toHaveAttribute("alt", /pasta/i);
-  await page.screenshot({ path: "mesa-v4-first-fold.png" });
+  await page.screenshot({ path: "mesa-v9-first-fold.png" });
 
   await page.locator('[data-party="4"]').click();
   await expect(page.locator("#coach-guests")).toHaveText("4 people");
@@ -67,7 +71,7 @@ test("a visitor can plan, discover, shortlist, compare, and book a demo table", 
   await page.locator("#confirm-cancel").click();
   await expect(page.locator("#reservations-list .reservation-entry .status")).toHaveText("CANCELLED");
   await page.locator('#reservations-dialog [data-close]').click();
-  await page.screenshot({ path: "mesa-v4-desktop.png", fullPage: true });
+  await page.screenshot({ path: "mesa-v9-desktop.png", fullPage: true });
   expect(errors).toEqual([]);
 });
 
@@ -88,7 +92,8 @@ test("mobile visitors get working navigation and a usable two-pane discovery flo
   await expect(page.locator(".hero-plate")).toBeVisible();
   await expect.poll(() => page.locator(".hero-plate").evaluate(img => img.naturalWidth)).toBeGreaterThan(0);
   await expect(page.locator(".hero-photo-caption")).toBeVisible();
-  await page.screenshot({ path: "mesa-v7-mobile-first-fold.png" });
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true);
+  await page.screenshot({ path: "mesa-v9-mobile-first-fold.png" });
 
   await page.locator('[data-mobile-tab="places"]').click();
   await expect(page.locator("#places")).toBeInViewport();
@@ -97,6 +102,6 @@ test("mobile visitors get working navigation and a usable two-pane discovery flo
   await page.locator(".mobile-nav [data-open-compare]").click();
   await expect(page.locator("#compare-dialog")).toBeVisible();
   await expect(page.locator("#compare-dialog .compare-place")).toHaveCount(2);
-  await page.screenshot({ path: "mesa-v4-mobile.png", fullPage: true });
+  await page.screenshot({ path: "mesa-v9-mobile.png", fullPage: true });
   expect(errors).toEqual([]);
 });
