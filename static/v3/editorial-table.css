@@ -1,0 +1,461 @@
+/* MESA V9 / THE GOOD TABLE EDITION
+   Manrope for utility, Instrument Serif for narrative, DM Mono for wayfinding.
+   Design reference: Emil Kowalski (restrained motion), UI/UX Pro Max
+   (hierarchy/contrast), Material 3 (touch targets/states), Design Engineering
+   (coherent token system). Intentional redesign, not a new primary hex. */
+:root{
+ --sans:"Manrope",Arial,sans-serif;
+ --serif:"Instrument Serif",Georgia,serif;
+ --mono:"DM Mono",ui-monospace,monospace;
+ --canvas:#F8F9F3;--surface:#FFFFFF;--surface-dim:#F1F4EB;
+ --ink:#1B3026;--ink-soft:#546458;--navy:#173C2D;
+ --primary:#24513E;--primary-deep:#173C2D;--primary-soft:#E6EEE1;
+ --lime:#D8ED91;--lime-deep:#C8E77F;--hero-warm:#173C2D;
+ --occasion-warm:#F6F8F2;--line:#DFE6DC;
+ --ease:cubic-bezier(.22,1,.36,1);
+}
+html{scroll-padding-top:92px}
+body,button,input,select,textarea{font-family:var(--sans)}
+body{background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased}
+:where(button,a,input,select):focus-visible{outline:3px solid #8CBA56;outline-offset:3px}
+.workspace-header{
+ min-height:78px;background:#F8F9F3F5;border-bottom:1px solid #DCE5DB;
+ box-shadow:none;padding-inline:clamp(18px,3.1vw,54px);
+}
+.workspace-brand{gap:11px}
+.workspace-brand .brand-mark{border-radius:11px;width:45px;height:45px;background:var(--navy);color:var(--lime);
+ font:500 31px var(--serif);line-height:1;letter-spacing:-.07em;box-shadow:none}
+.workspace-brand .brand-words strong{font:800 25px/1.04 var(--sans);letter-spacing:-.095em}
+.workspace-brand .brand-words strong span{color:#91BB56}
+.workspace-brand .brand-words small{font:500 8px/1.5 var(--mono);letter-spacing:.035em;color:#687C67}
+.workspace-tabs{gap:7px}
+.workspace-tab{border-radius:100px;font-size:11px;font-weight:800;min-height:40px;padding-inline:17px}
+.workspace-tab.is-current{box-shadow:none;color:var(--navy);background:var(--lime)}
+.workspace-tab.is-current:hover{background:var(--lime-deep)}
+.workspace-tab:not(.is-current):hover{background:#E7EFE0}
+.workspace-tab b{background:var(--navy);color:white;min-width:20px;min-height:20px}
+.demo-indicator{font:500 9px var(--mono);letter-spacing:-.005em;color:#526451}
+.demo-indicator>span{font-size:10px;color:#6F9742}
+.workspace-actions .saved-button{border-radius:100px;min-height:43px;box-shadow:none;font-weight:800;font-size:11px}
+.workspace-actions .saved-button:hover{background:#24513E}
+.workspace-content .hero{
+ isolation:isolate;overflow:hidden;margin:19px 30px 0;
+ background:#173C2D!important;border:1px solid #173C2D;border-radius:16px;
+ box-shadow:none;position:relative;
+}
+.workspace-content .hero::before{
+ content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+ background:radial-gradient(circle at 8% 100%,#3464489C 0,transparent 36%),
+   linear-gradient(112deg,#173C2D 0%,#1A4532 48%,#183A2C 100%);
+}
+.workspace-content .hero::after{
+ content:"09";position:absolute;z-index:0;right:44%;top:22px;bottom:auto;left:auto;
+ background:transparent;opacity:.075;color:#D8ED91;border-radius:0;pointer-events:none;
+ font:400 265px/.9 var(--serif);letter-spacing:-.12em;width:auto;height:auto;
+}
+.workspace-content .hero-section-label{
+ z-index:2;position:relative;padding:21px 30px 0;color:#DDEACB;
+ font:500 9px/1.6 var(--mono);letter-spacing:.04em;
+}
+.workspace-content .hero-section-label>span{color:var(--lime)}
+.workspace-content .hero-grid{
+ z-index:1;position:relative;width:calc(100% - 60px);
+ min-height:515px;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
+ gap:clamp(28px,4.4vw,72px);
+}
+.workspace-content .hero-copy{padding:33px 0 26px;justify-content:center;align-items:flex-start}
+.workspace-content .kicker{
+ color:#D4E5D0;font:500 9px/1.5 var(--mono);
+ letter-spacing:.005em;gap:10px;margin-bottom:16px;
+}
+.workspace-content .kicker-dot{background:var(--lime);width:6px;height:6px}
+.workspace-content .edition{color:#B8D2AE;border-color:#64836A;font:500 9px var(--mono)}
+.workspace-content .hero h1{
+ max-width:none;margin:0 0 16px;color:#F9FAF4;letter-spacing:normal;
+ display:flex;flex-direction:column;align-items:flex-start;gap:0;
+}
+.workspace-content .hero h1 .headline-top{
+ display:block;font:400 clamp(75px,7.3vw,108px)/.93 var(--serif);
+ letter-spacing:-.048em;color:#F8F9F3;white-space:nowrap;
+}
+.workspace-content .hero h1 .headline-bottom{
+ display:block;font:800 clamp(45px,4.7vw,69px)/1.11 var(--sans);
+ letter-spacing:-.077em;color:#F8F9F3;white-space:nowrap;margin-top:7px;
+}
+.workspace-content .hero h1 em{
+ color:var(--lime);font:400 1.14em/.8 var(--serif);
+ letter-spacing:-.037em;transform:translateY(2px);vertical-align:baseline;
+}
+.workspace-content .hero-sub{
+ color:#D6E5D9;font:500 13px/1.9 var(--sans);
+ max-width:418px;margin-bottom:25px;text-wrap:pretty;
+}
+.workspace-content .hero-cta{
+ color:var(--navy);background:var(--lime);
+ border-radius:100px;padding:6px 6px 6px 21px;min-height:52px;
+ box-shadow:0 8px 24px #10241C32;
+ transition:background 170ms ease,transform 170ms var(--ease);
+}
+.workspace-content .hero-cta:hover{background:#E3F4AC;transform:translateY(-1px)}
+.workspace-content .hero-cta span:first-child{font-size:12px;font-weight:800}
+.workspace-content .cta-circle{background:var(--navy);color:var(--lime);border-radius:50%;width:36px;height:36px}
+.workspace-content .hero-quick{margin-top:25px;gap:7px}
+.workspace-content .hero-quick-label{
+ flex-basis:100%;color:#B7D2BE;font:500 9px var(--mono);
+ letter-spacing:.04em;margin-bottom:1px;
+}
+.workspace-content .hero-quick button{
+ background:#FFFFFF12;border:1px solid #BDD4B45A;color:#F5FAF2;border-radius:100px;
+ font:700 10px var(--sans);padding:8px 13px;min-height:37px;
+ transition:background 170ms ease,border-color 170ms ease;
+}
+.workspace-content .hero-quick button span{color:var(--lime)}
+.workspace-content .hero-quick button:hover{background:#FFFFFF24;border-color:#B9D1AFB0}
+.workspace-content .hero-foot{
+ color:#BBD2BE;border-top:1px solid #FFFFFF2A;margin-top:23px;padding-top:12px;
+ font:500 8px/1.5 var(--mono);letter-spacing:0;
+}
+.workspace-content .hero-visual{
+ min-width:0;padding:21px 0 22px;position:relative;
+}
+.workspace-content .visual-frame{
+ min-width:0;width:100%;height:100%;min-height:450px;max-width:none;max-height:none;
+ margin:0;border-radius:11px;box-shadow:none;overflow:hidden;flex:1;
+ background:#CFDDC8;position:relative;
+}
+.workspace-content .hero-plate{object-fit:cover;object-position:52% 50%;border-radius:inherit}
+.workspace-content .visual-frame:hover .hero-plate{transform:scale(1.018)}
+.hero-photo-caption{
+ left:16px;right:16px;bottom:16px;min-height:60px;padding:10px 14px;
+ border:1px solid #FFFFFFDD;border-radius:8px;box-shadow:0 8px 28px #0E241D30;
+ background:#F8F9F3F2;backdrop-filter:blur(12px);color:var(--navy);
+}
+.hero-photo-caption .caption-badge{
+ padding:10px 10px;background:var(--navy);color:var(--lime);
+ font:500 9px var(--mono);border-radius:4px;white-space:nowrap;
+}
+.hero-live-details,.hero-live-details strong{color:var(--navy);font:800 11px/1.4 var(--sans)}
+.hero-live-details #hero-plan-party{color:var(--primary);font-weight:800}
+.hero-live-details .hero-live-dot{color:#7D9B7F}
+.photo-footnote{display:flex;justify-content:flex-end;gap:6px;color:#B7D2BE;font:500 8px var(--mono)}
+.photo-footnote>span:first-child{color:var(--lime)}
+/* The actual API form remains one DOM element, not a cosmetic duplicate. */
+.reservation-dock{width:calc(100% - 92px);margin:-19px auto 0;z-index:4;scroll-margin-top:96px}
+.reservation-dock-inner{
+ background:#FEFEFB;border:1px solid #DCE6DB;border-radius:12px;
+ padding:25px 27px 18px;box-shadow:0 15px 47px #0E2C201C;
+}
+.workspace-content .reservation-dock .booking-heading{align-items:flex-end;margin-bottom:16px;gap:24px}
+.workspace-content .reservation-dock .booking-heading .eyebrow{
+ color:#466C4D;font:500 9px/1.5 var(--mono);letter-spacing:.015em;
+}
+.workspace-content .reservation-dock .booking-heading .eyebrow span{color:#84A44D}
+.workspace-content .reservation-dock .booking-heading h2{
+ color:var(--navy);font:400 clamp(32px,3.4vw,47px)/.97 var(--serif);
+ letter-spacing:-.026em;margin:7px 0 0;
+}
+.workspace-content .reservation-dock .booking-heading h2 em{font-style:italic;color:#608C4C}
+.workspace-content .reservation-dock .booking-heading>p{
+ max-width:250px;color:#647367;font:500 11px/1.6 var(--sans);
+}
+.workspace-content .reservation-dock .finder-form{
+ background:#F1F5EC;border:1px solid #DAE4D6;border-radius:8px;
+ padding:6px;box-shadow:none;
+}
+.workspace-content .reservation-dock .field{min-height:63px;padding:8px 16px;border-color:#D6E1D0}
+.workspace-content .reservation-dock .field-index{
+ color:#506956;font:500 9px/1.2 var(--mono);letter-spacing:.04em;margin-bottom:7px;
+}
+.workspace-content .reservation-dock .field-icon{color:#4D7854;font-size:15px}
+.workspace-content .reservation-dock .field :is(input,select){font:800 13px var(--sans);color:var(--navy)}
+.workspace-content .reservation-dock .guest-stepper .step{background:#DDE9D3;border-radius:50%;min-width:32px;min-height:32px}
+.workspace-content .reservation-dock .guest-stepper .step:hover{background:var(--lime)}
+.workspace-content .reservation-dock .find-button{
+ min-height:61px;min-width:175px;background:var(--navy);color:#FFFFFF;
+ border-radius:6px;font-weight:800;box-shadow:none;
+ transition:background 170ms ease,transform 170ms var(--ease);
+}
+.workspace-content .reservation-dock .find-button:hover:not(:disabled){
+ background:#2C6042;transform:translateY(-1px)}
+.workspace-content .reservation-dock .finder-extras{margin-top:13px}
+.workspace-content .reservation-dock .quick-dates{gap:6px}
+.workspace-content .reservation-dock .quick-dates>span,
+.workspace-content .reservation-dock .finder-extras p{
+ font:500 8px/1.5 var(--mono);color:#637363;letter-spacing:0;
+}
+.workspace-content .reservation-dock .quick-dates button{
+ background:#FFFFFF;border:1px solid #D6E1D0;border-radius:100px;
+ color:var(--primary);font:700 10px var(--sans);
+ padding:7px 12px;min-height:31px;
+}
+.workspace-content .reservation-dock .quick-dates button:hover,
+.workspace-content .reservation-dock .quick-dates button[aria-pressed=true]{
+ color:var(--navy);background:var(--lime);border-color:var(--lime);
+}
+.editorial-steps{
+ width:calc(100% - 96px);margin:20px auto 0;padding:15px 21px;
+ background:#EAF1DF;border:1px solid #DCE5D1;border-radius:8px;box-shadow:none;
+}
+.editorial-step{font:600 11px var(--sans);color:#385343;gap:12px}
+.editorial-step b{
+ color:var(--lime);background:var(--navy);border:none;border-radius:4px;
+ width:29px;height:29px;font:500 10px var(--mono);
+}
+.steps-rule{background:#BFD0B4}
+.explore{padding:43px 0 53px}
+.workspace-content .eyebrow{
+ color:#426E4F;font:500 10px/1.45 var(--mono);letter-spacing:.01em;
+}
+.workspace-content .plan-studio{
+ margin-top:0;padding:clamp(25px,3.4vw,49px);
+ border:1px solid #DEE9D9;border-radius:13px;
+ background:#F9FAF6;box-shadow:none;position:relative;
+}
+.workspace-content .plan-studio::before{background:var(--lime);height:4px}
+.workspace-content .studio-intro h3{
+ font:800 clamp(33px,3.6vw,50px)/1.1 var(--sans);
+ letter-spacing:-.069em;color:var(--navy);
+}
+.workspace-content .studio-intro h3 em{font:italic 400 1.16em/.85 var(--serif);letter-spacing:-.035em;color:#537C48}
+.workspace-content .studio-intro>p:last-child{max-width:470px;font:500 12px/1.8 var(--sans);color:#556A59}
+.workspace-content .vibe-options{gap:10px}
+.workspace-content .vibe-chip{
+ border:1px solid #DBE6D7;border-radius:9px;
+ padding:14px 15px;background:#FFFFFF;box-shadow:none;
+ transition:background 170ms ease,border-color 170ms ease,transform 170ms var(--ease);
+}
+.workspace-content .vibe-chip:hover{border-color:#96B88A;background:#F4F8EE;box-shadow:none;transform:translateY(-1px)}
+.workspace-content .vibe-chip.active,.workspace-content .vibe-chip[aria-pressed=true]{
+ background:var(--navy);border-color:var(--navy);box-shadow:none;
+}
+.workspace-content .vibe-chip.active>span:first-child{background:var(--lime);color:var(--navy)}
+.workspace-content .vibe-chip small{font:500 10px/1.4 var(--sans)}
+.workspace-content .vibe-chip.active small{color:#DDE8D8}
+.workspace-content .slot-pill.slot-current{background:var(--navy);color:white}
+.workspace-content .plan-ticket{border-radius:8px}
+.workspace-content .ticket-overline{font-family:var(--mono);font-size:9px;letter-spacing:0}
+.workspace-content .plan-ticket #plan-summary{font:800 14px/1.55 var(--sans)}
+.workspace-content :is(.copy-plan,.share-plan){border-radius:100px;font:700 10px var(--sans)}
+.workspace-content :is(.copy-plan,.share-plan):hover{background:var(--lime)}
+.section-divider{border-color:#DDE8D6}
+.workspace-content .places-heading{align-items:flex-end}
+.workspace-content .places-heading h2{
+ font:400 clamp(52px,5.6vw,80px)/.94 var(--serif);
+ letter-spacing:-.042em;color:var(--navy);text-wrap:balance;
+}
+.workspace-content .places-heading h2 em{font-style:italic;color:#547C4B}
+.workspace-content .places-heading .section-intro{font:500 13px/1.75 var(--sans);max-width:440px}
+.workspace-content .count-mark strong{font:400 69px/.9 var(--serif);color:var(--navy)}
+.workspace-content .count-mark span{font:500 9px/1.55 var(--mono);letter-spacing:.01em;color:#546A58}
+.workspace-content .availability-note{border-radius:8px;border-color:#CEE0D8}
+.workspace-content .list-tools :is(input,select,button){font-family:var(--sans)}
+.workspace-content .searchbox{border-radius:100px}
+.workspace-content .segmented{background:#E9F0E5;border-radius:100px}
+.workspace-content .segment{border-radius:100px;font-weight:700}
+.workspace-content .segment.selected{background:var(--navy);color:#FFFFFF;box-shadow:none}
+.workspace-content .sort-control{border-radius:100px}
+.workspace-content .surprise-button{border-radius:100px;font-weight:700}
+.workspace-content .compare-tip{color:#52695A;font:500 11px/1.7 var(--sans)}
+.workspace-content .restaurant-grid{gap:22px}
+.workspace-content .restaurant-card{
+ background:#FFFFFF;border:1px solid #DFE6DA;border-radius:11px;
+ box-shadow:0 4px 18px #193A2909;
+ transition:transform 210ms var(--ease),box-shadow 210ms ease,border-color 210ms ease;
+}
+.workspace-content .restaurant-card:hover{transform:translateY(-3px);
+ box-shadow:0 15px 36px #193A2919;border-color:#B6CAA9}
+.workspace-content .restaurant-card:first-child{
+ grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);border-radius:11px;
+}
+.workspace-content .restaurant-card:first-child .card-main{
+ background:#EDF3E6;color:var(--navy);
+ padding:30px 30px 28px;border-left:1px solid #DDE7D7;
+}
+.workspace-content .restaurant-card:first-child .card-main h3{
+ color:var(--navy);font:400 clamp(42px,4.5vw,67px)/.95 var(--serif);
+ letter-spacing:-.046em;margin:18px 0 13px;
+}
+.workspace-content .restaurant-card:first-child .card-main>p{color:#506756;font:500 12px/1.8 var(--sans)}
+.workspace-content .restaurant-card:first-child .card-topline,
+.workspace-content .restaurant-card:first-child .card-topline span:last-child,
+.workspace-content .restaurant-card:first-child .card-topline span:last-child::after{color:#416E4C}
+.workspace-content .restaurant-card:first-child .card-status{border-color:#CBDAC6}
+.workspace-content .restaurant-card:first-child .card-status>span{color:#53695A}
+.workspace-content .restaurant-card:first-child .card-status b{color:#17696B}
+.workspace-content .restaurant-card:first-child .card-status b.unavailable{color:#7F4A5C}
+.workspace-content .restaurant-card:first-child .meter-label,
+.workspace-content .restaurant-card:first-child .slot-label{color:#526957}
+.workspace-content .restaurant-card:first-child .card-action:not(:disabled){
+ background:var(--navy);color:white;border-radius:100px;
+}
+.workspace-content .restaurant-card:first-child .card-action:not(:disabled):hover{background:#2B6143}
+.workspace-content .restaurant-card:first-child .card-action:disabled{background:#DDE4D5;color:#49634E}
+.workspace-content .restaurant-card:first-child .compare-card-button,
+.workspace-content .restaurant-card:first-child .details-button{color:var(--primary)}
+.workspace-content .restaurant-card:first-child .compare-card-icon{background:#E1EDDA;color:var(--primary);border-color:#C8DCC5}
+.workspace-content .restaurant-card:first-child .compare-card-button.is-selected .compare-card-icon{background:var(--navy);color:var(--lime)}
+.workspace-content .restaurant-card:first-child .slot-pill{color:#24513E;border-color:#B6D0BB}
+.workspace-content .restaurant-card:first-child .slot-pill.slot-open{background:#D7EFE8;color:#17696B}
+.workspace-content .restaurant-card:first-child .slot-pill.slot-current{background:var(--navy);color:white;border-color:var(--navy)}
+.workspace-content .restaurant-card:first-child .meter-track{background:#B4C8B0}
+.workspace-content .restaurant-card:first-child .meter-fill{background:#17696B}
+.workspace-content .restaurant-card:first-child .card-image{min-height:406px}
+.workspace-content .restaurant-card:not(:first-child) .card-image{height:233px}
+.workspace-content .restaurant-card:not(:first-child) .card-main h3{
+ font:400 clamp(34px,3.1vw,45px)/.98 var(--serif);
+ letter-spacing:-.036em;margin:14px 0 12px;
+}
+.workspace-content .restaurant-card:not(:first-child) .card-main{padding:25px 26px}
+.workspace-content .card-topline{font:500 9px var(--mono);letter-spacing:.02em}
+.workspace-content .card-tag{font:500 9px var(--mono);letter-spacing:0;border-radius:5px}
+.workspace-content .card-main>p{font-size:12px;line-height:1.85;color:#52675A}
+.workspace-content .card-status{border-color:#E1E8DC}
+.workspace-content .card-status>span{font:500 9px var(--mono);letter-spacing:0}
+.workspace-content .card-status b{font-weight:700}
+.workspace-content .card-action{
+ background:var(--navy);border-radius:100px;min-height:48px;font-size:11px;font-weight:800;
+ transition:background 170ms ease,transform 170ms var(--ease)
+}
+.workspace-content .card-action:hover:not(:disabled){background:#2D6445;transform:translateY(-1px)}
+.workspace-content .favorite-button{background:#F8F9F2EE;color:var(--navy);border-radius:50%}
+.workspace-content .favorite-button.is-saved{background:var(--lime);color:var(--navy)}
+.workspace-content .photo-open{border-radius:100px;background:#FCFFF7EE;color:var(--navy)}
+.workspace-content .restaurant-card:hover .card-image img{transform:scale(1.02)}
+.workspace-content .how{
+ background:#E7EFDB;color:var(--navy);border-radius:11px;border:1px solid #D8E5D2;
+}
+.workspace-content .how::before{border-color:#B8D69C3D}
+.workspace-content .how h2{color:var(--navy);font:400 clamp(55px,5vw,78px)/.97 var(--serif);letter-spacing:-.035em}
+.workspace-content .how h2 em{color:#4F794D;font:italic 400 1em var(--serif)}
+.workspace-content .how .eyebrow,.workspace-content .how .how-no,.workspace-content .how-link{color:#305D40}
+.workspace-content .how-left>p:not(.eyebrow),.workspace-content .how-step p{color:#506554}
+.workspace-content .how-step{border-color:#BED0B6}
+.workspace-content .how-step h3{color:var(--navy);font-weight:800;letter-spacing:-.035em}
+.workspace-content .how-link{border-color:#8AA985;font-weight:800}
+.workspace-content .closing{
+ background:#163829;color:white;
+}
+.workspace-content .closing h2{font:400 clamp(64px,6vw,98px)/.98 var(--serif);letter-spacing:-.04em;color:white}
+.workspace-content .closing h2 em{color:var(--lime);font-style:italic}
+.workspace-content .closing-cta{background:var(--lime);color:var(--navy);border-radius:100px}
+.workspace-content .closing-cta:hover{background:#E3F4AC}
+.footer{background:#122E23;border-color:#345A3E}
+.footer-main .footer-logo{font:800 37px var(--sans);letter-spacing:-.09em}
+.footer-main .footer-logo span{color:var(--lime)}
+.footer-bottom{font:500 9px var(--mono);letter-spacing:0}
+.modal-dialog .dialog-inner h2{font:400 56px/.98 var(--serif);letter-spacing:-.035em}
+.modal-dialog .dialog-inner h2 em{font:italic 400 1em var(--serif)}
+.modal-dialog .button-primary{border-radius:100px}
+.toast{border-radius:12px;background:var(--navy)}
+/* Preserve the working mobile navigation and full form, with deliberate
+   typography sizes and touch-friendly controls instead of clipped cards. */
+@media(max-width:1160px){
+ .workspace-content .hero{margin-inline:18px}
+ .workspace-content .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,.94fr);gap:24px}
+ .workspace-content .hero h1 .headline-top{font-size:clamp(72px,7.5vw,92px)}
+ .workspace-content .hero h1 .headline-bottom{font-size:clamp(42px,4.3vw,61px)}
+ .reservation-dock,.editorial-steps{width:calc(100% - 68px)}
+ .workspace-content .hero-visual{padding:19px 0}
+ .workspace-content .visual-frame{min-height:420px}
+ .workspace-content .restaurant-card:first-child .card-main h3{font-size:clamp(43px,4.3vw,61px)}
+}
+@media(max-width:860px){
+ .workspace-header{min-height:66px;padding-inline:14px}
+ .workspace-content .hero{margin:13px 17px 0}
+ .workspace-content .hero-section-label{padding:21px 24px 0}
+ .workspace-content .hero-grid{grid-template-columns:1fr;min-height:0;width:calc(100% - 48px);gap:5px}
+ .workspace-content .hero-copy{padding:25px 0 0}
+ .workspace-content .hero h1 .headline-top{font-size:clamp(70px,10vw,93px)}
+ .workspace-content .hero h1 .headline-bottom{font-size:clamp(43px,6.7vw,61px)}
+ .workspace-content .hero-sub{max-width:550px}
+ .workspace-content .hero-visual{padding:21px 0 24px}
+ .workspace-content .visual-frame{width:100%;height:318px;min-height:0;max-width:none;max-height:none;flex:none}
+ .reservation-dock,.editorial-steps{width:calc(100% - 48px)}
+ .reservation-dock{margin:-15px auto 0}
+ .workspace-content .reservation-dock .finder-form{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .workspace-content .reservation-dock .find-button{grid-column:1/-1;min-height:51px}
+ .workspace-content .restaurant-card:first-child .card-image{min-height:335px}
+}
+@media(max-width:590px){
+ html{scroll-padding-top:78px}
+ .workspace-header{padding-inline:12px}
+ .workspace-brand .brand-mark{width:37px;height:37px;font-size:27px}
+ .workspace-brand .brand-words strong{font-size:22px}
+ .workspace-brand .brand-words small{font-size:7px}
+ .workspace-actions .saved-button{border-radius:100px}
+ .workspace-content .hero{margin:8px 11px 0;border-radius:12px}
+ .workspace-content .hero-section-label{font-size:8px;padding:19px 17px 0}
+ .workspace-content .hero-grid{width:calc(100% - 34px);gap:5px}
+ .workspace-content .hero-copy{padding:18px 0 0}
+ .workspace-content .kicker{font-size:8px;letter-spacing:0;gap:7px;margin-bottom:14px}
+ .workspace-content .edition{display:none}
+ .workspace-content .hero h1{margin-bottom:13px}
+ .workspace-content .hero h1 .headline-top{font-size:clamp(57px,13.7vw,76px);line-height:.96}
+ .workspace-content .hero h1 .headline-bottom{font-size:clamp(32px,8.45vw,46px);letter-spacing:-.077em;line-height:1.14;margin-top:5px}
+ .workspace-content .hero h1 em{font-size:1.13em;transform:translateY(1px)}
+ .workspace-content .hero-sub{font-size:11px;line-height:1.85;max-width:360px;margin-bottom:18px}
+ .workspace-content .hero-cta{min-height:44px;padding:5px 5px 5px 17px}
+ .workspace-content .hero-cta span:first-child{font-size:11px}
+ .workspace-content .cta-circle{width:33px;height:33px}
+ .workspace-content .hero-quick{margin-top:17px;gap:5px}
+ .workspace-content .hero-quick-label{font-size:8px}
+ .workspace-content .hero-quick button{min-height:35px;padding:7px 10px;font-size:9px}
+ .workspace-content .hero-foot{margin-top:15px;padding-top:10px;font-size:7px;gap:8px}
+ .workspace-content .hero-visual{padding:17px 0 17px}
+ .workspace-content .visual-frame{height:240px;min-height:0;max-height:none;border-radius:7px}
+ .hero-photo-caption{left:8px;right:8px;bottom:8px;padding:7px 8px;min-height:45px}
+ .hero-photo-caption .caption-badge{font-size:7px;padding:7px 8px}
+ .hero-live-details,.hero-live-details strong{font-size:9px}
+ .photo-footnote{font-size:7px;margin-top:5px}
+ .reservation-dock{width:calc(100% - 22px);margin:-4px auto 0}
+ .reservation-dock-inner{padding:19px 14px 13px;border-radius:10px;box-shadow:0 7px 25px #173C2D1A}
+ .workspace-content .reservation-dock .booking-heading{flex-direction:column;align-items:start;gap:5px;margin-bottom:11px}
+ .workspace-content .reservation-dock .booking-heading .eyebrow{font-size:8px}
+ .workspace-content .reservation-dock .booking-heading h2{font-size:clamp(30px,8.1vw,41px)}
+ .workspace-content .reservation-dock .booking-heading>p{font-size:10px;max-width:100%}
+ .workspace-content .reservation-dock .finder-form{grid-template-columns:1fr;padding:4px}
+ .workspace-content .reservation-dock .field{min-height:55px;padding:7px 11px;border:0;border-bottom:1px solid #D6E1D0}
+ .workspace-content .reservation-dock .field:last-of-type{border:0}
+ .workspace-content .reservation-dock .find-button{grid-column:1;min-height:49px;margin-top:5px}
+ .workspace-content .reservation-dock .quick-dates button{padding:8px 10px;font-size:9px;min-height:36px}
+ .workspace-content .reservation-dock .finder-extras{margin-top:11px;gap:8px}
+ .workspace-content .reservation-dock .finder-extras p{font-size:8px}
+ .editorial-steps{width:calc(100% - 26px);padding:11px 9px;margin-top:12px;border-radius:8px}
+ .editorial-step{font-size:9px;gap:5px}
+ .editorial-step b{width:24px;height:24px;font-size:9px}
+ .steps-rule{flex-basis:9px}
+ .explore{padding-top:26px}
+ .workspace-content .plan-studio{padding:24px 17px}
+ .workspace-content .studio-intro h3{font-size:clamp(30px,7vw,39px)}
+ .workspace-content .vibe-chip{min-height:77px}
+ .workspace-content .places-heading h2{font-size:clamp(50px,12vw,70px)}
+ .workspace-content .count-mark strong{font-size:56px}
+ .workspace-content .restaurant-grid{grid-template-columns:1fr;gap:17px}
+ .workspace-content .restaurant-card:first-child{display:flex;flex-direction:column}
+ .workspace-content .restaurant-card:first-child .card-image{height:240px;min-height:0}
+ .workspace-content .restaurant-card:first-child .card-main{border-left:0;border-top:1px solid #DDE7D7;padding:24px 20px}
+ .workspace-content .restaurant-card:first-child .card-main h3{font-size:clamp(44px,11vw,58px)}
+ .workspace-content .restaurant-card:not(:first-child) .card-image{height:230px}
+ .workspace-content .restaurant-card:not(:first-child) .card-main{padding:22px 20px}
+ .workspace-content .restaurant-card:not(:first-child) .card-main h3{font-size:42px}
+ .workspace-content .how{padding:37px 20px}
+ .workspace-content .how h2{font-size:64px}
+ .workspace-content .closing h2{font-size:64px}
+ .modal-dialog .dialog-inner h2{font-size:48px}
+}
+/* Basic state transitions only; no fake urgency, pulsing highlights or forced
+   entrance motion. Focus state works when hover does not. */
+@media(hover:none){
+ .workspace-content .photo-open{opacity:1;transform:none}
+ .workspace-content .restaurant-card:hover{transform:none}
+ .workspace-content .restaurant-card:hover .card-image img{transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ .workspace-content :is(.hero-cta,.restaurant-card,.card-image img,.vibe-chip,.card-action,.find-button){
+   transition:none!important;animation:none!important
+ }
+ .workspace-content :is(.hero-cta:hover,.restaurant-card:hover,.card-action:hover,.find-button:hover){
+   transform:none!important
+ }
+}
