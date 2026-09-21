@@ -88,6 +88,20 @@ def test_v3_page_and_assets_keep_prior_versions(tmp_path):
         assert "--status-ink:#17696B" in herb.text
         assert ".restaurant-card:first-child .card-main" in herb.text
         assert "herb-lime.css" in page.text
+        assert "editorial-table.css" in page.text
+        assert 'class="headline-top"' in page.text
+        assert 'class="headline-bottom"' in page.text
+        assert "Instrument+Serif" in page.text
+        assert "Manrope" in page.text
+        assert "DM+Mono" in page.text
+        editorial = client.get("/v3-assets/editorial-table.css")
+        assert editorial.status_code == 200
+        assert '--sans:"Manrope"' in editorial.text
+        assert '--serif:"Instrument Serif"' in editorial.text
+        assert '--mono:"DM Mono"' in editorial.text
+        assert ".reservation-dock" in editorial.text
+        assert ".restaurant-card:first-child" in editorial.text
+        assert "@media(prefers-reduced-motion:reduce)" in editorial.text
         assert 'class="reservation-dock"' in page.text
         assert page.text.count('id="search-form"') == 1
         assert 'id="hero-plan-date"' in page.text
