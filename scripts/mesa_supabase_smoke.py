@@ -1,104 +1,136 @@
-"""Verify all four Mesa assignment features against the real Supabase backend.
+"""End-to-end acceptance test against Mesa's live anonymous Supabase backend.
 
-The GitHub Actions smoke runs only on the Mesa V8 branch. Reservations created
-for this test are cancelled in finally, leaving no active seats occupied.
+Exercises every line of the assignment: listing, booking for exact UTC slot,
+cancellation/released seats, full capacity (409), and simultaneous attempts
+to overbook. All created bookings are cancelled, including on failed tests.
 """
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
+import secrets
 
 from fastapi.testclient import TestClient
-
 from app.main import create_app
+
+
+def must(response, expected, context):
+    assert response.status_code == expected, (
+        f"{context}: expected HTTP {expected}, got {response.status_code}: "
+        f"{response.text[:300]}"
+    )
+    return response.json() if expected != 204 else None
 
 
 def main():
     from os import environ
-
     environ["VERCEL"] = "1"
     environ.pop("DATABASE_URL", None)
-
-    # Remote future slot: minimizes conflict with visitor demo bookings.
-    day = (datetime.now(timezone.utc) + timedelta(days=480)).date().isoformat()
-    time = "04:37"
-    slot = {"restaurant_id": 1, "date": day, "time": time}
-    created_ids = []
+    normal_day = (datetime.now(timezone.utc) + timedelta(days=365)).date().isoformat()
+    # Separate from ordinary user dates and other CI executions.
+    capacity_day = (
+        datetime.now(timezone.utc)
+        + timedelta(days=365 * 5 + secrets.randbelow(365 * 50))
+    ).date().isoformat()
 
     with TestClient(create_app()) as client:
+        health = must(client.get("/health"), 200, "health")
+        assert health["storage"] == "supabase"
 
-        def availability(party=1):
-            response = client.get("/restaurants", params={
-                "date": day, "time": time, "guests": party
-            })
-            assert response.status_code == 200, response.text
-            places = response.json()
-            assert len(places) == 3, places
-            place = next(row for row in places if row["id"] == 1)
-            assert place["capacity"] == 20, place
-            return place
+        normal = {"restaurant_id": 1, "date": normal_day,
+                  "time": "19:00", "guests": 2}
+        places = must(client.get("/restaurants", params={
+            "date": normal_day, "time": "19:00", "guests": 2
+        }), 200, "restaurant listing")
+        assert len(places) == 3
+        assert any(r["id"] == 1 and r["can_accommodate"] for r in places)
 
-        def booking(party):
+        created = []
+        def reserve(day, time, guests):
             response = client.post("/reservations", json={
-                **slot, "guests": party
+                "restaurant_id": 1, "date": day, "time": time, "guests": guests
             })
-            assert response.status_code == 201, response.text
-            record = response.json()
-            assert record["status"] == "active" and record["guests"] == party
-            created_ids.append(record["id"])
-            return record
-
-        def cancel(id):
-            response = client.delete(f"/reservations/{id}")
-            assert response.status_code == 204, response.text
-            result = client.get(f"/reservations/{id}")
-            assert result.status_code == 200 and result.json()["status"] == "cancelled"
-
-        assert client.get("/health").json() == {
-            "status": "ok", "storage": "supabase"
-        }
-
-        # Requirement 1: view all restaurants and their live availability.
-        initial = availability(2)
-        remaining = initial["available_seats"]
-        assert 0 < remaining <= initial["capacity"], initial
+            if response.status_code == 201:
+                created.append(response.json()["id"])
+            return response
 
         try:
-            # Requirement 4: refuse a booking greater than remaining capacity.
-            oversized = client.post("/reservations", json={
-                **slot, "guests": remaining + 1
+            booked = must(reserve(normal_day, "19:00", 2), 201, "regular booking")
+            assert booked["status"] == "active"
+            assert booked["date"] == normal_day
+            assert booked["time"] == "19:00" and booked["guests"] == 2
+            record = must(client.get(f"/reservations/{booked['id']}"),
+                          200, "reservation lookup")
+            assert record["status"] == "active" and record["id"] == booked["id"]
+
+            must(client.delete(f"/reservations/{booked['id']}"), 204,
+                 "regular cancellation")
+            created.remove(booked["id"])
+            cancelled = must(client.get(f"/reservations/{booked['id']}"),
+                             200, "cancelled reservation lookup")
+            assert cancelled["status"] == "cancelled"
+
+            # Restaurant 1's seeded capacity is 20. Fill the exact slot.
+            full = must(reserve(capacity_day, "19:00", 20), 201, "capacity booking")
+            remaining = must(client.get("/restaurants", params={
+                "date": capacity_day, "time": "19:00", "guests": 1
+            }), 200, "full slot lookup")
+            first = next(r for r in remaining if r["id"] == 1)
+            assert first["capacity"] == 20
+            assert first["available_seats"] == 0
+            assert first["can_accommodate"] is False
+
+            overbook = client.post("/reservations", json={
+                "restaurant_id": 1, "date": capacity_day,
+                "time": "19:00", "guests": 1
             })
-            assert oversized.status_code == 409, oversized.text
+            must(overbook, 409, "over-capacity booking must be rejected")
+            assert "seats" in overbook.json()["detail"].lower()
 
-            # Requirement 2: booking uses restaurant, UTC date, time and guests.
-            confirmed = booking(remaining)
-            lookup = client.get(f"/reservations/{confirmed['id']}")
-            assert lookup.status_code == 200 and lookup.json() == confirmed
+            # A different time is independent, even on the same day.
+            other_time = must(reserve(capacity_day, "20:00", 2), 201,
+                              "different time slot")
+            assert other_time["time"] == "20:00"
 
-            full = availability(1)
-            assert full["available_seats"] == 0
-            assert full["can_accommodate"] is False
+            # Cancelling the full-slot booking releases all 20 seats.
+            must(client.delete(f"/reservations/{full['id']}"), 204,
+                 "release 20 seats")
+            created.remove(full["id"])
+            reopened = must(client.get("/restaurants", params={
+                "date": capacity_day, "time": "19:00", "guests": 20
+            }), 200, "reopened capacity")
+            first = next(r for r in reopened if r["id"] == 1)
+            assert first["available_seats"] == 20
+            assert first["can_accommodate"] is True
+            must(reserve(capacity_day, "19:00", 20), 201,
+                 "rebook released seats")
 
-            # Requirement 4 again: a fresh request cannot overbook a full slot.
-            rejected = client.post("/reservations", json={**slot, "guests": 1})
-            assert rejected.status_code == 409, rejected.text
-
-            # Requirement 3: cancellation releases capacity but keeps history.
-            cancel(confirmed["id"])
-            created_ids.remove(confirmed["id"])
-            restored = availability(remaining)
-            assert restored["available_seats"] == remaining, restored
-            assert restored["can_accommodate"] is True
-
-            # The newly freed seat is really bookable, not just visual state.
-            replacement = booking(1)
-            assert availability(1)["available_seats"] == remaining - 1
-            cancel(replacement["id"])
-            created_ids.remove(replacement["id"])
-            assert availability(remaining)["available_seats"] == remaining
+            # Two simultaneous 15-person reservations cannot both fit
+            # in the independent 21:00 slot (20 total capacity).
+            with ThreadPoolExecutor(max_workers=2) as pool:
+                results = list(pool.map(
+                    lambda _: reserve(capacity_day, "21:00", 15),
+                    range(2),
+                ))
+            assert sorted(response.status_code for response in results) == [
+                201, 409
+            ], [(r.status_code, r.text[:150]) for r in results]
+            concurrent = must(client.get("/restaurants", params={
+                "date": capacity_day, "time": "21:00", "guests": 6
+            }), 200, "concurrent seat accounting")
+            first = next(r for r in concurrent if r["id"] == 1)
+            assert first["available_seats"] == 5
+            assert first["can_accommodate"] is False
         finally:
-            for reservation_id in created_ids:
-                cancel(reservation_id)
+            for reservation_id in list(created):
+                response = client.delete(f"/reservations/{reservation_id}")
+                assert response.status_code == 204, (
+                    f"cleanup failed for {reservation_id}: {response.text}"
+                )
 
-    print("MESA FOUR REQUIREMENTS PASS: restaurant listing, create, cancel,")
-    print("capacity 409, persisted lookup and released-seat rebooking.")
+    print(
+        "MESA V8 ASSIGNMENT PASS: restaurants, exact date/time/guests booking, "
+        "lookup, cancellation, full capacity 409, released seats, "
+        "independent slots and concurrent-overbooking protection."
+    )
 
 
 if __name__ == "__main__":
