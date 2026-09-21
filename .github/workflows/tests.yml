@@ -16,6 +16,9 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run tests
         run: python -m pytest -q
+      - name: Exercise real anonymous Supabase V8 booking and cancellation
+        if: github.ref == 'refs/heads/mesa-v8-herb-lime'
+        run: python scripts/mesa_supabase_smoke.py
       - name: Check all Mesa V3 JavaScript
         run: |
           node --check static/v3/app.js
