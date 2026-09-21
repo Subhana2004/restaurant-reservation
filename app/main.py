@@ -10,7 +10,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.database import booked_guests, connect, initialize
-from app import postgres
+from app import postgres, supabase_storage
 from app.schemas import ReservationCreate, ReservationOut, RestaurantOut, parse_slot_time
 
 STATIC_DIR = Path(__file__).resolve().parent.parent / 'static'
@@ -26,7 +26,14 @@ def create_app(database_path: str | None = None) -> FastAPI:
     db_path = database_path or os.environ.get("DATABASE_PATH", "reservations.db")
     # Let the UI and health endpoint load even before a Vercel database is
     # configured. Never silently fall back to an ephemeral serverless SQLite DB.
-    missing_database = bool(os.environ.get("VERCEL")) and not database_url and database_path is None
+    supabase_backend = (
+        database_path is None and not database_url
+        and (bool(os.environ.get("VERCEL")) or os.environ.get("MESA_USE_SUPABASE") == "1")
+    )
+    missing_database = (
+        bool(os.environ.get("VERCEL")) and not database_url
+        and not supabase_backend and database_path is None
+    )
 
     def require_storage() -> None:
         if missing_database:
@@ -39,7 +46,7 @@ def create_app(database_path: str | None = None) -> FastAPI:
     async def lifespan(app: FastAPI):
         if database_url:
             postgres.initialize(database_url)
-        elif not missing_database:
+        elif not missing_database and not supabase_backend:
             initialize(db_path)
         yield
 
@@ -77,7 +84,7 @@ def create_app(database_path: str | None = None) -> FastAPI:
     def health() -> dict[str, str]:
         if missing_database:
             return {"status": "setup_required", "storage": "unconfigured"}
-        return {"status": "ok", "storage": "postgres" if database_url else "sqlite"}
+        return {"status": "ok", "storage": "postgres" if database_url else "supabase" if supabase_backend else "sqlite"}
 
     @app.get("/restaurants", response_model=list[RestaurantOut])
     def list_restaurants(
@@ -99,6 +106,8 @@ def create_app(database_path: str | None = None) -> FastAPI:
 
         if database_url:
             return postgres.restaurants(database_url, date, time, guests)
+        if supabase_backend:
+            return supabase_storage.restaurants(date, time, guests)
 
         with closing(connect(db_path)) as conn:
             restaurants = [dict(row) for row in conn.execute(
@@ -123,6 +132,8 @@ def create_app(database_path: str | None = None) -> FastAPI:
         require_storage()
         if database_url:
             return postgres.create(database_url, payload)
+        if supabase_backend:
+            return supabase_storage.create(payload)
 
         with closing(connect(db_path)) as conn:
             try:
@@ -169,6 +180,8 @@ def create_app(database_path: str | None = None) -> FastAPI:
         require_storage()
         if database_url:
             return postgres.get(database_url, reservation_id)
+        if supabase_backend:
+            return supabase_storage.get(reservation_id)
         with closing(connect(db_path)) as conn:
             reservation = conn.execute(
                 f"SELECT {RESERVATION_COLUMNS} FROM reservations WHERE id = ?",
@@ -183,6 +196,9 @@ def create_app(database_path: str | None = None) -> FastAPI:
         require_storage()
         if database_url:
             postgres.cancel(database_url, reservation_id)
+            return Response(status_code=status.HTTP_204_NO_CONTENT)
+        if supabase_backend:
+            supabase_storage.cancel(reservation_id)
             return Response(status_code=status.HTTP_204_NO_CONTENT)
         with closing(connect(db_path)) as conn:
             try:
